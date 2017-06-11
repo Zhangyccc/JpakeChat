@@ -12,7 +12,7 @@
 
 #import "JSQMessage.h"
 
-#import <Firebase.h>
+@import Firebase;
 
 #import "NSData+AES256.h"
 
@@ -37,7 +37,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+//    self.navigationItem.hidesBackButton =YES;
     [self getKey];
     
     JSQMessagesBubbleImageFactory *bubbleFactory = [[JSQMessagesBubbleImageFactory alloc] init];
@@ -58,7 +58,7 @@
     
     
     self.msgArray =[[NSMutableArray alloc] init];
- }
+}
 
 - (NSString *) encryptString:(NSString*)plaintext withKey:(NSString*)key withIV:(NSData*)ivString{
     NSData *data = [[plaintext dataUsingEncoding:NSUTF8StringEncoding] AES256EncryptWithKey:key iv:&ivString];
@@ -87,13 +87,13 @@
     encrypted.length = encryptBytes;
     
     return [encrypted base64EncodedStringWithOptions:0];
-
+    
 }
 
 -(NSString* ) decryptwithIV :(NSString*)text withkey:(NSData*)key withIV:(NSData*)iv{
     
     NSData *dataIn = [[NSData alloc] initWithBase64EncodedString:text options:0];
-
+    
     
     size_t         decryptBytes = 0;
     NSMutableData *decrypted  = [NSMutableData dataWithLength:text.length + kCCBlockSizeAES128];
@@ -107,7 +107,7 @@
             &decryptBytes);
     decrypted.length = decryptBytes;
     
-   
+    
     
     return [[NSString alloc]initWithData:decrypted encoding:NSUTF8StringEncoding];
     
@@ -163,7 +163,7 @@
         
         NSString *string1 =[concatenatedData base64EncodedStringWithOptions:0];
         
-       
+        
         self.kenc=[string1 SHA256];
         self.kencData=[self.kenc dataUsingEncoding:NSUTF8StringEncoding];
         
@@ -176,12 +176,12 @@
         [concatenatedData1 appendData:dataEnc2];
         
         
-
+        
         
         NSString *string11 = [concatenatedData1 base64EncodedStringWithOptions:0];
         self.kmac=[string11 SHA256];
         self.kmacData=[self.kmac dataUsingEncoding:NSUTF8StringEncoding];
-       
+        
         
         
     }
@@ -195,27 +195,35 @@
 {
     self.senderId=[DataBasics dataBasicsInstance].currentUser.uId;
     self.senderDisplayName=[DataBasics dataBasicsInstance].currentUser.userEmail;
-        
+    
     [super viewWillAppear:YES];
     
     [self checkForMsges:self.otherUser];
-
-
+    
+    
 }
 
 
 -(void)checkForMsges:(User*)otherUser{
     NSLog(@"checkfrMsges ");
-    Firebase *conversations=[[DataBasics dataBasicsInstance]pathToConversation:self.conversationId];
+    FIRDatabaseReference *conversations=[[DataBasics dataBasicsInstance]pathToConversation:self.conversationId];
     
-    [conversations observeSingleEventOfType:FEventTypeValue
+    [conversations observeSingleEventOfType:FIRDataEventTypeValue
      
-                                  withBlock:^(FDataSnapshot *snapshot) {
+                                  withBlock:^(FIRDataSnapshot *snapshot) {
                                       
                                       [self loadMessagesForConversation:self.conversationId];
                                       
                                       
                                   }];
+    //    [conversations observeSingleEventOfType:FEventTypeValue
+    //
+    //                                  withBlock:^(FDataSnapshot *snapshot) {
+    //
+    //                                      [self loadMessagesForConversation:self.conversationId];
+    //
+    //
+    //                                  }];
     
     
     
@@ -235,8 +243,8 @@
 -(void)loadMessagesForConversation:(NSString*)convID
 {
     NSLog(@"inside load messages !! ");
-    Firebase *msgRef=[[DataBasics dataBasicsInstance]pathToConversation:convID];
-    [[msgRef queryLimitedToFirst:25 ]observeEventType:FEventTypeChildAdded withBlock:^(FDataSnapshot *snapshot) {
+    FIRDatabaseReference *msgRef=[[DataBasics dataBasicsInstance]pathToConversation:convID];
+    [[msgRef queryLimitedToFirst:25 ]observeEventType:FIRDataEventTypeChildAdded withBlock:^(FIRDataSnapshot *snapshot) {
         NSString *txt=snapshot.value[@"text"];
         
         
@@ -250,7 +258,7 @@
         
         
         NSData *ivData=[[NSData alloc]initWithBase64EncodedString:iv options:kNilOptions];
-
+        
         NSData *dataEncTxt = [txt dataUsingEncoding:NSUTF8StringEncoding];
         
         
@@ -263,29 +271,29 @@
         
         NSLog(@"hmac %@ ",hmac);
         NSLog(@"mac Tag %@",macTag);
-
         
-
+        
+        
         
         NSLog(@"text to be decrypted :%@ IV :%@",txt,ivData);
         
-       //        NSData *dataEncTxt = [txt1 dataUsingEncoding:NSUTF8StringEncoding];
-//        
-//        
-//        NSMutableData *concatenatedData1 = [NSMutableData data];
-//        [concatenatedData1 appendData:dataEncTxt];
-//        [concatenatedData1 appendData:ivData];
-//        
+        //        NSData *dataEncTxt = [txt1 dataUsingEncoding:NSUTF8StringEncoding];
+        //
+        //
+        //        NSMutableData *concatenatedData1 = [NSMutableData data];
+        //        [concatenatedData1 appendData:dataEncTxt];
+        //        [concatenatedData1 appendData:ivData];
+        //
         
         
-       // NSLog(@"txt :%@ ::: concatendated data :%@  dataenctxt :: %@ ",txt1,concatenatedData1,dataEncTxt);
-        
-      
+        // NSLog(@"txt :%@ ::: concatendated data :%@  dataenctxt :: %@ ",txt1,concatenatedData1,dataEncTxt);
         
         
-//        NSMutableString *string = [NSMutableString stringWithString:txt1];
-//        [string appendString:iv];
-//         NSString *hmac2=[jpakeUtils hmac:string withKey:self.kmac];
+        
+        
+        //        NSMutableString *string = [NSMutableString stringWithString:txt1];
+        //        [string appendString:iv];
+        //         NSString *hmac2=[jpakeUtils hmac:string withKey:self.kmac];
         
         if([hmac isEqualToString:macTag]){
             NSLog(@"cool mactage matched");
@@ -293,26 +301,26 @@
             NSLog(@"txt1 after decryption %@",txt1);
             
             
-
+            
             JSQMessage *msg=[[JSQMessage alloc]initWithSenderId:otherUser senderDisplayName:otherUSerEmail date:date text:txt1];
             NSLog(@"jsqmsg %@",msg);
             [self.msgArray addObject:msg];
             [self finishReceivingMessage ];
-
+            
             
         }
         else{
-        NSLog(@"cool mactage not  matched");
+            NSLog(@"cool mactage not  matched");
             [self errorManagement:@"MAc Tag Mismatch" message:@"Mactag not matching"];
             
         }
         
-//        if([hmac2 isEqualToString:macTag]){
-//            NSLog(@"cool mactage matched seconf");}
-        }];
-
-
-
+        //        if([hmac2 isEqualToString:macTag]){
+        //            NSLog(@"cool mactage matched seconf");}
+    }];
+    
+    
+    
 }
 
 
@@ -349,13 +357,13 @@
     [JSQSystemSoundPlayer jsq_playMessageSentSound];
     
     NSData *iv = [self randomDataOfLength:kCCKeySizeAES128];
-       NSLog(@"IV %@",iv);
+    NSLog(@"IV %@",iv);
     NSString *ivStringtoStore = [iv base64EncodedStringWithOptions:kNilOptions];
-      NSLog(@"ivString %@",ivStringtoStore);
+    NSLog(@"ivString %@",ivStringtoStore);
     
     
-  
-
+    
+    
     NSString *text1=[self encryptwithIV:text withkey:self.kencData withIV:iv];
     
     NSData *dataEncTxt = [text1 dataUsingEncoding:NSUTF8StringEncoding];
@@ -368,12 +376,12 @@
     
     
     NSLog(@"hmac %@",hmac);
-
-
     
     
     
-   // NSLog(@"text1 message after encrypting with IV %@ ::: key before encryption %@",text1,self.kencData);
+    
+    
+    // NSLog(@"text1 message after encrypting with IV %@ ::: key before encryption %@",text1,self.kencData);
     
     JSQMessage *message = [[JSQMessage alloc] initWithSenderId:senderId
                                              senderDisplayName:senderDisplayName
@@ -384,7 +392,7 @@
     
     
     
-      [[DataBasics dataBasicsInstance]sendMessage:message convID:self.conversationId macTag:hmac iv:ivStringtoStore];
+    [[DataBasics dataBasicsInstance]sendMessage:message convID:self.conversationId macTag:hmac iv:ivStringtoStore];
     [self finishSendingMessageAnimated:YES];
     
     

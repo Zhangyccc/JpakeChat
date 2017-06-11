@@ -7,16 +7,26 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <Firebase.h>
-@interface LoginViewController : UIViewController
-@property (strong, nonatomic) Firebase *ref;
+#import <QuartzCore/QuartzCore.h>
+@import Firebase;
+#import <FBSDKLoginKit/FBSDKLoginKit.h>
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <GoogleSignIn/GoogleSignIn.h>
+
+
+@interface LoginViewController : UIViewController<FBSDKLoginButtonDelegate, GIDSignInUIDelegate>
+@property (strong, nonatomic) FIRDatabaseReference *ref;
 @property (weak, nonatomic) IBOutlet UITextField *emailField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordField;
+@property (nonatomic, strong) UIColor *borderColorFromUIColor;
+//@property (weak, nonatomic) IBOutlet id<FBSDKLoginButtonDelegate> delegate;
+@property (strong, nonatomic) IBOutlet FBSDKLoginButton *loginButton;
+@property(strong, nonatomic) IBOutlet GIDSignInButton *GoogleLoginButton;
 
 
-
+-(void) setBorderColorFromUIColor:(UIColor *)borderColorFromUIColor;
 - (IBAction)login:(id)sender;
-
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *LoginLoadingSpinner;
 
 
 @end

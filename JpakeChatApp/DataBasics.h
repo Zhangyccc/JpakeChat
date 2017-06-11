@@ -14,7 +14,7 @@
 
 @interface DataBasics : NSObject{}
 
-@property(nonatomic,strong) Firebase *ref;
+@property(nonatomic,strong) FIRDatabaseReference *ref;
 @property(nonatomic,strong) User* currentUser;
 
 
@@ -23,8 +23,8 @@
 
 
 
--(void)loginUserWithData:(FAuthData*) authData;
--(Firebase*)getUsersRef;
+-(void)loginUserWithData:(FIRUser*) authData;
+-(FIRDatabaseReference*)getUsersRef;
 
 
 
@@ -34,22 +34,22 @@
 
 
 
--(Firebase*)getConversationsRef;
--(Firebase*)getKeysRef;
--(Firebase*)getFriendsRef;
+-(FIRDatabaseReference*)getConversationsRef;
+-(FIRDatabaseReference*)getKeysRef;
+-(FIRDatabaseReference*)getFriendsRef;
 
 
 
--(Firebase*)pathToConversation:(NSString*)convId;
--(Firebase*)pathToFriends:(NSString*)chatId;
+-(FIRDatabaseReference*)pathToConversation:(NSString*)convId;
+-(FIRDatabaseReference*)pathToFriends:(NSString*)chatId;
 
--(Firebase*)pathToKeys:(NSString*)chatId;
+-(FIRDatabaseReference*)pathToKeys:(NSString*)chatId;
 
--(Firebase*)pathToUserConversation:(NSString*)user  otherUserID:(NSString*)otherUserId;
+-(FIRDatabaseReference*)pathToUserConversation:(NSString*)user  otherUserID:(NSString*)otherUserId;
 
--(Firebase*)getConnectionsRef:(NSString*)userId;
+-(FIRDatabaseReference*)getConnectionsRef:(NSString*)userId;
 
--(Firebase*)getMyUserConversation:(NSString*)uid;
+-(FIRDatabaseReference*)getMyUserConversation:(NSString*)uid;
 
 
 //-(void)sendMessage:(JSQMessage*) msg convID:(NSString*)convId;

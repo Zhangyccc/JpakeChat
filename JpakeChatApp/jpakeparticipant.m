@@ -147,7 +147,7 @@ NSAssert([self getState] < State_round1_validate   , @"Validation already attemp
 -(JpakeRound2Payload*)createRound2toSend
 {
     NSLog(@"inside Create Round2toSend %d" ,[self getState]);
-    NSAssert([self getState]<State_round2_create, @"round 2 created already");
+//    NSAssert([self getState]<State_round2_create, @"round 2 created already");
     BigInteger *gA =[jpakeUtils calculateGA:[self p] gx1:[self gx1] gx3:[self gx3] gx4:[self gx4]];
     BigInteger *s=[jpakeUtils calculateS:[self password]];
     BigInteger *x2S=[jpakeUtils calculateX2s:[self q] x2:[self x2] s:s];

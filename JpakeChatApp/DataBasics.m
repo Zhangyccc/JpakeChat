@@ -13,10 +13,12 @@
 -(id)init
 {
     //self=[super init];
-   // if(self){
+    // if(self){
     if (self = [super init]) {
-        self.ref=[[Firebase alloc]initWithUrl:@"https://securejpake.firebaseio.com"];}
-              
+        //self.ref=[[Firebase alloc]initWithUrl:@"https://securejpake.firebaseio.com"];
+        self.ref = [[FIRDatabase database] reference];
+    }
+    
     return self;
 }
 +(DataBasics*)dataBasicsInstance{
@@ -26,49 +28,50 @@
         myDatabasics = [[self alloc] init];
     });
     return myDatabasics;
-
+    
 }
 
--(void)loginUserWithData:(FAuthData*) authData
+-(void)loginUserWithData:(FIRUser*) authData
 
 {
-    NSLog(@"authdata in daTA basics %@",authData);
-    self.currentUser= [[User alloc]initwithData:authData.providerData[@"email"] id:authData.uid];
-   
-//    NSLog(@"from databaseics current user email %@ current user id %@",self.currentUser.userEmail,self.currentUser.uId);
-
+    NSLog(@"authdata in daTA basics %@",authData.uid);
+    self.currentUser = [[User alloc] initwithData:authData.email id:(authData.uid)];
+    //self.currentUser= [[User alloc]initwithData:authData.providerData[@"email"] id:authData.uid];
+    
+    //    NSLog(@"from databaseics current user email %@ current user id %@",self.currentUser.userEmail,self.currentUser.uId);
+    
 }
 
--(Firebase*)getUsersRef
+-(FIRDatabaseReference*)getUsersRef
 {
-return [self.ref childByAppendingPath:@"users"];
-}
-
-
-
--(Firebase*)pathToConversation:(NSString*)convId
-{
-    return [[self.ref childByAppendingPath:@"conversations"]childByAppendingPath:convId];
+    return [self.ref child:@"users"];
 }
 
 
 
-
--(Firebase*)pathToUserConversation:(NSString*)user  otherUserID:(NSString*)otherUserId
+-(FIRDatabaseReference*)pathToConversation:(NSString*)convId
 {
-    return [[[[self.ref childByAppendingPath:@"users"]childByAppendingPath:user]childByAppendingPath:@"conversations"]childByAppendingPath:otherUserId];
+    return [[self.ref child:@"conversations"]child:convId];
+}
 
+
+
+
+-(FIRDatabaseReference*)pathToUserConversation:(NSString*)user  otherUserID:(NSString*)otherUserId
+{
+    return [[[[self.ref child:@"users"]child:user]child:@"conversations"]child:otherUserId];
+    
 }
 
 //
--(Firebase*)getConversationsRef{
-    return [self.ref childByAppendingPath:@"conversations"];
+-(FIRDatabaseReference*)getConversationsRef{
+    return [self.ref child:@"conversations"];
 }
 
 
--(Firebase*)getMyUserConversation:(NSString*)uid
+-(FIRDatabaseReference*)getMyUserConversation:(NSString*)uid
 {
-    return [[[self.ref childByAppendingPath:@"users" ]childByAppendingPath:uid]childByAppendingPath:@"conversations"];
+    return [[[self.ref child:@"users" ]child:uid]child:@"conversations"];
     
 }
 
@@ -80,14 +83,14 @@ return [self.ref childByAppendingPath:@"users"];
 //}
 
 
--(Firebase*)pathToFriends:(NSString*)chatId
+-(FIRDatabaseReference*)pathToFriends:(NSString*)chatId
 {
-    return [[self.ref childByAppendingPath:@"friends"]childByAppendingPath:chatId];
+    return [[self.ref child:@"friends"]child:chatId];
     
 }
--(Firebase*)pathToKeys:(NSString*)chatId
+-(FIRDatabaseReference*)pathToKeys:(NSString*)chatId
 {
-    return [[self.ref childByAppendingPath:@"keys"]childByAppendingPath:chatId];
+    return [[self.ref child:@"keys"]child:chatId];
     
 }
 
@@ -96,24 +99,24 @@ return [self.ref childByAppendingPath:@"users"];
 
 
 
--(Firebase*)getKeysRef{
-    return [self.ref childByAppendingPath:@"keys"];
+-(FIRDatabaseReference*)getKeysRef{
+    return [self.ref child:@"keys"];
 }
 
--(Firebase*)getFriendsRef{
-    return [self.ref childByAppendingPath:@"friends"];
+-(FIRDatabaseReference*)getFriendsRef{
+    return [self.ref child:@"friends"];
     
 }
--(Firebase*)getConnectionsRef:(NSString*)userId
+-(FIRDatabaseReference*)getConnectionsRef:(NSString*)userId
 {
-    return [[[self.ref childByAppendingPath:@"users"]childByAppendingPath:userId] childByAppendingPath:@"connections"];
+    return [[[self.ref child:@"users"]child:userId] child:@"connections"];
 }
 -(void)sendMessage:(JSQMessage*) msg convID:(NSString*)convId macTag:(NSString*)mtag  iv:(NSString*)iv{
     
     
     
     //    let messagesRef = ref.childByAppendingPath("conversations/\(toChat)")
-    Firebase *msgRef= [[self.ref childByAppendingPath:@"conversations"]childByAppendingPath:convId];
+    FIRDatabaseReference *msgRef= [[self.ref child:@"conversations"]child:convId];
     NSDictionary *newUser = @{
                               @"text": msg.text,
                               @"sender": msg.senderId,

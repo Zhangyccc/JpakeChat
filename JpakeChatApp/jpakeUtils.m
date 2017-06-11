@@ -270,6 +270,7 @@ static BigInteger* One;
     const char *cKey  = [key cStringUsingEncoding:NSASCIIStringEncoding];
     const char *cData = [plaintext cStringUsingEncoding:NSASCIIStringEncoding];
     unsigned char cHMAC[CC_SHA256_DIGEST_LENGTH];
+    //Unknown error
     CCHmac(kCCHmacAlgSHA256, cKey, strlen(cKey), cData, strlen(cData), cHMAC);
     NSData *HMACData = [NSData dataWithBytes:cHMAC length:sizeof(cHMAC)];
     const unsigned char *buffer = (const unsigned char *)[HMACData bytes];

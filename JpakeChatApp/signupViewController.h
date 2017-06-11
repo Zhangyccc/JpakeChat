@@ -7,17 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <Firebase.h>
+@import Firebase;
 @interface signupViewController : UIViewController
 
-@property (strong, nonatomic) Firebase *ref;
+@property (strong, nonatomic) FIRDatabaseReference *ref;
 @property (weak, nonatomic) IBOutlet UITextField *usernameField;
 @property (weak, nonatomic) IBOutlet UITextField *emailaddressField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordField;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *SignupSpinner;
 
 
 
 - (IBAction)signup:(id)sender;
-
 
 @end

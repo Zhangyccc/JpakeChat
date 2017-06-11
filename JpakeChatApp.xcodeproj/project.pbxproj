@@ -7,7 +7,31 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		42DBE7C1A58398BF5EFBDBC3 /* libPods-JpakeChatApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4845AE0CFAE36119B42E4F70 /* libPods-JpakeChatApp.a */; };
+		25CE593E735A60F04457A747 /* libPods-JpakeChatAppTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 513A9110B52232B38B77BDA4 /* libPods-JpakeChatAppTests.a */; };
+		887E7B3D8322E8241020B658 /* libPods-JpakeChatAppUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F4479D1200AC59A6F822D13 /* libPods-JpakeChatAppUITests.a */; };
+		AF2D069A1EC352030023496C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AF2D06991EC352030023496C /* GoogleService-Info.plist */; };
+		AF2DD9091ECDDDA0005E7EF8 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF2DD9051ECDDDA0005E7EF8 /* Bolts.framework */; };
+		AF2DD90A1ECDDDA0005E7EF8 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF2DD9051ECDDDA0005E7EF8 /* Bolts.framework */; };
+		AF2DD90B1ECDDDA0005E7EF8 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF2DD9051ECDDDA0005E7EF8 /* Bolts.framework */; };
+		AF2DD90C1ECDDDA0005E7EF8 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF2DD9061ECDDDA0005E7EF8 /* FBSDKCoreKit.framework */; };
+		AF2DD90D1ECDDDA0005E7EF8 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF2DD9061ECDDDA0005E7EF8 /* FBSDKCoreKit.framework */; };
+		AF2DD90E1ECDDDA0005E7EF8 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF2DD9061ECDDDA0005E7EF8 /* FBSDKCoreKit.framework */; };
+		AF2DD90F1ECDDDA0005E7EF8 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF2DD9071ECDDDA0005E7EF8 /* FBSDKLoginKit.framework */; };
+		AF2DD9101ECDDDA0005E7EF8 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF2DD9071ECDDDA0005E7EF8 /* FBSDKLoginKit.framework */; };
+		AF2DD9111ECDDDA0005E7EF8 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF2DD9071ECDDDA0005E7EF8 /* FBSDKLoginKit.framework */; };
+		AF2DD9121ECDDDA0005E7EF8 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF2DD9081ECDDDA0005E7EF8 /* FBSDKShareKit.framework */; };
+		AF2DD9131ECDDDA0005E7EF8 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF2DD9081ECDDDA0005E7EF8 /* FBSDKShareKit.framework */; };
+		AF2DD9141ECDDDA0005E7EF8 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF2DD9081ECDDDA0005E7EF8 /* FBSDKShareKit.framework */; };
+		AF2DD91B1ED2F800005E7EF8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF2DD91A1ED2F800005E7EF8 /* Main.storyboard */; };
+		AF31F36C1EC9C1EA00A459D6 /* Cherry Wood in Resources */ = {isa = PBXBuildFile; fileRef = AF31F36B1EC9C1EA00A459D6 /* Cherry Wood */; };
+		AF519D1B1EDB2E2D00A63AA1 /* FriendListViewControllerTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AF519D1A1EDB2E2D00A63AA1 /* FriendListViewControllerTableViewController.m */; };
+		AF519D1E1EDB2E5E00A63AA1 /* UserSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AF519D1D1EDB2E5E00A63AA1 /* UserSettingViewController.m */; };
+		AF519D211EDB371D00A63AA1 /* TarBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AF519D201EDB371D00A63AA1 /* TarBarViewController.m */; };
+		AFB4D9151EEAE4290052FB9E /* Icon-58.png in Resources */ = {isa = PBXBuildFile; fileRef = AFB4D9121EEAE4290052FB9E /* Icon-58.png */; };
+		AFB4D9161EEAE4290052FB9E /* Icon-80.png in Resources */ = {isa = PBXBuildFile; fileRef = AFB4D9131EEAE4290052FB9E /* Icon-80.png */; };
+		AFB4D9171EEAE4290052FB9E /* Icon-114.png in Resources */ = {isa = PBXBuildFile; fileRef = AFB4D9141EEAE4290052FB9E /* Icon-114.png */; };
+		AFD70D101EEAE1D000CED785 /* icon.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = AFD70D0F1EEAE1D000CED785 /* icon.jpeg */; };
+		C0F100A3B6D8A326E19219C9 /* libPods-JpakeChatApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B72DF1DB16B9C55EC65868E /* libPods-JpakeChatApp.a */; };
 		DE8356D81D058E1500EB6CA4 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE8356D71D058E1500EB6CA4 /* Security.framework */; };
 		DEBD2FD81D0229E300583242 /* NSData+AES256.m in Sources */ = {isa = PBXBuildFile; fileRef = DEBD2FD71D0229E300583242 /* NSData+AES256.m */; };
 		DED889581CCD1AFA00F4CE97 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DED889571CCD1AFA00F4CE97 /* main.m */; };
@@ -31,7 +55,6 @@
 		DED889B21CCD1BC000F4CE97 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = DED889B11CCD1BC000F4CE97 /* User.m */; };
 		DED889B51CCD1BCE00F4CE97 /* DataBasics.m in Sources */ = {isa = PBXBuildFile; fileRef = DED889B41CCD1BCE00F4CE97 /* DataBasics.m */; };
 		DED889B91CCD1C3900F4CE97 /* signupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DED889B81CCD1C3900F4CE97 /* signupViewController.m */; };
-		DED889BB1CCD1EE700F4CE97 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DED889BA1CCD1EE700F4CE97 /* Main.storyboard */; };
 		DED889C61CCD205800F4CE97 /* JParticipant.m in Sources */ = {isa = PBXBuildFile; fileRef = DED889C11CCD205800F4CE97 /* JParticipant.m */; };
 		DED889C71CCD205800F4CE97 /* JParticipant+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = DED889C31CCD205800F4CE97 /* JParticipant+CoreDataProperties.m */; };
 		DED889CA1CCD207E00F4CE97 /* theCoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = DED889C91CCD207E00F4CE97 /* theCoreDataStack.m */; };
@@ -59,8 +82,32 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		4845AE0CFAE36119B42E4F70 /* libPods-JpakeChatApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-JpakeChatApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		7F14F05F30BBBD7374B47D70 /* Pods-JpakeChatApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JpakeChatApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-JpakeChatApp/Pods-JpakeChatApp.debug.xcconfig"; sourceTree = "<group>"; };
+		2B96C523D626C040BF75157E /* Pods-JpakeChatAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JpakeChatAppTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-JpakeChatAppTests/Pods-JpakeChatAppTests.release.xcconfig"; sourceTree = "<group>"; };
+		513A9110B52232B38B77BDA4 /* libPods-JpakeChatAppTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-JpakeChatAppTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		891EC5BAD1DD301EEE1AF564 /* Pods-JpakeChatApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JpakeChatApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-JpakeChatApp/Pods-JpakeChatApp.release.xcconfig"; sourceTree = "<group>"; };
+		8B72DF1DB16B9C55EC65868E /* libPods-JpakeChatApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-JpakeChatApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8F4479D1200AC59A6F822D13 /* libPods-JpakeChatAppUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-JpakeChatAppUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AF2D06991EC352030023496C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		AF2D069B1EC355130023496C /* Tests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Tests-Info.plist"; sourceTree = "<group>"; };
+		AF2D069D1EC356DF0023496C /* UITests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "UITests-Info.plist"; sourceTree = "<group>"; };
+		AF2DD9051ECDDDA0005E7EF8 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
+		AF2DD9061ECDDDA0005E7EF8 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
+		AF2DD9071ECDDDA0005E7EF8 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
+		AF2DD9081ECDDDA0005E7EF8 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
+		AF2DD91A1ED2F800005E7EF8 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		AF31F36B1EC9C1EA00A459D6 /* Cherry Wood */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Cherry Wood"; sourceTree = "<group>"; };
+		AF519D191EDB2E2D00A63AA1 /* FriendListViewControllerTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendListViewControllerTableViewController.h; sourceTree = "<group>"; };
+		AF519D1A1EDB2E2D00A63AA1 /* FriendListViewControllerTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendListViewControllerTableViewController.m; sourceTree = "<group>"; };
+		AF519D1C1EDB2E5E00A63AA1 /* UserSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserSettingViewController.h; sourceTree = "<group>"; };
+		AF519D1D1EDB2E5E00A63AA1 /* UserSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserSettingViewController.m; sourceTree = "<group>"; };
+		AF519D1F1EDB371D00A63AA1 /* TarBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TarBarViewController.h; sourceTree = "<group>"; };
+		AF519D201EDB371D00A63AA1 /* TarBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TarBarViewController.m; sourceTree = "<group>"; };
+		AFB4D9121EEAE4290052FB9E /* Icon-58.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-58.png"; sourceTree = "<group>"; };
+		AFB4D9131EEAE4290052FB9E /* Icon-80.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-80.png"; sourceTree = "<group>"; };
+		AFB4D9141EEAE4290052FB9E /* Icon-114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-114.png"; sourceTree = "<group>"; };
+		AFD70D0F1EEAE1D000CED785 /* icon.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = icon.jpeg; sourceTree = "<group>"; };
+		C96D50F514FD6A0127F6ECCB /* Pods-JpakeChatAppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JpakeChatAppUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-JpakeChatAppUITests/Pods-JpakeChatAppUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		DC45FD6021131262DF6DB1CF /* Pods-JpakeChatApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JpakeChatApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-JpakeChatApp/Pods-JpakeChatApp.debug.xcconfig"; sourceTree = "<group>"; };
 		DE8356D71D058E1500EB6CA4 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		DEBD2FD61D0229E300583242 /* NSData+AES256.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+AES256.h"; sourceTree = "<group>"; };
 		DEBD2FD71D0229E300583242 /* NSData+AES256.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+AES256.m"; sourceTree = "<group>"; };
@@ -108,7 +155,6 @@
 		DED889B41CCD1BCE00F4CE97 /* DataBasics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataBasics.m; sourceTree = "<group>"; };
 		DED889B71CCD1C3900F4CE97 /* signupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = signupViewController.h; sourceTree = "<group>"; };
 		DED889B81CCD1C3900F4CE97 /* signupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = signupViewController.m; sourceTree = "<group>"; };
-		DED889BA1CCD1EE700F4CE97 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		DED889C01CCD205800F4CE97 /* JParticipant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JParticipant.h; sourceTree = "<group>"; };
 		DED889C11CCD205800F4CE97 /* JParticipant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JParticipant.m; sourceTree = "<group>"; };
 		DED889C21CCD205800F4CE97 /* JParticipant+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JParticipant+CoreDataProperties.h"; sourceTree = "<group>"; };
@@ -122,7 +168,8 @@
 		DEED44D91CFEFABD00397F6F /* ChatVCTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatVCTableViewController.h; sourceTree = "<group>"; };
 		DEED44DA1CFEFABD00397F6F /* ChatVCTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatVCTableViewController.m; sourceTree = "<group>"; };
 		DEED44E61D004FEA00397F6F /* JpakeChatApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = JpakeChatApp.xcdatamodel; sourceTree = "<group>"; };
-		EF80F54C0EABD50E586B8346 /* Pods-JpakeChatApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JpakeChatApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-JpakeChatApp/Pods-JpakeChatApp.release.xcconfig"; sourceTree = "<group>"; };
+		F93C55C97E51384768D15E09 /* Pods-JpakeChatAppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JpakeChatAppUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-JpakeChatAppUITests/Pods-JpakeChatAppUITests.release.xcconfig"; sourceTree = "<group>"; };
+		FA11B0A3FDD1F90168EA4085 /* Pods-JpakeChatAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JpakeChatAppTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-JpakeChatAppTests/Pods-JpakeChatAppTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,9 +177,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AF2DD90C1ECDDDA0005E7EF8 /* FBSDKCoreKit.framework in Frameworks */,
 				DE8356D81D058E1500EB6CA4 /* Security.framework in Frameworks */,
+				AF2DD90F1ECDDDA0005E7EF8 /* FBSDKLoginKit.framework in Frameworks */,
+				AF2DD9121ECDDDA0005E7EF8 /* FBSDKShareKit.framework in Frameworks */,
 				DED889A91CCD1B9800F4CE97 /* libBigInteger-iOS.a in Frameworks */,
-				42DBE7C1A58398BF5EFBDBC3 /* libPods-JpakeChatApp.a in Frameworks */,
+				C0F100A3B6D8A326E19219C9 /* libPods-JpakeChatApp.a in Frameworks */,
+				AF2DD9091ECDDDA0005E7EF8 /* Bolts.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -140,6 +191,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				25CE593E735A60F04457A747 /* libPods-JpakeChatAppTests.a in Frameworks */,
+				AF2DD90D1ECDDDA0005E7EF8 /* FBSDKCoreKit.framework in Frameworks */,
+				AF2DD9131ECDDDA0005E7EF8 /* FBSDKShareKit.framework in Frameworks */,
+				AF2DD9101ECDDDA0005E7EF8 /* FBSDKLoginKit.framework in Frameworks */,
+				AF2DD90A1ECDDDA0005E7EF8 /* Bolts.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -147,6 +203,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				887E7B3D8322E8241020B658 /* libPods-JpakeChatAppUITests.a in Frameworks */,
+				AF2DD90E1ECDDDA0005E7EF8 /* FBSDKCoreKit.framework in Frameworks */,
+				AF2DD9141ECDDDA0005E7EF8 /* FBSDKShareKit.framework in Frameworks */,
+				AF2DD9111ECDDDA0005E7EF8 /* FBSDKLoginKit.framework in Frameworks */,
+				AF2DD90B1ECDDDA0005E7EF8 /* Bolts.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -156,17 +217,27 @@
 		2CCB04083E6A896362904EF0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AF2DD9051ECDDDA0005E7EF8 /* Bolts.framework */,
+				AF2DD9061ECDDDA0005E7EF8 /* FBSDKCoreKit.framework */,
+				AF2DD9071ECDDDA0005E7EF8 /* FBSDKLoginKit.framework */,
+				AF2DD9081ECDDDA0005E7EF8 /* FBSDKShareKit.framework */,
 				DE8356D71D058E1500EB6CA4 /* Security.framework */,
-				4845AE0CFAE36119B42E4F70 /* libPods-JpakeChatApp.a */,
+				8B72DF1DB16B9C55EC65868E /* libPods-JpakeChatApp.a */,
+				513A9110B52232B38B77BDA4 /* libPods-JpakeChatAppTests.a */,
+				8F4479D1200AC59A6F822D13 /* libPods-JpakeChatAppUITests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		7EDEA09C245439B6006366F6 /* Pods */ = {
+		5DA8E6D91E4CB9C09672271D /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				7F14F05F30BBBD7374B47D70 /* Pods-JpakeChatApp.debug.xcconfig */,
-				EF80F54C0EABD50E586B8346 /* Pods-JpakeChatApp.release.xcconfig */,
+				DC45FD6021131262DF6DB1CF /* Pods-JpakeChatApp.debug.xcconfig */,
+				891EC5BAD1DD301EEE1AF564 /* Pods-JpakeChatApp.release.xcconfig */,
+				FA11B0A3FDD1F90168EA4085 /* Pods-JpakeChatAppTests.debug.xcconfig */,
+				2B96C523D626C040BF75157E /* Pods-JpakeChatAppTests.release.xcconfig */,
+				C96D50F514FD6A0127F6ECCB /* Pods-JpakeChatAppUITests.debug.xcconfig */,
+				F93C55C97E51384768D15E09 /* Pods-JpakeChatAppUITests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -206,9 +277,9 @@
 				DED889721CCD1AFA00F4CE97 /* JpakeChatAppTests */,
 				DED8897D1CCD1AFA00F4CE97 /* JpakeChatAppUITests */,
 				DED889541CCD1AFA00F4CE97 /* Products */,
-				7EDEA09C245439B6006366F6 /* Pods */,
 				2CCB04083E6A896362904EF0 /* Frameworks */,
 				DEBD2FD91D02D99200583242 /* JpakeChatApp-Bridging-Header.h */,
+				5DA8E6D91E4CB9C09672271D /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -235,11 +306,17 @@
 				DED889B41CCD1BCE00F4CE97 /* DataBasics.m */,
 				DED889B01CCD1BC000F4CE97 /* User.h */,
 				DED889B11CCD1BC000F4CE97 /* User.m */,
-				DED889BA1CCD1EE700F4CE97 /* Main.storyboard */,
 				DED889AA1CCD1BA600F4CE97 /* InboxTableViewController.h */,
 				DED889AB1CCD1BA600F4CE97 /* InboxTableViewController.m */,
 				DEED44D91CFEFABD00397F6F /* ChatVCTableViewController.h */,
 				DEED44DA1CFEFABD00397F6F /* ChatVCTableViewController.m */,
+				AF2DD91A1ED2F800005E7EF8 /* Main.storyboard */,
+				AF519D1F1EDB371D00A63AA1 /* TarBarViewController.h */,
+				AF519D201EDB371D00A63AA1 /* TarBarViewController.m */,
+				AF519D191EDB2E2D00A63AA1 /* FriendListViewControllerTableViewController.h */,
+				AF519D1A1EDB2E2D00A63AA1 /* FriendListViewControllerTableViewController.m */,
+				AF519D1C1EDB2E5E00A63AA1 /* UserSettingViewController.h */,
+				AF519D1D1EDB2E5E00A63AA1 /* UserSettingViewController.m */,
 				DE7035B71D12A195009010D9 /* Categories */,
 				DED889AD1CCD1BB500F4CE97 /* LoginViewController.h */,
 				DED889AE1CCD1BB500F4CE97 /* LoginViewController.m */,
@@ -247,7 +324,12 @@
 				DED889B81CCD1C3900F4CE97 /* signupViewController.m */,
 				DED889B61CCD1BF200F4CE97 /* jpake */,
 				DED889651CCD1AFA00F4CE97 /* Assets.xcassets */,
+				AFB4D9121EEAE4290052FB9E /* Icon-58.png */,
+				AFB4D9131EEAE4290052FB9E /* Icon-80.png */,
+				AFB4D9141EEAE4290052FB9E /* Icon-114.png */,
+				AFD70D0F1EEAE1D000CED785 /* icon.jpeg */,
 				DED889671CCD1AFA00F4CE97 /* LaunchScreen.storyboard */,
+				AF2D06991EC352030023496C /* GoogleService-Info.plist */,
 				DED8896A1CCD1AFA00F4CE97 /* Info.plist */,
 				DED889561CCD1AFA00F4CE97 /* Supporting Files */,
 			);
@@ -257,6 +339,7 @@
 		DED889561CCD1AFA00F4CE97 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				AF31F36B1EC9C1EA00A459D6 /* Cherry Wood */,
 				DED889571CCD1AFA00F4CE97 /* main.m */,
 			);
 			name = "Supporting Files";
@@ -265,6 +348,7 @@
 		DED889721CCD1AFA00F4CE97 /* JpakeChatAppTests */ = {
 			isa = PBXGroup;
 			children = (
+				AF2D069B1EC355130023496C /* Tests-Info.plist */,
 				DED889731CCD1AFA00F4CE97 /* JpakeChatAppTests.m */,
 				DED889751CCD1AFA00F4CE97 /* Info.plist */,
 			);
@@ -274,6 +358,7 @@
 		DED8897D1CCD1AFA00F4CE97 /* JpakeChatAppUITests */ = {
 			isa = PBXGroup;
 			children = (
+				AF2D069D1EC356DF0023496C /* UITests-Info.plist */,
 				DED8897E1CCD1AFA00F4CE97 /* JpakeChatAppUITests.m */,
 				DED889801CCD1AFA00F4CE97 /* Info.plist */,
 			);
@@ -310,12 +395,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DED889831CCD1AFA00F4CE97 /* Build configuration list for PBXNativeTarget "JpakeChatApp" */;
 			buildPhases = (
-				47A5822A9ABC566DDD8D915B /* Check Pods Manifest.lock */,
+				5EED81F515DF8608330B37C4 /* [CP] Check Pods Manifest.lock */,
 				DED8894F1CCD1AFA00F4CE97 /* Sources */,
 				DED889501CCD1AFA00F4CE97 /* Frameworks */,
 				DED889511CCD1AFA00F4CE97 /* Resources */,
-				9E43E6998D850D72E490431C /* Embed Pods Frameworks */,
-				89FFAC224097C156FE920946 /* Copy Pods Resources */,
+				10CA3936D6BC66A402921FD4 /* [CP] Embed Pods Frameworks */,
+				D3946D4D0D3F9C1E864CCA66 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -330,9 +415,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DED889861CCD1AFA00F4CE97 /* Build configuration list for PBXNativeTarget "JpakeChatAppTests" */;
 			buildPhases = (
+				80C7AD5F4C0D48FA769B5B2C /* [CP] Check Pods Manifest.lock */,
 				DED8896B1CCD1AFA00F4CE97 /* Sources */,
 				DED8896C1CCD1AFA00F4CE97 /* Frameworks */,
 				DED8896D1CCD1AFA00F4CE97 /* Resources */,
+				B4FA420C1584FA7C0A76C9CA /* [CP] Embed Pods Frameworks */,
+				111B5D67F127B4D9A4299682 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -348,9 +436,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DED889891CCD1AFA00F4CE97 /* Build configuration list for PBXNativeTarget "JpakeChatAppUITests" */;
 			buildPhases = (
+				115A2137EAA90FAC2B3A4B04 /* [CP] Check Pods Manifest.lock */,
 				DED889761CCD1AFA00F4CE97 /* Sources */,
 				DED889771CCD1AFA00F4CE97 /* Frameworks */,
 				DED889781CCD1AFA00F4CE97 /* Resources */,
+				2151EE1AB52248E6AB1CCB39 /* [CP] Embed Pods Frameworks */,
+				D07A8B860A2AEFA8A8DAB9A2 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -369,7 +460,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0720;
+				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = "newcastle university";
 				TargetAttributes = {
 					DED889521CCD1AFA00F4CE97 = {
@@ -411,8 +502,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DED889BB1CCD1EE700F4CE97 /* Main.storyboard in Resources */,
+				AFB4D9151EEAE4290052FB9E /* Icon-58.png in Resources */,
+				AF31F36C1EC9C1EA00A459D6 /* Cherry Wood in Resources */,
+				AF2DD91B1ED2F800005E7EF8 /* Main.storyboard in Resources */,
+				AFD70D101EEAE1D000CED785 /* icon.jpeg in Resources */,
+				AFB4D9161EEAE4290052FB9E /* Icon-80.png in Resources */,
+				AF2D069A1EC352030023496C /* GoogleService-Info.plist in Resources */,
 				DED889691CCD1AFA00F4CE97 /* LaunchScreen.storyboard in Resources */,
+				AFB4D9171EEAE4290052FB9E /* Icon-114.png in Resources */,
 				DED889661CCD1AFA00F4CE97 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -434,49 +531,139 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		47A5822A9ABC566DDD8D915B /* Check Pods Manifest.lock */ = {
+		10CA3936D6BC66A402921FD4 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		89FFAC224097C156FE920946 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-JpakeChatApp/Pods-JpakeChatApp-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		9E43E6998D850D72E490431C /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-JpakeChatApp/Pods-JpakeChatApp-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		111B5D67F127B4D9A4299682 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-JpakeChatAppTests/Pods-JpakeChatAppTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		115A2137EAA90FAC2B3A4B04 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		2151EE1AB52248E6AB1CCB39 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-JpakeChatAppUITests/Pods-JpakeChatAppUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5EED81F515DF8608330B37C4 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		80C7AD5F4C0D48FA769B5B2C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		B4FA420C1584FA7C0A76C9CA /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-JpakeChatAppTests/Pods-JpakeChatAppTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D07A8B860A2AEFA8A8DAB9A2 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-JpakeChatAppUITests/Pods-JpakeChatAppUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D3946D4D0D3F9C1E864CCA66 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-JpakeChatApp/Pods-JpakeChatApp-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -488,6 +675,7 @@
 			files = (
 				DEED44D71CFE211C00397F6F /* JKey+CoreDataProperties.m in Sources */,
 				DED889CA1CCD207E00F4CE97 /* theCoreDataStack.m in Sources */,
+				AF519D1E1EDB2E5E00A63AA1 /* UserSettingViewController.m in Sources */,
 				DED889B21CCD1BC000F4CE97 /* User.m in Sources */,
 				DED8899D1CCD1B7800F4CE97 /* jpakeparticipant.m in Sources */,
 				DED8899F1CCD1B7800F4CE97 /* JpakeRound2Payload.m in Sources */,
@@ -499,12 +687,14 @@
 				DED889C61CCD205800F4CE97 /* JParticipant.m in Sources */,
 				DED8899C1CCD1B7800F4CE97 /* jpakeParms.m in Sources */,
 				DED8899E1CCD1B7800F4CE97 /* JpakeRound1Payload.m in Sources */,
+				AF519D1B1EDB2E2D00A63AA1 /* FriendListViewControllerTableViewController.m in Sources */,
 				DED889AC1CCD1BA600F4CE97 /* InboxTableViewController.m in Sources */,
 				DED889B51CCD1BCE00F4CE97 /* DataBasics.m in Sources */,
 				DEBD2FD81D0229E300583242 /* NSData+AES256.m in Sources */,
 				DED889C71CCD205800F4CE97 /* JParticipant+CoreDataProperties.m in Sources */,
 				DED8895B1CCD1AFA00F4CE97 /* AppDelegate.m in Sources */,
 				DED889581CCD1AFA00F4CE97 /* main.m in Sources */,
+				AF519D211EDB371D00A63AA1 /* TarBarViewController.m in Sources */,
 				DED889A11CCD1B7800F4CE97 /* jpakeUtils.m in Sources */,
 				DEED44D81CFE211C00397F6F /* JKey.m in Sources */,
 				DEED44E71D004FEA00397F6F /* JpakeChatApp.xcdatamodeld in Sources */,
@@ -569,8 +759,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -592,7 +784,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -612,8 +804,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -629,7 +823,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -638,19 +832,106 @@
 		};
 		DED889841CCD1AFA00F4CE97 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7F14F05F30BBBD7374B47D70 /* Pods-JpakeChatApp.debug.xcconfig */;
+			baseConfigurationReference = DC45FD6021131262DF6DB1CF /* Pods-JpakeChatApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = X7BDHAQC53;
 				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"/Users/$(USER)/Documents/FacebookSDK",
+				);
 				INFOPLIST_FILE = JpakeChatApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/JpakeChatApp",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-all_load",
+					"-l\"GTMOAuth2\"",
+					"-l\"GTMSessionFetcher\"",
+					"-l\"GoogleAPIClientForREST\"",
+					"-l\"GoogleToolboxForMac\"",
+					"-l\"JSQMessagesViewController\"",
+					"-l\"JSQSystemSoundPlayer\"",
+					"-l\"Protobuf\"",
+					"-l\"c++\"",
+					"-l\"icucore\"",
+					"-l\"sqlite3\"",
+					"-l\"z\"",
+					"-framework",
+					"\"AVFoundation\"",
+					"-framework",
+					"\"AddressBook\"",
+					"-framework",
+					"\"AssetsLibrary\"",
+					"-framework",
+					"\"AudioToolbox\"",
+					"-framework",
+					"\"CFNetwork\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"CoreLocation\"",
+					"-framework",
+					"\"CoreTelephony\"",
+					"-framework",
+					"\"CoreText\"",
+					"-framework",
+					"\"FirebaseAnalytics\"",
+					"-framework",
+					"\"FirebaseAppIndexing\"",
+					"-framework",
+					"\"FirebaseAuth\"",
+					"-framework",
+					"\"FirebaseCore\"",
+					"-framework",
+					"\"FirebaseCrash\"",
+					"-framework",
+					"\"FirebaseDatabase\"",
+					"-framework",
+					"\"FirebaseDynamicLinks\"",
+					"-framework",
+					"\"FirebaseInstanceID\"",
+					"-framework",
+					"\"FirebaseInvites\"",
+					"-framework",
+					"\"FirebaseMessaging\"",
+					"-framework",
+					"\"FirebaseRemoteConfig\"",
+					"-framework",
+					"\"FirebaseStorage\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"GoogleSignIn\"",
+					"-framework",
+					"\"MapKit\"",
+					"-framework",
+					"\"MessageUI\"",
+					"-framework",
+					"\"MobileCoreServices\"",
+					"-framework",
+					"\"QuartzCore\"",
+					"-framework",
+					"\"SafariServices\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"StoreKit\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"UIKit\"",
+					"-weak_framework",
+					"\"WebKit\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = uk.ac.ncl.securechat.JpakeChatApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -663,19 +944,106 @@
 		};
 		DED889851CCD1AFA00F4CE97 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EF80F54C0EABD50E586B8346 /* Pods-JpakeChatApp.release.xcconfig */;
+			baseConfigurationReference = 891EC5BAD1DD301EEE1AF564 /* Pods-JpakeChatApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = X7BDHAQC53;
 				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"/Users/$(USER)/Documents/FacebookSDK",
+				);
 				INFOPLIST_FILE = JpakeChatApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/JpakeChatApp",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-all_load",
+					"-l\"GTMOAuth2\"",
+					"-l\"GTMSessionFetcher\"",
+					"-l\"GoogleAPIClientForREST\"",
+					"-l\"GoogleToolboxForMac\"",
+					"-l\"JSQMessagesViewController\"",
+					"-l\"JSQSystemSoundPlayer\"",
+					"-l\"Protobuf\"",
+					"-l\"c++\"",
+					"-l\"icucore\"",
+					"-l\"sqlite3\"",
+					"-l\"z\"",
+					"-framework",
+					"\"AVFoundation\"",
+					"-framework",
+					"\"AddressBook\"",
+					"-framework",
+					"\"AssetsLibrary\"",
+					"-framework",
+					"\"AudioToolbox\"",
+					"-framework",
+					"\"CFNetwork\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"CoreLocation\"",
+					"-framework",
+					"\"CoreTelephony\"",
+					"-framework",
+					"\"CoreText\"",
+					"-framework",
+					"\"FirebaseAnalytics\"",
+					"-framework",
+					"\"FirebaseAppIndexing\"",
+					"-framework",
+					"\"FirebaseAuth\"",
+					"-framework",
+					"\"FirebaseCore\"",
+					"-framework",
+					"\"FirebaseCrash\"",
+					"-framework",
+					"\"FirebaseDatabase\"",
+					"-framework",
+					"\"FirebaseDynamicLinks\"",
+					"-framework",
+					"\"FirebaseInstanceID\"",
+					"-framework",
+					"\"FirebaseInvites\"",
+					"-framework",
+					"\"FirebaseMessaging\"",
+					"-framework",
+					"\"FirebaseRemoteConfig\"",
+					"-framework",
+					"\"FirebaseStorage\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"GoogleSignIn\"",
+					"-framework",
+					"\"MapKit\"",
+					"-framework",
+					"\"MessageUI\"",
+					"-framework",
+					"\"MobileCoreServices\"",
+					"-framework",
+					"\"QuartzCore\"",
+					"-framework",
+					"\"SafariServices\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"StoreKit\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"UIKit\"",
+					"-weak_framework",
+					"\"WebKit\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = uk.ac.ncl.securechat.JpakeChatApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -687,9 +1055,14 @@
 		};
 		DED889871CCD1AFA00F4CE97 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FA11B0A3FDD1F90168EA4085 /* Pods-JpakeChatAppTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = JpakeChatAppTests/Info.plist;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				INFOPLIST_FILE = "JpakeChatAppTests/Tests-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = uk.ac.ncl.secureChat.JpakeChatAppTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -699,9 +1072,14 @@
 		};
 		DED889881CCD1AFA00F4CE97 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2B96C523D626C040BF75157E /* Pods-JpakeChatAppTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = JpakeChatAppTests/Info.plist;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				INFOPLIST_FILE = "JpakeChatAppTests/Tests-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = uk.ac.ncl.secureChat.JpakeChatAppTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -711,9 +1089,14 @@
 		};
 		DED8898A1CCD1AFA00F4CE97 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C96D50F514FD6A0127F6ECCB /* Pods-JpakeChatAppUITests.debug.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_ENTITLEMENTS[sdk=*]" = "";
-				INFOPLIST_FILE = JpakeChatAppUITests/Info.plist;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				INFOPLIST_FILE = "JpakeChatAppUITests/UITests-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = uk.ac.ncl.secureChat.JpakeChatAppUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -725,8 +1108,13 @@
 		};
 		DED8898B1CCD1AFA00F4CE97 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F93C55C97E51384768D15E09 /* Pods-JpakeChatAppUITests.release.xcconfig */;
 			buildSettings = {
-				INFOPLIST_FILE = JpakeChatAppUITests/Info.plist;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				INFOPLIST_FILE = "JpakeChatAppUITests/UITests-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = uk.ac.ncl.secureChat.JpakeChatAppUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";

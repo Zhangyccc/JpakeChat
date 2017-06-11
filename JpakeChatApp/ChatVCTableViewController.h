@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "User.h"
-#import <Firebase.h>
+@import Firebase;
 
 #import "JSQMessagesViewController.h"
 #import "JSQMessages.h"
@@ -28,7 +28,7 @@
 @property(strong,nonatomic) NSString *kmac;
 @property(strong,nonatomic) NSData *kmacData;
 
-@property(strong,nonatomic) Firebase *conversationRef;
+@property(strong,nonatomic) FIRDatabaseReference *conversationRef;
 @property(strong,nonatomic) NSString *conversationId;
 //@property(strong,nonatomic) NSString *senderId;
 
