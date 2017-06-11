@@ -36,6 +36,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
     NSLog(@"Documents Directory: %@", [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject]);
     //Firebase *ref = [[Firebase alloc] initWithUrl:@"https://securejpake.firebaseio.com"];
     //FIRDatabaseReference *ref = [[FIRDatabase database] reference];
@@ -73,6 +74,13 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+//- (void)viewWillAppear:(BOOL)animated
+//{
+//    [super viewWillAppear:animated];
+//    
+//    self.tabBarController.navigationItem.leftBarButtonItem = nil;
+//}
 //-(void)coredataInitialise{
 //    theCoreDataStack *coreDataStack=[theCoreDataStack defaultStack];
 //    
@@ -120,6 +128,7 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
+    self.tabBarController.navigationItem.leftBarButtonItem = nil;
     self.title = @"Conversations ";
     //Firebase *ref = [[Firebase alloc] initWithUrl:@"https://securejpake.firebaseio.com"];
     //FIRDatabaseReference *ref = [[FIRDatabase database] reference];
@@ -153,16 +162,16 @@
     self.currentUser=[DataBasics dataBasicsInstance].currentUser;
     NSLog(@"current user uid %@",self.currentUser.uId);
     FIRDatabaseReference * ref1=[[DataBasics dataBasicsInstance]getUsersRef] ;
-    [[ref1 queryOrderedByKey] observeEventType:FIRDataEventTypeChildAdded withBlock:^(FIRDataSnapshot *snapshot) {
-        
-        if(!([snapshot.key isEqualToString:[DataBasics dataBasicsInstance].currentUser.uId]))
-        {
-            User *uobj=[[User alloc]initwithData:snapshot.value[@"email"] id:snapshot.key];
-            [self.users addObject:uobj];
-            [self.tableView reloadData];
-        }
-        
-    }];
+//    [[ref1 queryOrderedByKey] observeEventType:FIRDataEventTypeChildAdded withBlock:^(FIRDataSnapshot *snapshot) {
+//        
+//        if(!([snapshot.key isEqualToString:[DataBasics dataBasicsInstance].currentUser.uId]))
+//        {
+//            User *uobj=[[User alloc]initwithData:snapshot.value[@"email"] id:snapshot.key];
+//            [self.users addObject:uobj];
+//            [self.tableView reloadData];
+//        }
+//        
+//    }];
     
     [self startTimer];
     

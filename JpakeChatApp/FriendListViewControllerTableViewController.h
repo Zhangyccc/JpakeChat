@@ -9,5 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface FriendListViewControllerTableViewController : UITableViewController
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *addFriend;
 
+- (IBAction)addFriend:(id)sender;
 @end

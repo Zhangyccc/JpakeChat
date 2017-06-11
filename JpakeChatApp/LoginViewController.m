@@ -47,17 +47,17 @@
     //loginButton.center = self.view.center;
     //[self.view addSubview:loginButton];
     //loginButton.readPermissions = @[@"public_profile", @"email"];
-    if ([FBSDKAccessToken currentAccessToken]) {
-        // User is logged in, do work such as go to next view controller.
-    
-//      [self.navigationController popToRootViewControllerAnimated:YES];
-        [self performSegueWithIdentifier:@"showConversations" sender:self];
-        
-    }
+//    if ([FBSDKAccessToken currentAccessToken]) {
+//        // User is logged in, do work such as go to next view controller.
+//    
+////      [self.navigationController popToRootViewControllerAnimated:YES];
+//        [self performSegueWithIdentifier:@"showConversations" sender:self];
+//        
+//    }
 
 
     
-    //NEW OBSERVE 作用同上面的if,都要跳转到聊天界面，通过segue identifier(线)
+    //NEW OBSERVE 作用同上面的if,都要跳转到聊天界面，通过segue identifier(线),负责谷歌登陆进来跳转界面
     [[FIRAuth auth] addAuthStateDidChangeListener:^(FIRAuth * _Nonnull auth, FIRUser * _Nullable user) {
         if(user) {
             NSLog(@"User is signed in with uid: %@", user.uid);
@@ -103,15 +103,27 @@ didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
         FIRAuthCredential *credential = [FIRFacebookAuthProvider
                                          credentialWithAccessToken:[FBSDKAccessToken currentAccessToken]
                                          .tokenString];
+        //NSString *email;
         [[FIRAuth auth] signInWithCredential:credential
                                   completion:^(FIRUser *user, NSError *error) {
+//                                      [[_ref child:@"email"] observeEventType:(FIRDataEventTypeValue) withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+//                                           NSString *email = snapshot.value;
+//                                          if(email.length >0)
+//                                          {
+//                                              [[DataBasics dataBasicsInstance] loginUserWithData:user];
+//                                              [[NSUserDefaults standardUserDefaults] setValue:user.uid forKey:@"uid"];
+//                                              [_LoginLoadingSpinner stopAnimating];
+//                                          }
+//                                        }
+//                                       ];
                                       if (error) {
                                           //NSLog(@"Sign in failed: %@", error.localizedDescription);
                                           NSLog(@"Error logging in %@",error);
                                           NSString *Err=error.description;
                                           [self loginError:@"Login Error " message:Err];
                                           
-                                      } else {
+                                      }
+                                      else {
                                           user = [FIRAuth auth].currentUser;
                                           NSDictionary *newUser = @{
                                                                     //@"provider": [FIRAuth auth].currentUser.providerID, //authData.provider
