@@ -128,8 +128,9 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
-    self.tabBarController.navigationItem.leftBarButtonItem = nil;
-    self.title = @"Conversations ";
+    //self.tabBarController.navigationItem.leftBarButtonItem = nil;
+    self.navigationController.visibleViewController.navigationItem.title = @"Conversations";
+    //self.title = @"Conversations ";
     //Firebase *ref = [[Firebase alloc] initWithUrl:@"https://securejpake.firebaseio.com"];
     //FIRDatabaseReference *ref = [[FIRDatabase database] reference];
     

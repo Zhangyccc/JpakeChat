@@ -26,8 +26,6 @@
 @property (assign,getter=isWorking) BOOL working;
 
 
-- (IBAction)logout:(id)sender;
-
 -(void)keyExchangeProcess;
 
 //-(void)sendInitialPassword:(Firebase*)friendsRef keys:(Firebase*)keyRef otherUser:(NSString*)hisUsername ;

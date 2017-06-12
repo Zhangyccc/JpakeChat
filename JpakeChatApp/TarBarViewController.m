@@ -10,6 +10,7 @@
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import <GoogleSignIn/GoogleSignIn.h>
 #import "LoginViewController.h"
+#import "AddFriendsViewController.h"
 #import "DataBasics.h"
 #import "theCoreDataStack.h"
 #import "BigInteger.h"
@@ -24,7 +25,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.hidesBackButton =YES;
+    //self.navigationItem.hidesBackButton =YES;
     // Do any additional setup after loading the view.
 }
 
@@ -47,8 +48,6 @@
 {
     
     [[NSUserDefaults standardUserDefaults] setValue:nil forKey:@"uid"];
-    //Firebase *ref = [[Firebase alloc] initWithUrl:@"https://securejpake.firebaseio.com"];
-    //FIRDatabaseReference *ref = [[FIRDatabase database] reference];
     //Fireabase logout
     [[FIRAuth auth] signOut:nil];
     //[ref unauth];
@@ -60,6 +59,14 @@
     LoginViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"Login"];
     
     [self presentViewController:vc animated:YES completion:nil];
+    NSLog(@"Logged out");
 }
+
+- (IBAction)AddFriends:(id)sender {
+    NSLog(@"Pressed");
+    AddFriendsViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"AddFriends"];
+    [self presentViewController:vc animated:YES completion:nil];
+}
+
 
 @end

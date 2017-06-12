@@ -11,6 +11,8 @@
 #import "User.h"
 
 @interface TarBarViewController : UITabBarController
+
 - (IBAction)logout:(id)sender;
+- (IBAction)AddFriends:(id)sender;
 
 @end

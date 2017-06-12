@@ -16,7 +16,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.hidesBackButton =YES;
+    //self.navigationItem.hidesBackButton =YES;
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -33,8 +33,8 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
-    self.tabBarController.navigationItem.leftBarButtonItem = nil;
+    self.navigationController.visibleViewController.navigationItem.title = @"User Setting";
+    //self.tabBarController.navigationItem.leftBarButtonItem = nil;
 }
 #pragma mark - Table view data source
 
