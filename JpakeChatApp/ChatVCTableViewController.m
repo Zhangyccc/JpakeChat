@@ -215,14 +215,6 @@
                                       
                                       
                                   }];
-    //    [conversations observeSingleEventOfType:FEventTypeValue
-    //
-    //                                  withBlock:^(FDataSnapshot *snapshot) {
-    //
-    //                                      [self loadMessagesForConversation:self.conversationId];
-    //
-    //
-    //                                  }];
     
     
     

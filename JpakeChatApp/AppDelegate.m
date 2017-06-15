@@ -93,14 +93,28 @@ didSignInForUser:(GIDGoogleUser* )user
                                                                     };
                                           NSLog(@"users dictionary %@" ,newUser);
                                           self.ref = [[FIRDatabase database] reference];
-                                          [[[_ref child:@"users"]
-                                            child:[FIRAuth auth].currentUser.uid] updateChildValues:newUser];
-                                          //NSLog(@"userEmail:",user.email); email == nil ---> DataBasicsinstance loginuserwithdata
-                                          [[DataBasics dataBasicsInstance] loginUserWithData:user];
-                                          [[NSUserDefaults standardUserDefaults] setValue:user.uid forKey:@"uid"];
-                                          [LoginAiv stopAnimating];
-                                          //[self.navigationController popToRootViewControllerAnimated:YES];
-                                          //[self performSegueWithIdentifier:@"showConversations" sender:self];
+                                          [[[[_ref child:@"users"] queryOrderedByChild:@"email" ] queryEqualToValue:[FIRAuth auth].currentUser.email]
+                                           observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot *snapshot) {
+                                               NSLog(@"snapshot: %@", snapshot.value);
+                                               if(!snapshot.exists)
+                                               {
+                                                   NSLog(@"Adding new user");
+                                                   [[[_ref child:@"users"]
+                                                     child:[FIRAuth auth].currentUser.uid] updateChildValues:newUser];
+                                                   [[DataBasics dataBasicsInstance] loginUserWithData:user];
+                                                   [[NSUserDefaults standardUserDefaults] setValue:user.uid forKey:@"uid"];
+                                                   [LoginAiv stopAnimating];
+                                               }
+                                               else{
+                                                   NSLog(@"Google user exists");
+                                               }
+                                           }];
+//                                          [[[_ref child:@"users"]
+//                                            child:[FIRAuth auth].currentUser.uid] updateChildValues:newUser];
+//                                          //NSLog(@"userEmail:",user.email); email == nil ---> DataBasicsinstance loginuserwithdata
+//                                          [[DataBasics dataBasicsInstance] loginUserWithData:user];
+//                                          [[NSUserDefaults standardUserDefaults] setValue:user.uid forKey:@"uid"];
+//                                          [LoginAiv stopAnimating];
                                       }
                                       
                                   }];

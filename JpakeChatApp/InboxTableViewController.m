@@ -163,16 +163,16 @@
     self.currentUser=[DataBasics dataBasicsInstance].currentUser;
     NSLog(@"current user uid %@",self.currentUser.uId);
     FIRDatabaseReference * ref1=[[DataBasics dataBasicsInstance]getUsersRef] ;
-//    [[ref1 queryOrderedByKey] observeEventType:FIRDataEventTypeChildAdded withBlock:^(FIRDataSnapshot *snapshot) {
-//        
-//        if(!([snapshot.key isEqualToString:[DataBasics dataBasicsInstance].currentUser.uId]))
-//        {
-//            User *uobj=[[User alloc]initwithData:snapshot.value[@"email"] id:snapshot.key];
-//            [self.users addObject:uobj];
-//            [self.tableView reloadData];
-//        }
-//        
-//    }];
+    [[ref1 queryOrderedByKey] observeEventType:FIRDataEventTypeChildAdded withBlock:^(FIRDataSnapshot *snapshot) {
+        
+        if(!([snapshot.key isEqualToString:[DataBasics dataBasicsInstance].currentUser.uId]))
+        {
+            User *uobj=[[User alloc]initwithData:snapshot.value[@"email"] id:snapshot.key];
+            [self.users addObject:uobj];
+            [self.tableView reloadData];
+        }
+        
+    }];
     
     [self startTimer];
     

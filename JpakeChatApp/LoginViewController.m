@@ -133,14 +133,25 @@ didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
                                                                     @"password": @"Facebook"
                                                                     };
                                           NSLog(@"users dictionary %@" ,newUser);
-                                          [[[_ref child:@"users"]
-                                            child:[FIRAuth auth].currentUser.uid] updateChildValues:newUser];
-                                          //NSLog(@"userEmail:",user.email); email == nil ---> DataBasicsinstance loginuserwithdata
-                                          [[DataBasics dataBasicsInstance] loginUserWithData:user];
-                                          [[NSUserDefaults standardUserDefaults] setValue:user.uid forKey:@"uid"];
-                                          //[self.navigationController popToRootViewControllerAnimated:YES];
-                                          //[self performSegueWithIdentifier:@"showConversations" sender:self];
-                                          [_LoginLoadingSpinner stopAnimating];
+                                          //if([FIRAuth auth].currentUser.email)
+                                          //NSLog(@"%@", [FIRAuth auth].currentUser.email);QQ邮箱正常
+                                          [[[[_ref child:@"users"] queryOrderedByChild:@"email" ] queryEqualToValue:[FIRAuth auth].currentUser.email]
+                                          observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot *snapshot) {
+                                              NSLog(@"snapshot: %@", snapshot.value);
+                                              if(!snapshot.exists)
+                                              {
+                                                  NSLog(@"Adding new user");
+                                                  [[[_ref child:@"users"]
+                                                  child:[FIRAuth auth].currentUser.uid] updateChildValues:newUser];
+                                                  [[DataBasics dataBasicsInstance] loginUserWithData:user];
+                                                  [[NSUserDefaults standardUserDefaults] setValue:user.uid forKey:@"uid"];
+                                                  [_LoginLoadingSpinner stopAnimating];
+
+                                              }
+                                              else{
+                                                  NSLog(@"Third party user exists");
+                                              }
+                                          }];
                                       }
 
                                   }];
