@@ -96,6 +96,7 @@ didSignInForUser:(GIDGoogleUser* )user
                                           [[[[_ref child:@"users"] queryOrderedByChild:@"email" ] queryEqualToValue:[FIRAuth auth].currentUser.email]
                                            observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot *snapshot) {
                                                NSLog(@"snapshot: %@", snapshot.value);
+                                               //If user exists
                                                if(!snapshot.exists)
                                                {
                                                    NSLog(@"Adding new user");

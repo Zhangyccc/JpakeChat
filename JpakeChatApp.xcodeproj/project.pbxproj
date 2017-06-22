@@ -32,6 +32,7 @@
 		AFB4D9161EEAE4290052FB9E /* Icon-80.png in Resources */ = {isa = PBXBuildFile; fileRef = AFB4D9131EEAE4290052FB9E /* Icon-80.png */; };
 		AFB4D9171EEAE4290052FB9E /* Icon-114.png in Resources */ = {isa = PBXBuildFile; fileRef = AFB4D9141EEAE4290052FB9E /* Icon-114.png */; };
 		AFD70D101EEAE1D000CED785 /* icon.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = AFD70D0F1EEAE1D000CED785 /* icon.jpeg */; };
+		AFEFDA861EF29D75006C7F13 /* NewFriendTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AFEFDA851EF29D75006C7F13 /* NewFriendTableViewController.m */; };
 		C0F100A3B6D8A326E19219C9 /* libPods-JpakeChatApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B72DF1DB16B9C55EC65868E /* libPods-JpakeChatApp.a */; };
 		DE8356D81D058E1500EB6CA4 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE8356D71D058E1500EB6CA4 /* Security.framework */; };
 		DEBD2FD81D0229E300583242 /* NSData+AES256.m in Sources */ = {isa = PBXBuildFile; fileRef = DEBD2FD71D0229E300583242 /* NSData+AES256.m */; };
@@ -109,6 +110,8 @@
 		AFB4D9131EEAE4290052FB9E /* Icon-80.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-80.png"; sourceTree = "<group>"; };
 		AFB4D9141EEAE4290052FB9E /* Icon-114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-114.png"; sourceTree = "<group>"; };
 		AFD70D0F1EEAE1D000CED785 /* icon.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = icon.jpeg; sourceTree = "<group>"; };
+		AFEFDA841EF29D75006C7F13 /* NewFriendTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewFriendTableViewController.h; sourceTree = "<group>"; };
+		AFEFDA851EF29D75006C7F13 /* NewFriendTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewFriendTableViewController.m; sourceTree = "<group>"; };
 		C96D50F514FD6A0127F6ECCB /* Pods-JpakeChatAppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JpakeChatAppUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-JpakeChatAppUITests/Pods-JpakeChatAppUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		DC45FD6021131262DF6DB1CF /* Pods-JpakeChatApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JpakeChatApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-JpakeChatApp/Pods-JpakeChatApp.debug.xcconfig"; sourceTree = "<group>"; };
 		DE8356D71D058E1500EB6CA4 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -314,6 +317,8 @@
 				DEED44D91CFEFABD00397F6F /* ChatVCTableViewController.h */,
 				DEED44DA1CFEFABD00397F6F /* ChatVCTableViewController.m */,
 				AF2DD91A1ED2F800005E7EF8 /* Main.storyboard */,
+				AFEFDA841EF29D75006C7F13 /* NewFriendTableViewController.h */,
+				AFEFDA851EF29D75006C7F13 /* NewFriendTableViewController.m */,
 				AF519D1F1EDB371D00A63AA1 /* TarBarViewController.h */,
 				AF519D201EDB371D00A63AA1 /* TarBarViewController.m */,
 				AF519D191EDB2E2D00A63AA1 /* FriendListViewControllerTableViewController.h */,
@@ -693,6 +698,7 @@
 				DED889C61CCD205800F4CE97 /* JParticipant.m in Sources */,
 				DED8899C1CCD1B7800F4CE97 /* jpakeParms.m in Sources */,
 				DED8899E1CCD1B7800F4CE97 /* JpakeRound1Payload.m in Sources */,
+				AFEFDA861EF29D75006C7F13 /* NewFriendTableViewController.m in Sources */,
 				AF519D1B1EDB2E2D00A63AA1 /* FriendListViewControllerTableViewController.m in Sources */,
 				DED889AC1CCD1BA600F4CE97 /* InboxTableViewController.m in Sources */,
 				DED889B51CCD1BCE00F4CE97 /* DataBasics.m in Sources */,

@@ -138,6 +138,7 @@ didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
                                           [[[[_ref child:@"users"] queryOrderedByChild:@"email" ] queryEqualToValue:[FIRAuth auth].currentUser.email]
                                           observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot *snapshot) {
                                               NSLog(@"snapshot: %@", snapshot.value);
+                                              //If user exists
                                               if(!snapshot.exists)
                                               {
                                                   NSLog(@"Adding new user");
@@ -149,7 +150,7 @@ didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
 
                                               }
                                               else{
-                                                  NSLog(@"Third party user exists");
+                                                  NSLog(@"Facebook user exists");
                                               }
                                           }];
                                       }

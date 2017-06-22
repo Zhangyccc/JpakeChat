@@ -207,6 +207,9 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vm2-hR-gCy">
                                 <rect key="frame" x="37" y="248" width="340" height="30"/>
                                 <state key="normal" title="Add"/>
+                                <connections>
+                                    <action selector="AddFriendAction:" destination="lQ8-jx-sCz" eventType="touchUpInside" id="op7-X3-TpM"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -226,10 +229,42 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="FriendEmail" destination="6i0-W0-rFp" id="sEi-eB-xRc"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rpk-2g-zic" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-82.608695652173921" y="3131.2500000000005"/>
+        </scene>
+        <!--New Friend Table View Controller-->
+        <scene sceneID="C2H-g0-MBG">
+            <objects>
+                <tableViewController storyboardIdentifier="NewFriend" id="3d7-vH-BHD" customClass="NewFriendTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="k3Y-JK-osX">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="17i-Va-rdF">
+                                <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="17i-Va-rdF" id="KNW-RI-3ls">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="3d7-vH-BHD" id="NbN-jW-7Ms"/>
+                            <outlet property="delegate" destination="3d7-vH-BHD" id="nL2-46-cFd"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="gt7-t4-tJc"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lVV-wJ-L52" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-77" y="3907"/>
         </scene>
         <!--ChatVC Table View Controller-->
         <scene sceneID="fX5-GS-N6m">
@@ -255,7 +290,7 @@
             <objects>
                 <navigationController storyboardIdentifier="Inbox" title="My Conversations" automaticallyAdjustsScrollViewInsets="NO" id="NIK-K6-AD9" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="LND-gN-q3j">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="LND-gN-q3j">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -358,7 +393,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ZTg-IY-gOe" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Y1h-Mf-6wH">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Y1h-Mf-6wH">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -376,7 +411,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="6Hr-ed-NqK" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="1fb-V8-N8Y">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="1fb-V8-N8Y">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -428,7 +463,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="2bw-Lz-u5v" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="CjD-aW-QVt">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="CjD-aW-QVt">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
