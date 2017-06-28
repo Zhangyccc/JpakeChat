@@ -22,7 +22,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.hidesBackButton =YES;
-    
+    _ref = [[FIRDatabase database] reference];
     
 //侧滑返回
 //    self.navigationController.interactivePopGestureRecognizer.enabled = YES;
@@ -32,8 +32,6 @@
 //    self.navigationItem.backBarButtonItem = barItem;
 //    [self.view addSubview:backButton];
     //self.ref =[[Firebase alloc] initWithUrl:@"https://securejpake.firebaseio.com"];
-    self.ref = [[FIRDatabase database] reference];
-    // Do any additional setup after loading the view.
 }
 
 
@@ -54,11 +52,11 @@
 
 - (IBAction)signup:(id)sender {
     [_SignupSpinner startAnimating];
-    NSString *username=[self.usernameField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    //NSString *username=[self.usernameField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSString *password=[self.passwordField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSString *email=[self.emailaddressField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     
-    if([username length]==0 || [password length]==0  || [email length]==0)
+    if([password length]==0  || [email length]==0)
     {
         
         
@@ -103,7 +101,7 @@
                          {
                              //  Login the New User with authUser
                              NSLog(@"user createed successfully .now trying to logggin that user in ");
-                             [[FIRAuth auth] signInWithEmail:email password:password completion:^(FIRUser * _Nullable user, NSError * _Nullable error)
+                             [[FIRAuth auth] signInWithEmail:email password:password completion:^(FIRUser * user, NSError * error)
                               {
                                   if (error)
                                   {
@@ -112,7 +110,7 @@
                                   else {
                                       NSDictionary *newUser = @{
                                                                 @"provider": user.providerID, //authData.provider
-                                                                @"username": username,
+                                                                //@"username": username,
                                                                 @"email": email,
                                                                 @"password": password
                                                                 };

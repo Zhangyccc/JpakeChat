@@ -67,7 +67,7 @@ hisUSername keys:(FIRDatabaseReference*)keyRef;
 -(void)validateJpakeround3Alice:(NSString*)otherUserName
                          KeyRef:(FIRDatabaseReference*)keyRef
                         payload:(NSString*)
-payload ChatID:(NSString*)chatId;
+                        payload ChatID:(NSString*)chatId;
 
 -(void)errorManagement:(NSString* )title  message:(NSString*) message;
 //-(void)coredataInitialise;

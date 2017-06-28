@@ -87,7 +87,7 @@ didSignInForUser:(GIDGoogleUser* )user
                                           NSDictionary *newUser = @{
                                                                     //@"provider": [FIRAuth auth].currentUser.providerID, //authData.provider
                                                                     @"provider": @"Google",
-                                                                    @"username": [FIRAuth auth].currentUser.displayName,
+                                                                    //@"username": [FIRAuth auth].currentUser.displayName,
                                                                     @"email": [FIRAuth auth].currentUser.email,
                                                                     @"password": @"Google"
                                                                     };

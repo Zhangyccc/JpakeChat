@@ -65,37 +65,38 @@
     //Check if user exists
     else{
         [[[[_ref child:@"users"] queryOrderedByChild:@"email" ] queryEqualToValue:friendemail]
-         observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot *snapshotforuid) {
-             if(!(snapshotforuid.exists)){
+         observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot *snapshotforuser) {
+             if(!(snapshotforuser.exists)){
                  NSLog(@"No such user");
                  [self EmailError:@"No such user !! " message:@"Make sure you enter a correct email address !! "];
              }
              else{
-                 frienduid = snapshotforuid.key;
-                 //NSLog(@"%@", frienduid);
-                 NSLog(@"snapshot value is: %@", snapshotforuid.value);
-                 NSLog(@"friend uid is: %@", frienduid);
-                 NSLog(@"Find user!");
-                 [[_ref1 queryOrderedByKey] observeEventType:FIRDataEventTypeChildAdded withBlock:^(FIRDataSnapshot *snapshot) {
-                     NSLog(@"%@", snapshot.key);
-                     if([snapshot.key isEqualToString:frienduid] ){
-                         NSLog(@"Find user");
-                         NewFriendTableViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"NewFriend"];
-                         User *uobj=[[User alloc]initwithData:snapshot.value[@"email"] id:snapshot.key];
-                         [self.users addObject:uobj];
-                         [vc.tableView reloadData];
-                         //[self presentViewController:vc animated:YES completion:nil];
-                     }
-                     else{
-                         NSLog(@"Searching!");
-                     }
-                 }];
-             }
-         }];
-    }
-    //ELSE
-}
-//IBACTION
+                 [[[[_ref child:@"users"] queryOrderedByChild:@"email"] queryEqualToValue:friendemail]
+                 observeEventType:FIRDataEventTypeChildAdded withBlock:^(FIRDataSnapshot *  snapshotforuid) {
+                     frienduid = snapshotforuid.key;
+                     NSLog(@"snapshot value is: %@", snapshotforuid.value);
+                     NSLog(@"friend uid is: %@", frienduid);
+                     NSLog(@"Find user!");
+                     [[_ref1 queryOrderedByKey] observeEventType:FIRDataEventTypeChildAdded withBlock:^(FIRDataSnapshot *snapshot) {
+                         NSLog(@"user uid: %@", snapshot.key);
+                         if([snapshot.key isEqualToString:frienduid] ){
+                             NSLog(@"Find user");
+                             NewFriendTableViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"NewFriend"];
+                             User *uobj=[[User alloc]initwithData:snapshot.value[@"email"] id:snapshot.key];
+                             [self.users addObject:uobj];
+                             [vc.tableView reloadData];
+                             //[self presentViewController:vc animated:YES completion:nil];
+                         }
+                         else{
+                             NSLog(@"Searching!");
+                         }
+                     }];//_ref1
+                 }];//else snapshotforuid
+             }//else
+         }];//else snapshotforuser
+    }    //ELSE
+}//IBACTION
+
 
 
 

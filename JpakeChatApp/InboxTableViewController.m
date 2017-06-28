@@ -1087,7 +1087,7 @@ payload ChatID:(NSString*)chatId
                             [self startTimer];
                         }
                         
-                        //Else check friends table and see if the Pflg is 0 then send an alert saying keyexchange notdone
+                        //Else check friends table and see if the Pflg is 0 then send an alert saying keyexchange not done
                         else { //else3
                             //NSLog(@"Snapshot.vlaue %@",snapshot.value[@"chatId"]);
                             NSString* chatId=snapshot.value[@"chatId"];

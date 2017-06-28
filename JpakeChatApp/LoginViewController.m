@@ -128,7 +128,7 @@ didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
                                           NSDictionary *newUser = @{
                                                                     //@"provider": [FIRAuth auth].currentUser.providerID, //authData.provider
                                                                     @"provider": @"Facebook",
-                                                                    @"username": [FIRAuth auth].currentUser.displayName,
+                                                                    //@"username": [FIRAuth auth].currentUser.displayName,
                                                                     @"email": [FIRAuth auth].currentUser.email,
                                                                     @"password": @"Facebook"
                                                                     };
@@ -223,7 +223,7 @@ didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
     {
 //        FIRAuthCredential *credential = [FIREmailPasswordAuthProvider credentialWithEmail:email password:password];
         //NEW LOGIN
-        [[FIRAuth auth] signInWithEmail:email password:password completion:^(FIRUser * _Nullable user, NSError * _Nullable error) {
+        [[FIRAuth auth] signInWithEmail:email password:password completion:^(FIRUser *user, NSError *error) {
             if (error) {
                 if (error.code == FIRAuthErrorCodeNetworkError) {
                     NSLog(@"NetworkError.");
@@ -265,8 +265,8 @@ didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
                 NSLog(@"Signed in with uid: %@", user.uid);
                 [[DataBasics dataBasicsInstance] loginUserWithData:user];
                 [[NSUserDefaults standardUserDefaults] setValue:user.uid forKey:@"uid"];
-                //[self.navigationController popToRootViewControllerAnimated:YES];
-                //[self performSegueWithIdentifier:@"showConversations" sender:self];
+                [self.navigationController popToRootViewControllerAnimated:YES];
+                [self performSegueWithIdentifier:@"showConversations" sender:self];
                 [_LoginLoadingSpinner stopAnimating];
             }
         }];
