@@ -36,7 +36,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+//    _keys = [[NSMutableArray alloc] init];
     NSLog(@"Documents Directory: %@", [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject]);
     //Firebase *ref = [[Firebase alloc] initWithUrl:@"https://securejpake.firebaseio.com"];
     //FIRDatabaseReference *ref = [[FIRDatabase database] reference];
@@ -46,7 +46,7 @@
     //NEW OBSERVE
     [[FIRAuth auth] addAuthStateDidChangeListener:^(FIRAuth * _Nonnull auth, FIRUser * _Nullable user) {
         if (user) {
-            NSLog(@"User is signed in with uid: %@", user.uid);
+//            NSLog(@"User is signed in with uid: %@", user.uid);
             [[DataBasics dataBasicsInstance] loginUserWithData:user];
             self.currentUser = [DataBasics dataBasicsInstance].currentUser;
         } else {
@@ -75,89 +75,68 @@
     // Dispose of any resources that can be recreated.
 }
 
-//- (void)viewWillAppear:(BOOL)animated
-//{
-//    [super viewWillAppear:animated];
-//    
-//    self.tabBarController.navigationItem.leftBarButtonItem = nil;
-//}
-//-(void)coredataInitialise{
-//    theCoreDataStack *coreDataStack=[theCoreDataStack defaultStack];
-//    
-//    NSEntityDescription *entity = [NSEntityDescription entityForName:@"JParticipant" inManagedObjectContext:coreDataStack.managedObjectContext];
-//    
-//    
-//    NSFetchRequest *request = [[NSFetchRequest alloc] init];
-//    [request setEntity:entity];
-//    
-//    NSError *error;
-//    NSArray *objects = [coreDataStack.managedObjectContext executeFetchRequest:request
-//                                                                         error:&error];
-//    
-//    for (NSManagedObject *object in objects)
-//    {
-//        [coreDataStack.managedObjectContext deleteObject:object];
-//        NSLog(@"deleted participant ");
-//        
-//    }
-//    [coreDataStack.managedObjectContext save:&error];
-//    //
-//    
-//    
-//    NSEntityDescription *entity1 = [NSEntityDescription entityForName:@"JKey" inManagedObjectContext:coreDataStack.managedObjectContext];
-//    
-//    
-//    NSFetchRequest *request1 = [[NSFetchRequest alloc] init];
-//    [request1 setEntity:entity1];
-//    
-//    NSError *error1;
-//    NSArray *objects1 = [coreDataStack.managedObjectContext executeFetchRequest:request1
-//                                                                          error:&error1];
-//    
-//    for (NSManagedObject *object in objects1)
-//    {
-//        [coreDataStack.managedObjectContext deleteObject:object];
-//        NSLog(@"deleted key s");
-//        
-//    }
-//    [coreDataStack.managedObjectContext save:&error1];
-//    
-//    //
-//}
+-(void)coredataInitialise{
+    theCoreDataStack *coreDataStack=[theCoreDataStack defaultStack];
+    
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"JParticipant" inManagedObjectContext:coreDataStack.managedObjectContext];
+    
+    
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    [request setEntity:entity];
+    
+    NSError *error;
+    NSArray *objects = [coreDataStack.managedObjectContext executeFetchRequest:request
+                                                                         error:&error];
+    
+    for (NSManagedObject *object in objects)
+    {
+        [coreDataStack.managedObjectContext deleteObject:object];
+        NSLog(@"deleted participant ");
+        
+    }
+    [coreDataStack.managedObjectContext save:&error];
+    //
+    
+    
+    NSEntityDescription *entity1 = [NSEntityDescription entityForName:@"JKey" inManagedObjectContext:coreDataStack.managedObjectContext];
+    
+    
+    NSFetchRequest *request1 = [[NSFetchRequest alloc] init];
+    [request1 setEntity:entity1];
+    
+    NSError *error1;
+    NSArray *objects1 = [coreDataStack.managedObjectContext executeFetchRequest:request1
+                                                                          error:&error1];
+    
+    for (NSManagedObject *object in objects1)
+    {
+        [coreDataStack.managedObjectContext deleteObject:object];
+        NSLog(@"deleted key s");
+        
+    }
+    [coreDataStack.managedObjectContext save:&error1];
+    
+    //
+}
 
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
     //self.tabBarController.navigationItem.leftBarButtonItem = nil;
     self.navigationController.visibleViewController.navigationItem.title = @"Conversations";
-    //self.title = @"Conversations ";
+    self.title = @"Conversations ";
     //Firebase *ref = [[Firebase alloc] initWithUrl:@"https://securejpake.firebaseio.com"];
     //FIRDatabaseReference *ref = [[FIRDatabase database] reference];
     
     //NEW OBSERVE
     [[FIRAuth auth] addAuthStateDidChangeListener:^(FIRAuth * _Nonnull auth, FIRUser * _Nullable user) {
         if (user) {
-            NSLog(@"User is signed in with uid: %@", user.uid);
             [[DataBasics dataBasicsInstance] loginUserWithData:user];
-//            self.currentUser=[DataBasics dataBasicsInstance].currentUser;
+            self.currentUser=[DataBasics dataBasicsInstance].currentUser;
         } else {
             NSLog(@"No user is signed in.");
         }
     }];
-    
-    //OLD OBSERVE
-    //        [ref observeAuthEventWithBlock:^(FAuthData *authData) {
-    //            if (authData) {
-    //                // user authenticated
-    //                    [[DataBasics dataBasicsInstance] loginUserWithData:authData];
-    //                self.currentUser=[DataBasics dataBasicsInstance].currentUser ;
-    //
-    //            } else {
-    //                // No user is signed in
-    //
-    //            }
-    //        }];
-    
     
     self.users=[[NSMutableArray alloc]init ];
     self.currentUser=[DataBasics dataBasicsInstance].currentUser;
@@ -202,13 +181,16 @@
     [[refkey queryOrderedByKey] observeEventType:FIRDataEventTypeChildAdded withBlock:^(FIRDataSnapshot *snapshot)
      {
          if (!(snapshot.value == [NSNull null]))
-         {            NSLog(@"snapshot insd ");
-             
+         {
+             NSLog(@"snapshot insd !(snapshot.value == [NSNull null])");
+
              [self.keys addObject:snapshot.value[@"chatId"]];
              NSString *chatId=snapshot.value[@"chatId"];
              FIRDatabaseReference *keyDb =[[DataBasics dataBasicsInstance]pathToKeys:chatId];
-             [[keyDb queryOrderedByKey]observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot *snapshot1) {
-                 
+             [[keyDb queryOrderedByKey] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot *snapshot1) {
+                 //如果没有判断snapshot != [NSNull null], 程序会中断
+                 if(!(snapshot1.value == [NSNull null])){
+                 //Here is crash point!!!!!
                  NSString *hisName=snapshot1.value[@"sender"];
                  //Debug hisName == Firebase?????????????
                  //NSLog(@"hisname %@",hisName);
@@ -280,13 +262,14 @@
                          }
                      }//if of validation flag
                  } // if of sender snapshot
+                 }
              }];//KEYDB
          }//if value not is nsnull
      }];//refkey block completion
-    
-    
-    
 }
+
+    
+    
 
 
 -(void)validateJpakeround3Alice:(NSString*)otherUserName   KeyRef:(FIRDatabaseReference*)keyRef payload:(NSString*)
@@ -404,6 +387,7 @@ payload ChatID:(NSString*)chatId
             FIRDatabaseReference * ref1=[[DataBasics dataBasicsInstance]pathToFriends:chatId];
             [ref1 observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot *snapshot1) {
                 if (snapshot1.value == [NSNull null]){
+//                if (!snapshot1.exists){
                     NSLog(@"Error in friends Addition ");
                     
                 }
@@ -1039,7 +1023,6 @@ payload ChatID:(NSString*)chatId
     User *usr=self.users [indexPath.row];
     
     //cell.textLabel.font=[UIFont systemFontOfSize:14.0];
-    cell.textLabel.textAlignment = NSTextAlignmentLeft;
 //    cell.textLabel.layer.borderColor = [[UIColor grayColor] CGColor];
 //    cell.textLabel.layer.borderWidth = 2;
     cell.textLabel.text=usr.userEmail;
@@ -1069,6 +1052,7 @@ payload ChatID:(NSString*)chatId
      
                     withBlock:^(FIRDataSnapshot *snapshot) {
                         if (snapshot.value == [NSNull null])
+//                        if (!snapshot.exists)
                         {
                             
                             NSString *newConversationRefKey=[[[DataBasics dataBasicsInstance]getConversationsRef]childByAutoId].key;
@@ -1096,6 +1080,7 @@ payload ChatID:(NSString*)chatId
                             
                             [ref1 observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot *snapshot1) {
                                 if (snapshot1.value == [NSNull null]){
+//                                if (!snapshot1.exists){
                                     NSLog(@"Error in friends Addition ");
                                 }
                                 else//else2

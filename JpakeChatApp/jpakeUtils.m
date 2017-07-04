@@ -269,6 +269,8 @@ static BigInteger* One;
 {
     const char *cKey  = [key cStringUsingEncoding:NSASCIIStringEncoding];
     const char *cData = [plaintext cStringUsingEncoding:NSASCIIStringEncoding];
+//    const char *cKey  = [key UTF8String];
+//    const char *cData = [plaintext UTF8String];
     unsigned char cHMAC[CC_SHA256_DIGEST_LENGTH];
     //Unknown error
     CCHmac(kCCHmacAlgSHA256, cKey, strlen(cKey), cData, strlen(cData), cHMAC);

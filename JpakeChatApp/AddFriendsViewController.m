@@ -81,10 +81,10 @@
                          NSLog(@"user uid: %@", snapshot.key);
                          if([snapshot.key isEqualToString:frienduid] ){
                              NSLog(@"Find user");
-                             NewFriendTableViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"NewFriend"];
-                             User *uobj=[[User alloc]initwithData:snapshot.value[@"email"] id:snapshot.key];
-                             [self.users addObject:uobj];
-                             [vc.tableView reloadData];
+//                             NewFriendTableViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"NewFriend"];
+//                             User *uobj=[[User alloc]initwithData:snapshot.value[@"email"] id:snapshot.key];
+//                             [self.users addObject:uobj];
+//                             [vc.tableView reloadData];
                              //[self presentViewController:vc animated:YES completion:nil];
                          }
                          else{

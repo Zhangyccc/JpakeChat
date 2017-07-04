@@ -70,7 +70,7 @@ hisUSername keys:(FIRDatabaseReference*)keyRef;
                         payload ChatID:(NSString*)chatId;
 
 -(void)errorManagement:(NSString* )title  message:(NSString*) message;
-//-(void)coredataInitialise;
+-(void)coredataInitialise;
 
 
 

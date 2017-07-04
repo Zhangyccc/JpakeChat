@@ -4,6 +4,7 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -119,7 +120,7 @@
                                 <rect key="frame" x="0.0" y="28" width="414" height="36"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" tableViewCell="7Aa-y5-bB5" id="d0o-Nf-KoB">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="35.666666666666664"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="35.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -167,7 +168,7 @@
                                 <rect key="frame" x="0.0" y="28" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="UgL-1N-vJO" id="r3E-rb-6pN">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -251,7 +252,7 @@
                                 <rect key="frame" x="0.0" y="28" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="17i-Va-rdF" id="KNW-RI-3ls">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -336,9 +337,6 @@
                                     <action selector="signup:" destination="WPb-hQ-Na2" eventType="touchUpInside" id="Gzz-UL-S40"/>
                                 </connections>
                             </button>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Aqh-1d-G2r">
-                                <rect key="frame" x="189" y="89" width="76" height="37"/>
-                            </stackView>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="GSs-dh-mxo">
                                 <rect key="frame" x="189" y="89" width="37" height="37"/>
                                 <color key="color" red="1" green="0.18886867299999999" blue="0.36996565479999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -348,16 +346,12 @@
                         <constraints>
                             <constraint firstItem="ofo-nD-COB" firstAttribute="top" secondItem="f7i-ot-ML6" secondAttribute="bottom" constant="57" id="A0a-Lc-Qr3"/>
                             <constraint firstItem="PJu-nx-3xK" firstAttribute="centerX" secondItem="w8i-js-7gc" secondAttribute="centerX" id="EnS-9v-nKV"/>
-                            <constraint firstAttribute="trailing" secondItem="Aqh-1d-G2r" secondAttribute="trailing" constant="149" id="EvQ-Ub-Kfo"/>
                             <constraint firstItem="PJu-nx-3xK" firstAttribute="top" secondItem="GSs-dh-mxo" secondAttribute="bottom" constant="78" id="L9t-J0-6DR"/>
                             <constraint firstItem="PJu-nx-3xK" firstAttribute="leading" secondItem="f7i-ot-ML6" secondAttribute="leading" id="QFC-fF-2t8"/>
                             <constraint firstItem="GSs-dh-mxo" firstAttribute="top" secondItem="cTO-k2-aw5" secondAttribute="bottom" constant="25" id="T6m-0S-T3W"/>
                             <constraint firstItem="PJu-nx-3xK" firstAttribute="trailing" secondItem="w8i-js-7gc" secondAttribute="trailingMargin" id="Ui5-cN-yxl"/>
-                            <constraint firstItem="GSs-dh-mxo" firstAttribute="top" secondItem="Aqh-1d-G2r" secondAttribute="top" id="c3C-jK-vJl"/>
-                            <constraint firstItem="Aqh-1d-G2r" firstAttribute="leading" secondItem="w8i-js-7gc" secondAttribute="leading" constant="189" id="eV0-nF-x7A"/>
                             <constraint firstItem="f7i-ot-ML6" firstAttribute="top" secondItem="PJu-nx-3xK" secondAttribute="bottom" constant="24" id="fux-Kc-Ylp"/>
                             <constraint firstItem="PJu-nx-3xK" firstAttribute="centerX" secondItem="GSs-dh-mxo" secondAttribute="centerX" id="hJs-Bp-a3a"/>
-                            <constraint firstItem="GSs-dh-mxo" firstAttribute="bottom" secondItem="Aqh-1d-G2r" secondAttribute="bottom" id="iiI-SA-Pff"/>
                             <constraint firstItem="f7i-ot-ML6" firstAttribute="centerX" secondItem="ofo-nD-COB" secondAttribute="centerX" id="meP-mZ-C0G"/>
                             <constraint firstItem="PJu-nx-3xK" firstAttribute="trailing" secondItem="f7i-ot-ML6" secondAttribute="trailing" id="zKd-w5-IYR"/>
                         </constraints>
@@ -475,8 +469,8 @@
         <image name="ic_sms_24.png" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="iop-KI-PaC"/>
+        <segue reference="BOM-Ui-8iT"/>
         <segue reference="l84-hv-YaM"/>
-        <segue reference="nzx-uK-YJh"/>
+        <segue reference="ZEG-s1-Kgi"/>
     </inferredMetricsTieBreakers>
 </document>

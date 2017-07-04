@@ -138,8 +138,10 @@
     NSError *error1;
     NSArray *objectsKey = [coreDataStack.managedObjectContext executeFetchRequest:requestKey
                                                                             error:&error1];
-    if ([objectsKey count] == 1)
-        
+    int obkc = (int)objectsKey.count;
+    NSLog(@"objectsKey count is: %lu", (unsigned long)[objectsKey count]);
+    //if ([objectsKey count] == 1)
+    if(obkc == 1)
     {
         for(NSManagedObject *object in objectsKey)
             
