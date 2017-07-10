@@ -23,15 +23,10 @@
 		AF2DD9131ECDDDA0005E7EF8 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF2DD9081ECDDDA0005E7EF8 /* FBSDKShareKit.framework */; };
 		AF2DD9141ECDDDA0005E7EF8 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF2DD9081ECDDDA0005E7EF8 /* FBSDKShareKit.framework */; };
 		AF2DD91B1ED2F800005E7EF8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF2DD91A1ED2F800005E7EF8 /* Main.storyboard */; };
-		AF31F36C1EC9C1EA00A459D6 /* Cherry Wood in Resources */ = {isa = PBXBuildFile; fileRef = AF31F36B1EC9C1EA00A459D6 /* Cherry Wood */; };
 		AF519D1B1EDB2E2D00A63AA1 /* FriendListViewControllerTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AF519D1A1EDB2E2D00A63AA1 /* FriendListViewControllerTableViewController.m */; };
 		AF519D1E1EDB2E5E00A63AA1 /* UserSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AF519D1D1EDB2E5E00A63AA1 /* UserSettingViewController.m */; };
 		AF519D211EDB371D00A63AA1 /* TarBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AF519D201EDB371D00A63AA1 /* TarBarViewController.m */; };
 		AF6E2BAA1EEEAB9600533AA2 /* AddFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AF6E2BA91EEEAB9600533AA2 /* AddFriendsViewController.m */; };
-		AFB4D9151EEAE4290052FB9E /* Icon-58.png in Resources */ = {isa = PBXBuildFile; fileRef = AFB4D9121EEAE4290052FB9E /* Icon-58.png */; };
-		AFB4D9161EEAE4290052FB9E /* Icon-80.png in Resources */ = {isa = PBXBuildFile; fileRef = AFB4D9131EEAE4290052FB9E /* Icon-80.png */; };
-		AFB4D9171EEAE4290052FB9E /* Icon-114.png in Resources */ = {isa = PBXBuildFile; fileRef = AFB4D9141EEAE4290052FB9E /* Icon-114.png */; };
-		AFD70D101EEAE1D000CED785 /* icon.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = AFD70D0F1EEAE1D000CED785 /* icon.jpeg */; };
 		AFEFDA861EF29D75006C7F13 /* NewFriendTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AFEFDA851EF29D75006C7F13 /* NewFriendTableViewController.m */; };
 		C0F100A3B6D8A326E19219C9 /* libPods-JpakeChatApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B72DF1DB16B9C55EC65868E /* libPods-JpakeChatApp.a */; };
 		DE8356D81D058E1500EB6CA4 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE8356D71D058E1500EB6CA4 /* Security.framework */; };
@@ -97,7 +92,6 @@
 		AF2DD9071ECDDDA0005E7EF8 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		AF2DD9081ECDDDA0005E7EF8 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
 		AF2DD91A1ED2F800005E7EF8 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		AF31F36B1EC9C1EA00A459D6 /* Cherry Wood */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Cherry Wood"; sourceTree = "<group>"; };
 		AF519D191EDB2E2D00A63AA1 /* FriendListViewControllerTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendListViewControllerTableViewController.h; sourceTree = "<group>"; };
 		AF519D1A1EDB2E2D00A63AA1 /* FriendListViewControllerTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendListViewControllerTableViewController.m; sourceTree = "<group>"; };
 		AF519D1C1EDB2E5E00A63AA1 /* UserSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserSettingViewController.h; sourceTree = "<group>"; };
@@ -106,10 +100,6 @@
 		AF519D201EDB371D00A63AA1 /* TarBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TarBarViewController.m; sourceTree = "<group>"; };
 		AF6E2BA81EEEAB9600533AA2 /* AddFriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddFriendsViewController.h; sourceTree = "<group>"; };
 		AF6E2BA91EEEAB9600533AA2 /* AddFriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddFriendsViewController.m; sourceTree = "<group>"; };
-		AFB4D9121EEAE4290052FB9E /* Icon-58.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-58.png"; sourceTree = "<group>"; };
-		AFB4D9131EEAE4290052FB9E /* Icon-80.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-80.png"; sourceTree = "<group>"; };
-		AFB4D9141EEAE4290052FB9E /* Icon-114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-114.png"; sourceTree = "<group>"; };
-		AFD70D0F1EEAE1D000CED785 /* icon.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = icon.jpeg; sourceTree = "<group>"; };
 		AFEFDA841EF29D75006C7F13 /* NewFriendTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewFriendTableViewController.h; sourceTree = "<group>"; };
 		AFEFDA851EF29D75006C7F13 /* NewFriendTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewFriendTableViewController.m; sourceTree = "<group>"; };
 		C96D50F514FD6A0127F6ECCB /* Pods-JpakeChatAppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JpakeChatAppUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-JpakeChatAppUITests/Pods-JpakeChatAppUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -334,10 +324,6 @@
 				DED889B81CCD1C3900F4CE97 /* signupViewController.m */,
 				DED889B61CCD1BF200F4CE97 /* jpake */,
 				DED889651CCD1AFA00F4CE97 /* Assets.xcassets */,
-				AFB4D9121EEAE4290052FB9E /* Icon-58.png */,
-				AFB4D9131EEAE4290052FB9E /* Icon-80.png */,
-				AFB4D9141EEAE4290052FB9E /* Icon-114.png */,
-				AFD70D0F1EEAE1D000CED785 /* icon.jpeg */,
 				DED889671CCD1AFA00F4CE97 /* LaunchScreen.storyboard */,
 				AF2D06991EC352030023496C /* GoogleService-Info.plist */,
 				DED8896A1CCD1AFA00F4CE97 /* Info.plist */,
@@ -349,7 +335,6 @@
 		DED889561CCD1AFA00F4CE97 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				AF31F36B1EC9C1EA00A459D6 /* Cherry Wood */,
 				DED889571CCD1AFA00F4CE97 /* main.m */,
 			);
 			name = "Supporting Files";
@@ -512,14 +497,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AFB4D9151EEAE4290052FB9E /* Icon-58.png in Resources */,
-				AF31F36C1EC9C1EA00A459D6 /* Cherry Wood in Resources */,
 				AF2DD91B1ED2F800005E7EF8 /* Main.storyboard in Resources */,
-				AFD70D101EEAE1D000CED785 /* icon.jpeg in Resources */,
-				AFB4D9161EEAE4290052FB9E /* Icon-80.png in Resources */,
 				AF2D069A1EC352030023496C /* GoogleService-Info.plist in Resources */,
 				DED889691CCD1AFA00F4CE97 /* LaunchScreen.storyboard in Resources */,
-				AFB4D9171EEAE4290052FB9E /* Icon-114.png in Resources */,
 				DED889661CCD1AFA00F4CE97 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

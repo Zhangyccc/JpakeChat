@@ -36,7 +36,6 @@
 {
     NSLog(@"authdata in daTA basics %@",authData.uid);
     self.currentUser = [[User alloc] initwithData:authData.email id:(authData.uid)];
-    //self.currentUser= [[User alloc]initwithData:authData.providerData[@"email"] id:authData.uid];
     
     //    NSLog(@"from databaseics current user email %@ current user id %@",self.currentUser.userEmail,self.currentUser.uId);
     

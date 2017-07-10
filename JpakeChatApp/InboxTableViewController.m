@@ -44,7 +44,7 @@
     
     //[self coredataInitialise];
     //NEW OBSERVE
-    [[FIRAuth auth] addAuthStateDidChangeListener:^(FIRAuth * _Nonnull auth, FIRUser * _Nullable user) {
+    [[FIRAuth auth] addAuthStateDidChangeListener:^(FIRAuth *auth, FIRUser *user) {
         if (user) {
 //            NSLog(@"User is signed in with uid: %@", user.uid);
             [[DataBasics dataBasicsInstance] loginUserWithData:user];
@@ -129,7 +129,7 @@
     //FIRDatabaseReference *ref = [[FIRDatabase database] reference];
     
     //NEW OBSERVE
-    [[FIRAuth auth] addAuthStateDidChangeListener:^(FIRAuth * _Nonnull auth, FIRUser * _Nullable user) {
+    [[FIRAuth auth] addAuthStateDidChangeListener:^(FIRAuth *auth, FIRUser *user) {
         if (user) {
             [[DataBasics dataBasicsInstance] loginUserWithData:user];
             self.currentUser=[DataBasics dataBasicsInstance].currentUser;

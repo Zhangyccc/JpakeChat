@@ -22,6 +22,7 @@
 @end
 
 @implementation LoginViewController
+//@synthesize EmailLoginButton;
 @synthesize loginButton;
 @synthesize GoogleLoginButton;
 
@@ -31,15 +32,18 @@
     self.ref = [[FIRDatabase database] reference];
     self.navigationItem.hidesBackButton =YES;
     loginButton = [[FBSDKLoginButton alloc] init];
-    loginButton.center = self.view.center;
+//    EmailLoginButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    //loginButton.center = self.view.center;
+    loginButton.frame = CGRectMake(112, 329, 150, 35);
     loginButton.readPermissions = @[@"public_profile", @"email"];
     [self.view addSubview:loginButton];
     loginButton.delegate = self;
     
     
     //Google delegate
+    //GoogleLoginButton.frame = CGRectMake(132, 414, 150, 30);
     [GIDSignIn sharedInstance].uiDelegate = self;
-
+    
 
     //FBSDKLoginButton *loginButton = [[FBSDKLoginButton alloc] init];
     //loginButton.delegate = self;
@@ -58,7 +62,7 @@
 
     
     //NEW OBSERVE 作用同上面的if,都要跳转到聊天界面，通过segue identifier(线),负责谷歌登陆进来跳转界面
-    [[FIRAuth auth] addAuthStateDidChangeListener:^(FIRAuth * _Nonnull auth, FIRUser * _Nullable user) {
+    [[FIRAuth auth] addAuthStateDidChangeListener:^(FIRAuth *auth, FIRUser *user) {
         if(user) {
             NSLog(@"User is signed in with uid: %@", user.uid);
             [self performSegueWithIdentifier:@"showConversations" sender:self];
@@ -106,16 +110,6 @@ didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
         //NSString *email;
         [[FIRAuth auth] signInWithCredential:credential
                                   completion:^(FIRUser *user, NSError *error) {
-//                                      [[_ref child:@"email"] observeEventType:(FIRDataEventTypeValue) withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-//                                           NSString *email = snapshot.value;
-//                                          if(email.length >0)
-//                                          {
-//                                              [[DataBasics dataBasicsInstance] loginUserWithData:user];
-//                                              [[NSUserDefaults standardUserDefaults] setValue:user.uid forKey:@"uid"];
-//                                              [_LoginLoadingSpinner stopAnimating];
-//                                          }
-//                                        }
-//                                       ];
                                       if (error) {
                                           //NSLog(@"Sign in failed: %@", error.localizedDescription);
                                           NSLog(@"Error logging in %@",error);
