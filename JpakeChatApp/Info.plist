@@ -104,7 +104,7 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>JpakeChat uses your photos to create your private account. Your photos won't be shared without your permission.</string>
+	<string>JpakeChat uses your photos to create your private account. Your photos won&apos;t be shared without your permission.</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>PROJECT_ID</key>

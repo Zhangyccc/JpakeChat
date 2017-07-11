@@ -42,7 +42,7 @@
     //FIRDatabaseReference *ref = [[FIRDatabase database] reference];
     
     
-    //[self coredataInitialise];
+    [self coredataInitialise];
     //NEW OBSERVE
     [[FIRAuth auth] addAuthStateDidChangeListener:^(FIRAuth *auth, FIRUser *user) {
         if (user) {

@@ -7,24 +7,101 @@
 //
 
 #import "UserSettingViewController.h"
+@import FirebaseAuth;
+#import "DataBasics.h"
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+
 
 @interface UserSettingViewController ()
 
 @end
 
 @implementation UserSettingViewController
+@synthesize profileImageView;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    //self.navigationItem.hidesBackButton =YES;
-
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    profileImageView.layer.cornerRadius = profileImageView.frame.size.width/2;
+    profileImageView.clipsToBounds = true;
+    self.databaseRef = [[FIRDatabase database] reference];
+    self.storageRef = [[FIRStorage storage] reference];
+    [self loadProfileData];
 }
 
+
+- (IBAction)getPhotoFromLibrary:(UIButton *)sender {
+    if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
+        
+        UIAlertView *myAlertView = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                              message:@"Device has no photo library."
+                                                             delegate:nil
+                                                    cancelButtonTitle:@"OK"
+                                                    otherButtonTitles: nil];
+        
+        [myAlertView show];
+        
+    }
+    else{
+        UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+        picker.delegate = self;
+        picker.allowsEditing = YES;
+        picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        [self presentViewController:picker animated:YES completion:nil];
+    }
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    
+    UIImage *chosenImage = info[UIImagePickerControllerEditedImage];
+    self.profileImageView.image = chosenImage;
+    
+    [picker dismissViewControllerAnimated:YES completion:nil];
+}
+
+-(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
+    [picker dismissViewControllerAnimated:YES completion:nil];
+}
+
+-(void)loadProfileData{
+//    _databaseRef = [[FIRDatabase database] reference];
+    [_LoaddataSpinner startAnimating];
+    _databaseRef=[[DataBasics dataBasicsInstance]getUsersRef];
+    NSString *Facebook = @"Facebook";
+    NSString *Google = @"Google";
+    [[FIRAuth auth] addAuthStateDidChangeListener:^(FIRAuth *auth, FIRUser *user) {
+        if(user.uid == [DataBasics dataBasicsInstance].currentUser.uId) {
+            [_databaseRef observeSingleEventOfType:FIRDataEventTypeChildAdded  withBlock:^(FIRDataSnapshot *snapshot) {
+                NSLog(@"loading data");
+//                Get profile via facebookID!
+//                NSString *FacebookId = [FBSDKAccessToken currentAccessToken].userID;
+//                NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large&return_ssl_resources=1", FacebookId]];
+//                NSData *imageData = [NSData dataWithContentsOfURL:url];
+//                self.profileImageView.image = [UIImage imageWithData:imageData];
+                NSURL *url = [NSURL URLWithString:snapshot.value[@"photo"]];
+                NSData *imageData = [NSData dataWithContentsOfURL:url];
+                self.profileImageView.image = [UIImage imageWithData:imageData];
+                self.displayNameText.text = snapshot.value[@"username"];
+                if([snapshot.value[@"password"]  isEqualToString: Facebook] || [snapshot.value[@"password"]  isEqualToString: Google]){
+                    //self.passwordText.text = snapshot.value[@"password"];
+                    //self.passwordText = FALSE;
+                    self.passwordText.enabled = NO;
+                    [self errorManagement:@"Third Party User" message:@"Cannot change your password"];
+                }
+                else{
+                    self.passwordText.text = snapshot.value[@"password"];
+                }
+                [_LoaddataSpinner stopAnimating];
+                
+            }];
+        }
+        else {
+            NSLog(@"Error user");
+            [_LoaddataSpinner stopAnimating];
+        }
+    }];
+    
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -36,70 +113,121 @@
     self.navigationController.visibleViewController.navigationItem.title = @"User Setting";
     //self.tabBarController.navigationItem.leftBarButtonItem = nil;
 }
-#pragma mark - Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Incomplete implementation, return the number of sections
-    return 0;
-}
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete implementation, return the number of rows
-    return 0;
-}
-
-/*
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+-(void)errorManagement:(NSString* )title  message:(NSString*) message
+{
     
-    // Configure the cell...
+    UIAlertController *alert= [UIAlertController
+                               alertControllerWithTitle:title
+                               message:message
+                               preferredStyle:UIAlertControllerStyleAlert];
     
-    return cell;
+    UIAlertAction* ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                               handler:nil];
+    UIAlertAction* cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel
+                                                   handler:nil];
+    
+    [alert addAction:ok];
+    [alert addAction:cancel];
+    [self presentViewController:alert animated:YES completion:nil];
 }
-*/
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+- (IBAction)saveProfile:(id)sender {
+//    [_LoaddataSpinner startAnimating];
+    [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+    [self updateUsersProfile];
+//    [_LoaddataSpinner stopAnimating];
 }
-*/
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+- (IBAction)cancel:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
-*/
 
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
+-(void)updateUsersProfile{
+    [_LoaddataSpinner startAnimating];
+    //Disable all input during spinner animating!
+//    [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+    [[FIRAuth auth] addAuthStateDidChangeListener:^(FIRAuth *auth, FIRUser *user) {
+        if(user.uid == [DataBasics dataBasicsInstance].currentUser.uId && profileImageView.image != nil) {
+            FIRStorageReference *imageRef = [[_storageRef child:@"profile_images"]child:user.uid];
+            UIImage *image =  profileImageView.image;
+            NSData *newImage = UIImagePNGRepresentation(image);
+            [imageRef putData:newImage metadata:nil completion:^(FIRStorageMetadata *metadata, NSError *error) {
+                if(error != nil){
+                    NSLog(@"error:%@", error);
+                    [_LoaddataSpinner stopAnimating];
+                    [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+                }
+                else{
+                    [imageRef downloadURLWithCompletion:^(NSURL *URL, NSError *error) {
+                        if(error != nil){
+                            NSLog(@"error:%@", error);
+                            [_LoaddataSpinner stopAnimating];
+                            [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+                        }
+                        else{
+                            NSString *profilePhotoURL = URL.absoluteString;
+                            NSString *newUserName = self.displayNameText.text;
+                            NSString *newPassword = self.passwordText.text;
+                            [_databaseRef observeSingleEventOfType:FIRDataEventTypeChildAdded  withBlock:^(FIRDataSnapshot *snapshot)
+                            {
+                                if([snapshot.value[@"password"]  isEqualToString: @"Facebook"] || [snapshot.value[@"password"]  isEqualToString: @"Google"])
+                                {
+                                    NSString *uid = [FIRAuth auth].currentUser.uid;
+                                    NSDictionary *newProfile = @{
+                                                                 @"username": newUserName,
+                                                                 @"password": snapshot.value[@"password"],
+                                                                 @"photo": profilePhotoURL
+                                                                 };
+                                    NSLog(@"newProfile %@",newProfile);
+                                    [[_databaseRef child:uid] updateChildValues:newProfile withCompletionBlock:^(NSError *error, FIRDatabaseReference *ref) {
+                                        if(error != nil){
+                                            NSLog(@"error: %@", error);
+                                            [_LoaddataSpinner stopAnimating];
+                                            [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+                                        }
+                                        else{
+                                            NSLog(@"Profile successfully Update!");
+                                            [_LoaddataSpinner stopAnimating];
+                                            [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+                                        }
+                                    }];
+                                }
+                                else{
+                                    NSString *uid = [FIRAuth auth].currentUser.uid;
+                                    NSDictionary *newProfile = @{
+                                                                 @"username": newUserName,
+                                                                 @"password": newPassword,
+                                                                 @"photo": profilePhotoURL
+                                                                 };
+                                    NSLog(@"newProfile %@",newProfile);
+                                    [[_databaseRef child:uid] updateChildValues:newProfile withCompletionBlock:^(NSError *error, FIRDatabaseReference *ref) {
+                                        if(error != nil){
+                                            NSLog(@"error: %@", error);
+                                            [_LoaddataSpinner stopAnimating];
+                                            [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+                                        }
+                                        else{
+                                            NSLog(@"Profile successfully Update!");
+                                            [_LoaddataSpinner stopAnimating];
+                                            [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+                                        }
+                                    }];
+                                }
+                            }];
+                            
+                        }
+                    }];
+                }
+            }];
+        }
+    }];
 }
-*/
 
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+
+
 
 @end

@@ -52,11 +52,11 @@
 
 - (IBAction)signup:(id)sender {
     [_SignupSpinner startAnimating];
-    //NSString *username=[self.usernameField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSString *username=[self.usernameField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSString *password=[self.passwordField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSString *email=[self.emailaddressField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     
-    if([password length]==0  || [email length]==0)
+    if([username length] ==0 || [password length]==0  || [email length]==0)
     {
         
         
@@ -110,9 +110,10 @@
                                   else {
                                       NSDictionary *newUser = @{
                                                                 @"provider": user.providerID, //authData.provider
-                                                                //@"username": username,
+                                                                @"username": username,
                                                                 @"email": email,
-                                                                @"password": password
+                                                                @"password": password,
+                                                                @"photo": @"https://firebasestorage.googleapis.com/v0/b/jpakechat.appspot.com/o/avatar512pixel.png?alt=media&token=c8505024-65f8-4cc1-a30a-cf5e69a29a46"
                                                                 };
                                       NSLog(@"users dictionary %@" ,newUser);
                                       [[[_ref child:@"users"]

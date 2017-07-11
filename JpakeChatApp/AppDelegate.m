@@ -87,9 +87,10 @@ didSignInForUser:(GIDGoogleUser* )user
                                           NSDictionary *newUser = @{
                                                                     //@"provider": [FIRAuth auth].currentUser.providerID, //authData.provider
                                                                     @"provider": @"Google",
-                                                                    //@"username": [FIRAuth auth].currentUser.displayName,
+                                                                    @"username": [FIRAuth auth].currentUser.displayName,
                                                                     @"email": [FIRAuth auth].currentUser.email,
-                                                                    @"password": @"Google"
+                                                                    @"password": @"Google",
+                                                                    @"photo": [FIRAuth auth].currentUser.photoURL.absoluteString
                                                                     };
                                           NSLog(@"users dictionary %@" ,newUser);
                                           self.ref = [[FIRDatabase database] reference];

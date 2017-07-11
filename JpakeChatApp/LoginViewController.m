@@ -122,18 +122,18 @@ didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
                                           NSDictionary *newUser = @{
                                                                     //@"provider": [FIRAuth auth].currentUser.providerID, //authData.provider
                                                                     @"provider": @"Facebook",
-                                                                    //@"username": [FIRAuth auth].currentUser.displayName,
+                                                                    @"username": [FIRAuth auth].currentUser.displayName,
                                                                     @"email": [FIRAuth auth].currentUser.email,
-                                                                    @"password": @"Facebook"
+                                                                    @"password": @"Facebook",
+                                                                    @"photo": user.photoURL.absoluteString
                                                                     };
                                           NSLog(@"users dictionary %@" ,newUser);
                                           //if([FIRAuth auth].currentUser.email)
-                                          //NSLog(@"%@", [FIRAuth auth].currentUser.email);QQ邮箱正常
                                           [[[[_ref child:@"users"] queryOrderedByChild:@"email" ] queryEqualToValue:[FIRAuth auth].currentUser.email]
-                                          observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot *snapshot) {
+                                          observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot *snapshot) {
                                               NSLog(@"snapshot: %@", snapshot.value);
-                                              //If user exists
-                                              if(!snapshot.exists)
+                                              //If user exists?
+                                              if(snapshot.value == [NSNull null])
                                               {
                                                   NSLog(@"Adding new user");
                                                   [[[_ref child:@"users"]
