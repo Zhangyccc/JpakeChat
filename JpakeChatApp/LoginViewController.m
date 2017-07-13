@@ -97,10 +97,12 @@
 didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
               error:(NSError *)error {
     [_LoginLoadingSpinner startAnimating];
+    [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
     if(result.isCancelled)
     {
         NSLog(@"Login cancelled");
         [_LoginLoadingSpinner stopAnimating];
+        [[UIApplication sharedApplication] endIgnoringInteractionEvents];
         return;
     }
     else if (error == nil) {
@@ -115,7 +117,8 @@ didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
                                           NSLog(@"Error logging in %@",error);
                                           NSString *Err=error.description;
                                           [self loginError:@"Login Error " message:Err];
-                                          
+                                          [_LoginLoadingSpinner stopAnimating];
+                                          [[UIApplication sharedApplication] endIgnoringInteractionEvents];
                                       }
                                       else {
                                           user = [FIRAuth auth].currentUser;
@@ -141,10 +144,12 @@ didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
                                                   [[DataBasics dataBasicsInstance] loginUserWithData:user];
                                                   [[NSUserDefaults standardUserDefaults] setValue:user.uid forKey:@"uid"];
                                                   [_LoginLoadingSpinner stopAnimating];
-
+                                                  [[UIApplication sharedApplication] endIgnoringInteractionEvents];
                                               }
                                               else{
                                                   NSLog(@"Facebook user exists");
+                                                  [_LoginLoadingSpinner stopAnimating];
+                                                  [[UIApplication sharedApplication] endIgnoringInteractionEvents];
                                               }
                                           }];
                                       }
@@ -154,6 +159,7 @@ didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
     else {
         NSLog(@"%@", error.localizedDescription);
         [_LoginLoadingSpinner stopAnimating];
+        [[UIApplication sharedApplication] endIgnoringInteractionEvents];
     }
 }
 
@@ -200,6 +206,7 @@ didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
  }
  */
 - (IBAction)login:(id)sender {
+    [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
     NSString *email=[self.emailField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSString *password=[self.passwordField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     
@@ -209,6 +216,7 @@ didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
         
         [self loginError:@"Login Error !! " message:@"Make sure you enter a valid username and password !! "];
         [_LoginLoadingSpinner stopAnimating];
+        [[UIApplication sharedApplication] endIgnoringInteractionEvents];
         //
         
     }
@@ -223,31 +231,37 @@ didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
                     NSLog(@"NetworkError.");
                     [self loginError:@"NetworkError." message:@"try again"];
                     [_LoginLoadingSpinner stopAnimating];
+                    [[UIApplication sharedApplication] endIgnoringInteractionEvents];
                 }
                 if (error.code == FIRAuthErrorCodeTooManyRequests) {
                     NSLog(@"Too Many Requests.");
                     [self loginError:@"Too Many Requests." message:@"try again"];
                     [_LoginLoadingSpinner stopAnimating];
+                    [[UIApplication sharedApplication] endIgnoringInteractionEvents];
                 }
                 if (error.code == FIRAuthErrorCodeWrongPassword) {
                     NSLog(@"Mismatch password and email.");
                     [self loginError:@"Mismatch password and email." message:@"try again"];
                     [_LoginLoadingSpinner stopAnimating];
+                    [[UIApplication sharedApplication] endIgnoringInteractionEvents];
                 }
                 if (error.code == FIRAuthErrorCodeInvalidEmail) {
                     NSLog(@"Invalid Email.");
                     [self loginError:@"Invalid Email." message:@"try again"];
                     [_LoginLoadingSpinner stopAnimating];
+                    [[UIApplication sharedApplication] endIgnoringInteractionEvents];
                 }
                 if (error.code == FIRAuthErrorCodeUserNotFound) {
                     NSLog(@"User not found.");
                     [self loginError:@"User not found." message:@"try again"];
                     [_LoginLoadingSpinner stopAnimating];
+                    [[UIApplication sharedApplication] endIgnoringInteractionEvents];
                 }
                 else
                 {
                     [self loginError:@"unknown error" message:@"try again"];
                     [_LoginLoadingSpinner stopAnimating];
+                    [[UIApplication sharedApplication] endIgnoringInteractionEvents];
                 }
                 //NSLog(@"Sign in failed: %@", error.localizedDescription);
 //                NSLog(@"Error logging in %@",error);
@@ -262,6 +276,7 @@ didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
                 [self.navigationController popToRootViewControllerAnimated:YES];
                 [self performSegueWithIdentifier:@"showConversations" sender:self];
                 [_LoginLoadingSpinner stopAnimating];
+                [[UIApplication sharedApplication] endIgnoringInteractionEvents];
             }
         }];
         

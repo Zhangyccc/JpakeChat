@@ -52,6 +52,7 @@
 
 - (IBAction)signup:(id)sender {
     [_SignupSpinner startAnimating];
+    [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
     NSString *username=[self.usernameField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSString *password=[self.passwordField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSString *email=[self.emailaddressField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
@@ -64,6 +65,7 @@
         NSString *message=@"Oops make sure you enter valid username and password !!!";
         [self signupError:errortitle message:message];
         [_SignupSpinner stopAnimating];
+        [[UIApplication sharedApplication] endIgnoringInteractionEvents];
     }
     
     else
@@ -76,26 +78,31 @@
                                  NSLog(@"NetworkError.");
                                  [self signupError:@"NetworkError." message:@"try again"];
                                  [_SignupSpinner stopAnimating];
+                                 [[UIApplication sharedApplication] endIgnoringInteractionEvents];
                              }
                              if (error.code == FIRAuthErrorCodeTooManyRequests) {
                                  NSLog(@"Too Many Requests.");
                                  [self signupError:@"Too Many Requests." message:@"try again"];
                                  [_SignupSpinner stopAnimating];
+                                 [[UIApplication sharedApplication] endIgnoringInteractionEvents];
                              }
                              if (error.code == FIRAuthErrorCodeInvalidEmail)
                              {
                                  NSLog(@"Invalid Email.");
                                  [self signupError:@"Invalid Email." message:@"try again"];
                                  [_SignupSpinner stopAnimating];
+                                 [[UIApplication sharedApplication] endIgnoringInteractionEvents];
                              }
                              if (error.code == FIRAuthErrorCodeWeakPassword) {
                                  NSLog(@"The password must be 6 characters long or more.");
                                  [self signupError:@"The password must be 6 characters long or more." message:@"try again"];
                                  [_SignupSpinner stopAnimating];
+                                 [[UIApplication sharedApplication] endIgnoringInteractionEvents];
                              }
                              else
                              {[self signupError:@"unknown error" message:@"try again"];}
                              [_SignupSpinner stopAnimating];
+                             [[UIApplication sharedApplication] endIgnoringInteractionEvents];
                          }
                          else
                          {
@@ -106,6 +113,7 @@
                                   if (error)
                                   {
                                       NSLog(@"Error logging in %@",error);
+                                      [[UIApplication sharedApplication] endIgnoringInteractionEvents];
                                   }
                                   else {
                                       NSDictionary *newUser = @{
@@ -131,6 +139,7 @@
                              
                              [self presentViewController:vc animated:YES completion:nil];
                              [_SignupSpinner stopAnimating];
+                             [[UIApplication sharedApplication] endIgnoringInteractionEvents];
                              
                              
                              //[self performSegueWithIdentifier:@"NewUserLoggedIn" sender:self];

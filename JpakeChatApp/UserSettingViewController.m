@@ -102,11 +102,12 @@
                     self.passwordText.text = snapshot.value[@"password"];
                 }
                 [_LoaddataSpinner stopAnimating];
-                //[[UIApplication sharedApplication] endIgnoringInteractionEvents];
+                [[UIApplication sharedApplication] endIgnoringInteractionEvents];
                 }
                 else{
                     NSLog(@"No such user");
                     [_LoaddataSpinner stopAnimating];
+                    [[UIApplication sharedApplication] endIgnoringInteractionEvents];
                 }
             }];
                 //snapshot value = null
@@ -118,11 +119,11 @@
         else {
             NSLog(@"Error user");
             [_LoaddataSpinner stopAnimating];
-            //[[UIApplication sharedApplication] endIgnoringInteractionEvents];
+            [[UIApplication sharedApplication] endIgnoringInteractionEvents];
 
         }
     }];
-    //[[UIApplication sharedApplication] endIgnoringInteractionEvents];
+    [[UIApplication sharedApplication] endIgnoringInteractionEvents];
 
     
 }
@@ -137,7 +138,7 @@
     self.navigationController.visibleViewController.navigationItem.title = @"User Setting";
     //self.tabBarController.navigationItem.leftBarButtonItem = nil;
     //[self loadProfileData];
-    //[[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+    [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
 }
 
 
@@ -166,6 +167,7 @@
 }
 
 - (IBAction)cancel:(id)sender {
+    [self loadProfileData];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

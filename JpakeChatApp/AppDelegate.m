@@ -69,10 +69,8 @@ didSignInForUser:(GIDGoogleUser* )user
     LoginAiv.color = UIColor.redColor;
     [self.window.rootViewController.view addSubview:LoginAiv];
     [LoginAiv startAnimating];
-//    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
-//    UIBarButtonItem * barButton = [[UIBarButtonItem alloc] initWithCustomView:activityIndicator];
-//    [self navigationItem].rightBarButtonItem = barButton;
-//    [activityIndicator startAnimating];
+    [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+
     if (error == nil) {
         GIDAuthentication *authentication = user.authentication;
         FIRAuthCredential *credential =
@@ -82,6 +80,7 @@ didSignInForUser:(GIDGoogleUser* )user
                                   completion:^(FIRUser *user, NSError *error) {
                                       if (error) {
                                           NSLog(@"Sign in failed: %@", error.localizedDescription);
+                                          [[UIApplication sharedApplication] endIgnoringInteractionEvents];
                                       } else {
                                           user = [FIRAuth auth].currentUser;
                                           NSDictionary *newUser = @{
@@ -106,9 +105,11 @@ didSignInForUser:(GIDGoogleUser* )user
                                                    [[DataBasics dataBasicsInstance] loginUserWithData:user];
                                                    [[NSUserDefaults standardUserDefaults] setValue:user.uid forKey:@"uid"];
                                                    [LoginAiv stopAnimating];
+                                                   [[UIApplication sharedApplication] endIgnoringInteractionEvents];
                                                }
                                                else{
                                                    NSLog(@"Google user exists");
+                                                   [[UIApplication sharedApplication] endIgnoringInteractionEvents];
                                                }
                                            }];
 //                                          [[[_ref child:@"users"]
@@ -124,6 +125,7 @@ didSignInForUser:(GIDGoogleUser* )user
     } else {
         NSLog(@"%@", error.localizedDescription);
         [LoginAiv stopAnimating];
+        [[UIApplication sharedApplication] endIgnoringInteractionEvents];
     }
 }
 
