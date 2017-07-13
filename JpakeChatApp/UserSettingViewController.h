@@ -12,6 +12,8 @@
 @interface UserSettingViewController : UIViewController<UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate>
 @property (strong, nonatomic) FIRDatabaseReference *databaseRef;
 @property (strong, nonatomic) FIRStorageReference *storageRef;
+@property (strong, nonatomic) FIRDatabaseReference *searchRef;
+
 
 @property (weak, nonatomic) IBOutlet UIImageView *profileImageView;
 @property (weak, nonatomic) IBOutlet UITextField *displayNameText;

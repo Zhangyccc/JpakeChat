@@ -10,6 +10,7 @@
 @import FirebaseAuth;
 #import "DataBasics.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <GoogleSignIn/GoogleSignIn.h>
 
 
 @interface UserSettingViewController ()
@@ -24,8 +25,9 @@
     
     profileImageView.layer.cornerRadius = profileImageView.frame.size.width/2;
     profileImageView.clipsToBounds = true;
-    self.databaseRef = [[FIRDatabase database] reference];
+    //self.databaseRef = [[FIRDatabase database] reference];
     self.storageRef = [[FIRStorage storage] reference];
+    self.searchRef = [[FIRDatabase database] reference];
     [self loadProfileData];
 }
 
@@ -70,9 +72,14 @@
     NSString *Facebook = @"Facebook";
     NSString *Google = @"Google";
     [[FIRAuth auth] addAuthStateDidChangeListener:^(FIRAuth *auth, FIRUser *user) {
+        //If user is current user
         if(user.uid == [DataBasics dataBasicsInstance].currentUser.uId) {
-            [_databaseRef observeSingleEventOfType:FIRDataEventTypeChildAdded  withBlock:^(FIRDataSnapshot *snapshot) {
+            //Get photo URL
+            NSString *userID = [FIRAuth auth].currentUser.uid;
+            [[[_searchRef child:@"users"] child:userID] observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+                if(!(snapshot.value == [NSNull null])){
                 NSLog(@"loading data");
+                    NSLog(@"snaposhot value is: %@",snapshot.value);
 //                Get profile via facebookID!
 //                NSString *FacebookId = [FBSDKAccessToken currentAccessToken].userID;
 //                NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large&return_ssl_resources=1", FacebookId]];
@@ -81,25 +88,42 @@
                 NSURL *url = [NSURL URLWithString:snapshot.value[@"photo"]];
                 NSData *imageData = [NSData dataWithContentsOfURL:url];
                 self.profileImageView.image = [UIImage imageWithData:imageData];
+                NSLog(@"Photo loaded!");
+                NSLog(@"URL is: %@", url);
+                //load user name
                 self.displayNameText.text = snapshot.value[@"username"];
+                //If current user is third party user, do not change password
                 if([snapshot.value[@"password"]  isEqualToString: Facebook] || [snapshot.value[@"password"]  isEqualToString: Google]){
-                    //self.passwordText.text = snapshot.value[@"password"];
-                    //self.passwordText = FALSE;
                     self.passwordText.enabled = NO;
                     [self errorManagement:@"Third Party User" message:@"Cannot change your password"];
                 }
+                //If not, change password
                 else{
                     self.passwordText.text = snapshot.value[@"password"];
                 }
                 [_LoaddataSpinner stopAnimating];
-                
+                //[[UIApplication sharedApplication] endIgnoringInteractionEvents];
+                }
+                else{
+                    NSLog(@"No such user");
+                    [_LoaddataSpinner stopAnimating];
+                }
             }];
+                //snapshot value = null
+            
+                
+            //user uid = current user uid
         }
+             
         else {
             NSLog(@"Error user");
             [_LoaddataSpinner stopAnimating];
+            //[[UIApplication sharedApplication] endIgnoringInteractionEvents];
+
         }
     }];
+    //[[UIApplication sharedApplication] endIgnoringInteractionEvents];
+
     
 }
 - (void)didReceiveMemoryWarning {
@@ -112,6 +136,8 @@
     [super viewWillAppear:animated];
     self.navigationController.visibleViewController.navigationItem.title = @"User Setting";
     //self.tabBarController.navigationItem.leftBarButtonItem = nil;
+    //[self loadProfileData];
+    //[[UIApplication sharedApplication] beginIgnoringInteractionEvents];
 }
 
 
@@ -134,10 +160,9 @@
 }
 
 - (IBAction)saveProfile:(id)sender {
-//    [_LoaddataSpinner startAnimating];
+    //Before finish updating profile, ignore all interaction events
     [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
     [self updateUsersProfile];
-//    [_LoaddataSpinner stopAnimating];
 }
 
 - (IBAction)cancel:(id)sender {
@@ -146,11 +171,12 @@
 
 -(void)updateUsersProfile{
     [_LoaddataSpinner startAnimating];
-    //Disable all input during spinner animating!
-//    [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
     [[FIRAuth auth] addAuthStateDidChangeListener:^(FIRAuth *auth, FIRUser *user) {
+        //If user is current user
         if(user.uid == [DataBasics dataBasicsInstance].currentUser.uId && profileImageView.image != nil) {
+            //FIRStorageRef
             FIRStorageReference *imageRef = [[_storageRef child:@"profile_images"]child:user.uid];
+            //upload photo in the profileImageView
             UIImage *image =  profileImageView.image;
             NSData *newImage = UIImagePNGRepresentation(image);
             [imageRef putData:newImage metadata:nil completion:^(FIRStorageMetadata *metadata, NSError *error) {
@@ -167,11 +193,13 @@
                             [[UIApplication sharedApplication] endIgnoringInteractionEvents];
                         }
                         else{
+                            //Create new dictionary object
                             NSString *profilePhotoURL = URL.absoluteString;
                             NSString *newUserName = self.displayNameText.text;
                             NSString *newPassword = self.passwordText.text;
                             [_databaseRef observeSingleEventOfType:FIRDataEventTypeChildAdded  withBlock:^(FIRDataSnapshot *snapshot)
                             {
+                                //If third party user
                                 if([snapshot.value[@"password"]  isEqualToString: @"Facebook"] || [snapshot.value[@"password"]  isEqualToString: @"Google"])
                                 {
                                     NSString *uid = [FIRAuth auth].currentUser.uid;
@@ -188,6 +216,7 @@
                                             [[UIApplication sharedApplication] endIgnoringInteractionEvents];
                                         }
                                         else{
+                                            //After update, end ignoring interaction events
                                             NSLog(@"Profile successfully Update!");
                                             [_LoaddataSpinner stopAnimating];
                                             [[UIApplication sharedApplication] endIgnoringInteractionEvents];
@@ -209,6 +238,7 @@
                                             [[UIApplication sharedApplication] endIgnoringInteractionEvents];
                                         }
                                         else{
+                                            //After update, end ignoring interaction events
                                             NSLog(@"Profile successfully Update!");
                                             [_LoaddataSpinner stopAnimating];
                                             [[UIApplication sharedApplication] endIgnoringInteractionEvents];
