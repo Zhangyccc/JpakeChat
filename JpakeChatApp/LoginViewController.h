@@ -21,9 +21,8 @@
 //@property (nonatomic, strong) UIColor *borderColorFromUIColor;
 //@property (weak, nonatomic) IBOutlet id<FBSDKLoginButtonDelegate> delegate;
 //@property (strong, nonatomic) IBOutlet UIButton *EmailLoginButton;
-@property (strong, nonatomic) IBOutlet FBSDKLoginButton *loginButton;
+@property (strong, nonatomic) IBOutlet FBSDKLoginButton *FacebookloginButton;
 @property(strong, nonatomic) IBOutlet GIDSignInButton *GoogleLoginButton;
-
 
 //-(void) setBorderColorFromUIColor:(UIColor *)borderColorFromUIColor;
 - (IBAction)login:(id)sender;

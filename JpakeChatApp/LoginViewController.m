@@ -23,7 +23,7 @@
 
 @implementation LoginViewController
 //@synthesize EmailLoginButton;
-@synthesize loginButton;
+@synthesize FacebookloginButton;
 @synthesize GoogleLoginButton;
 
 - (void)viewDidLoad {
@@ -31,18 +31,32 @@
     //FIRDatabase reference必备！！！！！！
     self.ref = [[FIRDatabase database] reference];
     self.navigationItem.hidesBackButton =YES;
-    loginButton = [[FBSDKLoginButton alloc] init];
-//    EmailLoginButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    //loginButton.center = self.view.center;
-    loginButton.frame = CGRectMake(112, 329, 150, 35);
-    loginButton.readPermissions = @[@"public_profile", @"email"];
-    [self.view addSubview:loginButton];
-    loginButton.delegate = self;
-    
-    
     //Google delegate
     //GoogleLoginButton.frame = CGRectMake(132, 414, 150, 30);
     [GIDSignIn sharedInstance].uiDelegate = self;
+    
+    FacebookloginButton = [[FBSDKLoginButton alloc] init];
+    FacebookloginButton.delegate = self;
+    CGFloat verticalPosition = 1.0;
+    CGFloat positionOfFrame = self.view.center.y - self.view.center.y / verticalPosition;
+    CGFloat positionX = self.view.center.x - (FacebookloginButton.frame.size.width + 42) / 3;
+    CGFloat positionY = self.view.center.y - (FacebookloginButton.frame.size.height + 15) / 4;
+    CGFloat finalPositionY = positionY + positionOfFrame;
+    //CGFloat finalPositionY = positionY;
+    //Frame of the Login Button
+    CGFloat widthOfFBButton = FacebookloginButton.frame.size.width - 32;
+    CGFloat heightOfFBButton = FacebookloginButton.frame.size.height + 12;
+    //Placing the button on the frame
+    FacebookloginButton.frame = CGRectMake(positionX, finalPositionY, widthOfFBButton, heightOfFBButton);
+    //FacebookloginButton.frame = CGRectMake(112, 329, 150, 35);
+    FacebookloginButton.readPermissions = @[@"public_profile", @"email"];
+//    NSLayoutConstraint *FbConstraints = [NSLayoutConstraint constraintWithItem:self.passwordField attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0];
+//    [self.FacebookloginButton setTranslatesAutoresizingMaskIntoConstraints:NO];
+//    [self.view addConstraint:FbConstraints];
+//    [self.FacebookloginButton addConstraint:FbConstraints];
+    [self.view addSubview:FacebookloginButton];
+    
+    
     
 
     //FBSDKLoginButton *loginButton = [[FBSDKLoginButton alloc] init];

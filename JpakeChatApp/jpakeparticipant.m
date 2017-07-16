@@ -168,7 +168,7 @@ NSAssert([self getState] < State_round1_validate   , @"Validation already attemp
     
     
     
-NSAssert([self getState] < State_round2_validate   , @"Validation already attempted for Round2 payload");
+    NSAssert([self getState] < State_round2_validate   , @"Validation already attempted for Round2 payload");
     BigInteger *gB=[jpakeUtils calculateGA:[self p] gx1:[self gx3] gx3:[self gx1] gx4:[self gx2]];
     self.b =[payload2 geta];
     

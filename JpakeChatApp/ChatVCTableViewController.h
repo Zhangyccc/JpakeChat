@@ -12,10 +12,11 @@
 
 #import "JSQMessagesViewController.h"
 #import "JSQMessages.h"
+#import <MobileCoreServices/MobileCoreServices.h>
 
 
 
-@interface ChatVCTableViewController : JSQMessagesViewController
+@interface ChatVCTableViewController : JSQMessagesViewController<UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property(strong,nonatomic)User *currentUser;
 @property(strong,nonatomic) User *otherUser;

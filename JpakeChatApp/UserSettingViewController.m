@@ -29,6 +29,7 @@
     self.storageRef = [[FIRStorage storage] reference];
     self.searchRef = [[FIRDatabase database] reference];
     [self loadProfileData];
+    [[UIApplication sharedApplication] endIgnoringInteractionEvents];
 }
 
 
@@ -139,6 +140,7 @@
     //self.tabBarController.navigationItem.leftBarButtonItem = nil;
     //[self loadProfileData];
     [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+    [[UIApplication sharedApplication] endIgnoringInteractionEvents];
 }
 
 
@@ -167,8 +169,9 @@
 }
 
 - (IBAction)cancel:(id)sender {
-    [self loadProfileData];
-    [self dismissViewControllerAnimated:YES completion:nil];
+    //[self loadProfileData];
+    [self.view setNeedsDisplay];
+    //[self dismissViewControllerAnimated:YES completion:nil];
 }
 
 -(void)updateUsersProfile{
