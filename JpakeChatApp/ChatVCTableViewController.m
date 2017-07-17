@@ -11,6 +11,7 @@
 #import "DataBasics.h"
 
 #import "JSQMessage.h"
+#import <JSQMessagesMediaPlaceholderView.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <AVKit/AVKit.h>
 @import MobileCoreServices;
@@ -24,8 +25,6 @@
 
 #import <CommonCrypto/CommonCryptor.h>
 #import <CommonCrypto/CommonKeyDerivation.h>
-
-
 
 
 
@@ -62,6 +61,8 @@
     
     self.msgArray =[[NSMutableArray alloc] init];
 }
+
+
 
 - (NSString *) encryptString:(NSString*)plaintext withKey:(NSString*)key withIV:(NSData*)ivString{
     NSData *data = [[plaintext dataUsingEncoding:NSUTF8StringEncoding] AES256EncryptWithKey:key iv:&ivString];
@@ -268,40 +269,25 @@
         
         NSLog(@"hmac %@ ",hmac);
         NSLog(@"mac Tag %@",macTag);
-        
-        
-        
-        
-        //NSLog(@"text to be decrypted :%@ IV :%@",txt,ivData);
-        
-        //        NSData *dataEncTxt = [txt1 dataUsingEncoding:NSUTF8StringEncoding];
-        //
-        //
-        //        NSMutableData *concatenatedData1 = [NSMutableData data];
-        //        [concatenatedData1 appendData:dataEncTxt];
-        //        [concatenatedData1 appendData:ivData];
-        //
-        
-        
-        // NSLog(@"txt :%@ ::: concatendated data :%@  dataenctxt :: %@ ",txt1,concatenatedData1,dataEncTxt);
-        
-        
-        
-        
-        //        NSMutableString *string = [NSMutableString stringWithString:txt1];
-        //        [string appendString:iv];
-        //         NSString *hmac2=[jpakeUtils hmac:string withKey:self.kmac];
+
         
         if([hmac isEqualToString:macTag]){
             NSLog(@"cool mactage matched");
-            NSString *txt1 =[self decryptwithIV:txt withkey:self.kencData withIV:ivData];
-            //NSLog(@"txt1 after decryption %@",txt1);
+            NSString *Decrypted =[self decryptwithIV:txt withkey:self.kencData withIV:ivData];
+            UIImage *ImagefromString = [self decodeBase64ToImage:Decrypted];
+            JSQPhotoMediaItem *mediaItem = [[JSQPhotoMediaItem alloc]initWithImage:ImagefromString];
             
-            
-            
-            JSQMessage *msg=[[JSQMessage alloc]initWithSenderId:otherUser senderDisplayName:otherUSerEmail date:date text:txt1];
+            JSQMessage *msg=[[JSQMessage alloc]initWithSenderId:otherUser senderDisplayName:otherUSerEmail date:date text:Decrypted];
+            JSQMessage *imagemsg = [[JSQMessage alloc]initWithSenderId:otherUser senderDisplayName:otherUSerEmail date:date media:mediaItem];
             //NSLog(@"jsqmsg %@",msg);
-            [self.msgArray addObject:msg];
+            //imagefromString||mediaItem.image
+            if(!ImagefromString)
+            {
+                [self.msgArray addObject:msg];
+            }
+            else{
+                [self.msgArray addObject:imagemsg];
+            }
             [self finishReceivingMessage ];
             
             
@@ -343,26 +329,34 @@
 
 
 //Sender's avatar image
-- (id<JSQMessageAvatarImageDataSource>)collectionView:(JSQMessagesCollectionView *)collectionView avatarImageDataForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    //return nil;
-    UIImage *userImage = [UIImage imageWithData:[NSData dataWithContentsOfURL: [NSURL URLWithString:[FIRAuth auth].currentUser.photoURL.absoluteString]]];
-    return [JSQMessagesAvatarImageFactory avatarImageWithImage:userImage diameter:30];
-}
+//- (id<JSQMessageAvatarImageDataSource>)collectionView:(JSQMessagesCollectionView *)collectionView avatarImageDataForItemAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    //return nil;
+//
+//    UIImage *userImage = [UIImage imageWithData:[NSData dataWithContentsOfURL: [NSURL URLWithString:[FIRAuth auth].currentUser.photoURL.absoluteString]]];
+//    return [JSQMessagesAvatarImageFactory avatarImageWithImage:userImage diameter:15];
+//}
 
 
-
-- (void)collectionView:(JSQMessagesCollectionView *)collectionView didTapMessageBubbleAtIndexPath:(NSIndexPath *)indexPath{
-    JSQMessage *message = [self.msgArray objectAtIndex:indexPath.item];
-    if(message.isMediaMessage){
-        JSQVideoMediaItem *mediaItem = message.media;
-        AVPlayer *player = [AVPlayer playerWithURL:mediaItem.fileURL];
-        AVPlayerViewController *playerViewController = [AVPlayerViewController new];
-        playerViewController.player = player;
-        [self.view addSubview:playerViewController.view];
-        [self presentViewController:playerViewController animated:YES completion:nil];
-    }
-}
+//- (void)collectionView:(JSQMessagesCollectionView *)collectionView didTapMessageBubbleAtIndexPath:(NSIndexPath *)indexPath{
+//    JSQMessage *message = [self.msgArray objectAtIndex:indexPath.item];
+//    if(message.isMediaMessage){
+//        id<JSQMessageMediaData> mediaItem = message.media;
+//        if([mediaItem isKindOfClass:[JSQPhotoMediaItem class]]){
+//            JSQPhotoMediaItem *photoItem = (JSQPhotoMediaItem *)mediaItem;
+//            UIImage *image = photoItem.image;
+//            UIImageView *imageView = [[UIImageView alloc]initWithImage:image];
+//            imageView.contentMode = UIViewContentModeScaleToFill;
+//            [self.view addSubview:imageView];
+//        }
+////        JSQVideoMediaItem *mediaItem = message.media;
+////        AVPlayer *player = [AVPlayer playerWithURL:mediaItem.fileURL];
+////        AVPlayerViewController *playerViewController = [AVPlayerViewController new];
+////        playerViewController.player = player;
+////        [self.view addSubview:playerViewController.view];
+////        [self presentViewController:playerViewController animated:YES completion:nil];
+//    }
+//}
 
 
 
@@ -468,10 +462,11 @@
         NSLog(@"Detected image");
         UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
         NSString *stringImage = [self encodeToBase64String:image];
+        //JSQPhotoMediaItem *photoItem = [[JSQPhotoMediaItem alloc] initWithImage:image];
+        //NSString *stringImage = [self encodeToBase64String:photoItem];
+        
         //the length of stringImage is so long... this will crash the pc in 10 seconds...
         //NSLog(@"String Image : %@", stringImage);
-//        [JSQSystemSoundPlayer jsq_playMessageSentSound];
-//        JSQMessage *message = [[JSQMessage alloc] initWithSenderId:senderId senderDisplayName:senderDisplayName date:date text:stringImage];
         //IV
         NSData *iv = [self randomDataOfLength:kCCKeySizeAES128];
         NSLog(@"IV of image %@",iv);
@@ -499,8 +494,8 @@
         [[DataBasics dataBasicsInstance]sendMessage:message convID:self.conversationId macTag:hmac iv:ivStringtoStore];
         [self finishSendingMessageAnimated:YES];
         [JSQSystemSoundPlayer jsq_playMessageSentSound];
-        
-        NSLog(@"image : %@",message);
+        NSLog(@" image message sent successfully");
+        //NSLog(@"image : %@",message);
 
     }
     //Video
@@ -539,10 +534,11 @@
         [self finishSendingMessageAnimated:YES];
         [JSQSystemSoundPlayer jsq_playMessageSentSound];
         
-        NSLog(@"Video :%@",message);
+        NSLog(@" video message sent successfully");
+        //NSLog(@"Video :%@",message);
 
     }
-//    [picker dismissViewControllerAnimated:YES completion:nil];
+    [picker dismissViewControllerAnimated:YES completion:nil];
 //    [self finishSendingMessageAnimated:YES];
 }
 

@@ -12,6 +12,7 @@
 
 #import "JSQMessagesViewController.h"
 #import "JSQMessages.h"
+#import "JSQMessagesBubblesSizeCalculator.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 
 
@@ -38,6 +39,9 @@
 
 @property (strong, nonatomic) JSQMessagesBubbleImage *outgoingBubbleImageData;
 @property (strong, nonatomic) JSQMessagesBubbleImage *incomingBubbleImageData;
+@property (strong, nonatomic) id<JSQMessagesBubbleSizeCalculating> bubbleSizeCalculator;
+
+@property (strong, nonatomic) FIRDatabaseReference *searchRef;
 
 -(void)checkForMsges:(User*)otherUser;
 -(void)loadMessagesForConversation:(NSString*)convID;
