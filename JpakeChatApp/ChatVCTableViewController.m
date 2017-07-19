@@ -29,7 +29,6 @@
 
 
 
-
 @interface ChatVCTableViewController ()
 
 @end
@@ -345,9 +344,7 @@
 //        if([mediaItem isKindOfClass:[JSQPhotoMediaItem class]]){
 //            JSQPhotoMediaItem *photoItem = (JSQPhotoMediaItem *)mediaItem;
 //            UIImage *image = photoItem.image;
-//            UIImageView *imageView = [[UIImageView alloc]initWithImage:image];
-//            imageView.contentMode = UIViewContentModeScaleToFill;
-//            [self.view addSubview:imageView];
+//            [self popupImage:image];
 //        }
 ////        JSQVideoMediaItem *mediaItem = message.media;
 ////        AVPlayer *player = [AVPlayer playerWithURL:mediaItem.fileURL];
@@ -358,7 +355,15 @@
 //    }
 //}
 
-
+//- (void) popupImage: (UIImage*)image
+//{
+//    //UIWindow *window = [[UIApplication sharedApplication] keyWindow];
+//    UIView *topView = self.view;
+//    UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+//    
+//    zoomPopup  *popup = [[zoomPopup alloc] initWithMainview:topView andStartRect:CGRectMake(topView.frame.size.width/2, topView.frame.size.height/2, 0, 0)];
+//    [popup showPopup:imageView];
+//}
 
 
 //Send button

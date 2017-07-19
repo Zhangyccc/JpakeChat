@@ -49,7 +49,7 @@
     NSString *Myemail = [FIRAuth auth].currentUser.email;
     NSLog(@"Current user email: %@", Myemail);
     NSLog(@"Textfield email: %@", friendemail);
-    static NSString *frienduid;
+    __block NSString *frienduid;
     //static NSInteger flag = 0;
     
     //If friend mail = nil
@@ -63,39 +63,61 @@
         [self EmailError:@"Can not add yourself !! " message:@"Make sure you enter a valid email address !! "];
     }
     //Check if user exists
+    //ref1= getuserref ref= databaseref
     else{
-        [[[[_ref child:@"users"] queryOrderedByChild:@"email" ] queryEqualToValue:friendemail]
-         observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot *snapshotforuser) {
-             if(!(snapshotforuser.exists)){
-                 NSLog(@"No such user");
-                 [self EmailError:@"No such user !! " message:@"Make sure you enter a correct email address !! "];
-             }
-             else{
-                 [[[[_ref child:@"users"] queryOrderedByChild:@"email"] queryEqualToValue:friendemail]
-                 observeEventType:FIRDataEventTypeChildAdded withBlock:^(FIRDataSnapshot *  snapshotforuid) {
-                     frienduid = snapshotforuid.key;
-                     NSLog(@"snapshot value is: %@", snapshotforuid.value);
-                     NSLog(@"friend uid is: %@", frienduid);
-                     NSLog(@"Find user!");
-                     [[_ref1 queryOrderedByKey] observeEventType:FIRDataEventTypeChildAdded withBlock:^(FIRDataSnapshot *snapshot) {
-                         NSLog(@"user uid: %@", snapshot.key);
-                         if([snapshot.key isEqualToString:frienduid] ){
-                             NSLog(@"Find user");
-//                             NewFriendTableViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"NewFriend"];
-//                             User *uobj=[[User alloc]initwithData:snapshot.value[@"email"] id:snapshot.key];
-//                             [self.users addObject:uobj];
-//                             [vc.tableView reloadData];
-                             //[self presentViewController:vc animated:YES completion:nil];
-                         }
-                         else{
-                             NSLog(@"Searching!");
-                         }
-                     }];//_ref1
-                 }];//else snapshotforuid
-             }//else
-         }];//else snapshotforuser
-    }    //ELSE
-}//IBACTION
+        [[[[_ref child:@"users"] queryOrderedByChild:@"email" ] queryEqualToValue:friendemail] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot *snapshotforuser) {
+//            if(!(snapshotforuser.exists)){
+            if(snapshotforuser.value == [NSNull null]){
+                NSLog(@"No such user!");
+                [self EmailError:@"No such user !! " message:@"Make sure you enter a correct email address !! "];
+            }
+            else{
+                //Get user uid
+                [[[[_ref child:@"users"] queryOrderedByChild:@"email"] queryEqualToValue:friendemail] observeEventType:FIRDataEventTypeChildAdded withBlock:^(FIRDataSnapshot *  snapshotforuid) {
+                frienduid = snapshotforuid.key;
+                    //Pass value to NewFriendUid that will be given to NewFriendViewController!
+                    _NewFriendUid = frienduid;
+                NSLog(@"Friend uid is: %@", frienduid);
+                NSLog(@"snapshotforuser value is: %@", snapshotforuser.value);
+                [self.navigationController popToRootViewControllerAnimated:YES];
+                [self performSegueWithIdentifier:@"ToUserList" sender:self];
+                }];
+            }
+        }];
+    }
+}
+//        [[[[_ref child:@"users"] queryOrderedByChild:@"email" ] queryEqualToValue:friendemail]
+//         observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot *snapshotforuser) {
+//             if(!(snapshotforuser.exists)){
+//                 NSLog(@"No such user");
+//                 [self EmailError:@"No such user !! " message:@"Make sure you enter a correct email address !! "];
+//             }
+//             else{
+//                 [[[[_ref child:@"users"] queryOrderedByChild:@"email"] queryEqualToValue:friendemail]
+//                 observeEventType:FIRDataEventTypeChildAdded withBlock:^(FIRDataSnapshot *  snapshotforuid) {
+//                     frienduid = snapshotforuid.key;
+//                     NSLog(@"snapshot value is: %@", snapshotforuid.value);
+//                     NSLog(@"friend uid is: %@", frienduid);
+//                     NSLog(@"Find user!");
+//                     [[_ref1 queryOrderedByKey] observeEventType:FIRDataEventTypeChildAdded withBlock:^(FIRDataSnapshot *snapshot) {
+//                         NSLog(@"user uid: %@", snapshot.key);
+//                         if([snapshot.key isEqualToString:frienduid] ){
+//                             NSLog(@"Find user");
+////                             NewFriendTableViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"NewFriend"];
+////                             User *uobj=[[User alloc]initwithData:snapshot.value[@"email"] id:snapshot.key];
+////                             [self.users addObject:uobj];
+////                             [vc.tableView reloadData];
+//                             //[self presentViewController:vc animated:YES completion:nil];
+//                         }
+//                         else{
+//                             NSLog(@"Searching!");
+//                         }
+//                     }];//_ref1
+//                 }];//else snapshotforuid
+//             }//else
+//         }];//else snapshotforuser
+//    }    //ELSE
+//}//IBACTION
 
 
 
@@ -115,15 +137,17 @@
 //     }
 // }];
 
-//-(void )startTimer{
-//
-//    self.working = TRUE;
-//    if(self.working )
-//    {
-//        self.TimeOfActiveUser = [NSTimer scheduledTimerWithTimeInterval:10.0  target:self selector:@selector(AddFriendAction:) userInfo:nil repeats:YES];
-//        
-//    }
-//}
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+    if([segue.identifier isEqualToString:@"ToUserList"]){
+        UINavigationController *navigationController = segue.destinationViewController;
+        NewFriendTableViewController *NewFriendViewcontroller = (NewFriendTableViewController *)navigationController.topViewController;
+        NewFriendViewcontroller.NewFriendId=self.NewFriendUid;
+    }
+    
+}
 
 -(void)EmailError:(NSString* )title  message:(NSString*) message
 {

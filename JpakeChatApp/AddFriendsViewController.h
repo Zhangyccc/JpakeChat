@@ -18,6 +18,12 @@
 @property(nonatomic,strong )NSTimer *TimeOfActiveUser;
 @property (assign,getter=isWorking) BOOL working;
 
+
+@property(strong,nonatomic) User *currentUser;
+@property(strong,nonatomic) User *otherUser;
+
+@property(nonatomic,strong)NSString* NewFriendUid;
+
 - (IBAction)AddFriendAction:(id)sender;
 
 @end
