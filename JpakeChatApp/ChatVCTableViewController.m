@@ -6,6 +6,7 @@
 //  Copyright © 2016 newcastle university. All rights reserved.
 //
 
+#import "InboxTableViewController.h"
 #import "ChatVCTableViewController.h"
 #import "theCoreDataStack.h"
 #import "DataBasics.h"
@@ -38,6 +39,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self getKey];
+    self.navigationItem.hidesBackButton = true;
     UIImagePickerController *picker = [[UIImagePickerController alloc] init];
     picker.delegate = self;
     JSQMessagesBubbleImageFactory *bubbleFactory = [[JSQMessagesBubbleImageFactory alloc] init];
@@ -53,15 +55,18 @@
     
     self.showLoadEarlierMessagesHeader = NO;
     
-    //Button for sending Image and Video
-    //self.inputToolbar.contentView.leftBarButtonItem = nil;
-    
-    
-    
     self.msgArray =[[NSMutableArray alloc] init];
 }
 
 
+//-(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+//    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"JPake" style:UIBarButtonItemStylePlain target:nil action:nil];
+//}
+
+
+//-(void)popViewController{
+//    [self.navigationController popViewControllerAnimated:YES ];
+//}
 
 - (NSString *) encryptString:(NSString*)plaintext withKey:(NSString*)key withIV:(NSData*)ivString{
     NSData *data = [[plaintext dataUsingEncoding:NSUTF8StringEncoding] AES256EncryptWithKey:key iv:&ivString];

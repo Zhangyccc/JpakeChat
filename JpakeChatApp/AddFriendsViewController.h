@@ -23,6 +23,8 @@
 @property(strong,nonatomic) User *otherUser;
 
 @property(nonatomic,strong)NSString* NewFriendUid;
+@property(nonatomic,strong)NSString* conversationId;
+
 
 - (IBAction)AddFriendAction:(id)sender;
 

@@ -145,6 +145,9 @@
         UINavigationController *navigationController = segue.destinationViewController;
         NewFriendTableViewController *NewFriendViewcontroller = (NewFriendTableViewController *)navigationController.topViewController;
         NewFriendViewcontroller.NewFriendId=self.NewFriendUid;
+        NewFriendViewcontroller.otherUser=self.otherUser;
+        NewFriendViewcontroller.currentUser=self.currentUser;
+        NewFriendViewcontroller.conversationId=self.conversationId;
     }
     
 }

@@ -123,7 +123,7 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
     //self.tabBarController.navigationItem.leftBarButtonItem = nil;
-    self.navigationController.visibleViewController.navigationItem.title = @"Conversations";
+    self.navigationController.visibleViewController.navigationItem.title = @"J-Pake";
     self.title = @"Conversations ";
     //Firebase *ref = [[Firebase alloc] initWithUrl:@"https://securejpake.firebaseio.com"];
     //FIRDatabaseReference *ref = [[FIRDatabase database] reference];
@@ -166,6 +166,8 @@
         
     }
 }
+
+
 -(void)keyExchangeProcess
 
 
@@ -413,11 +415,10 @@ payload ChatID:(NSString*)chatId
             
         }
     }
-    
-    
-    
-    
 }
+
+
+
 -(void)getJpakeRound3Bob:(NSString*)otherUserName   KeyRef:(FIRDatabaseReference*)keyRef payload:(NSString*)payload
 
 {
@@ -544,9 +545,9 @@ payload ChatID:(NSString*)chatId
         }
     }
     
-    
-    
 }
+
+
 -(void)getJpakeAliceKeyGenerationRound3:(NSString*)otherUserName   KeyRef:(FIRDatabaseReference*)keyRef payload:(NSString*)payload
 
 {
