@@ -78,6 +78,8 @@
         
         if([snapshot.key isEqualToString:_NewFriendId])
         {
+            //snapshot.key is uid
+            NSLog(@"snapshot key is: %@",snapshot.key);
             User *uobj=[[User alloc]initwithData:snapshot.value[@"email"] id:snapshot.key];
             [self.users addObject:uobj];
             [self.tableView reloadData];
@@ -169,6 +171,9 @@
                                                         if ([snapshot1.value[@"Pflag"] isEqual: @1]) {
                                                             //perform segue
                                                             NSLog(@"You have added this friend");
+                                                            NSString *title = @"Wow";
+                                                            NSString *msg = @"You have added this friend";
+                                                            //[self errorManagement:title message:msg];
                                                             //From AddFriendViewController to ShowConversation
                                                             [self performSegueWithIdentifier:@"addedFriend" sender:self];
                                                             

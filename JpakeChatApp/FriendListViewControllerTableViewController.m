@@ -5,8 +5,11 @@
 //  Created by Yuchi Zhang on 2017/5/28.
 //  Copyright © 2017年 newcastle university. All rights reserved.
 //
-
+#import "ChatVCTableViewController.h"
 #import "FriendListViewControllerTableViewController.h"
+#import "User.h"
+@import Firebase;
+#import "DataBasics.h"
 
 @interface FriendListViewControllerTableViewController ()
 
@@ -16,7 +19,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    self.refforconversation= [[FIRDatabase database] reference];
+    self.refforConVinId = [[DataBasics dataBasicsInstance] getMyUserConversation:[FIRAuth auth].currentUser.uid];
+    //[self GetFriends];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -27,20 +32,256 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.navigationController.visibleViewController.navigationItem.title = @"Friend List";
+    
+    [[FIRAuth auth] addAuthStateDidChangeListener:^(FIRAuth *auth, FIRUser *user) {
+        if (user) {
+            [[DataBasics dataBasicsInstance] loginUserWithData:user];
+            self.currentUser=[DataBasics dataBasicsInstance].currentUser;
+        } else {
+            NSLog(@"No user is signed in.");
+        }
+    }];
+    
+    self.users=[[NSMutableArray alloc]init ];
+    self.currentUser=[DataBasics dataBasicsInstance].currentUser;
+    NSLog(@"NewFriendTableViewController -> current user uid %@",self.currentUser.uId);
+    [self GetFriends];
 }
 #pragma mark - Table view data source
 
+
+
+-(void)GetFriends{
+    __block NSString *chatId;
+    //Get chatId
+    __block NSString *receiverEmail;
+    __block NSString *senderEmail;
+    [[_refforConVinId queryOrderedByKey] observeEventType:FIRDataEventTypeChildAdded withBlock:^(FIRDataSnapshot *snapshot) {
+        //        chatId = snapshot.value[@"chatId"];
+        //        NSLog(@"snapshot value is: %@", snapshot.value);
+        //        NSLog(@"chatID is: %@", chatId);
+        if(snapshot.value == [NSNull null]){
+            NSLog(@"No added friends");
+        }
+        else{
+            NSLog(@"Find user!");
+            NSLog(@"chatId is: %@",snapshot.value[@"chatId"]);
+            chatId = snapshot.value[@"chatId"];
+            _refforconversation = [[DataBasics dataBasicsInstance]pathToKeys:chatId];
+            [_refforconversation observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot *snapshotforuser) {
+                NSLog(@"snapshot value is:  %@",snapshotforuser.value);
+                NSLog(@"snapshot key is: %@", snapshotforuser.key);
+                if(!(snapshotforuser.exists)){
+                    NSLog(@"No added Friends");
+                }
+                else{
+                    receiverEmail = snapshotforuser.value[@"receiver"];
+                    senderEmail = snapshotforuser.value[@"sender"];
+                    if([receiverEmail isEqualToString:[FIRAuth auth].currentUser.email]){
+                        //Get UID
+                        FIRDatabaseReference * ref1=[[DataBasics dataBasicsInstance]getUsersRef] ;
+                        __block NSString *userId;
+                        [ref1 observeEventType:FIRDataEventTypeChildAdded withBlock:^(FIRDataSnapshot *snapshotforuid) {
+                            
+                            if(!(snapshotforuid.exists))
+                            {
+                                NSLog(@"Error in uid");
+                            }
+                            else if([snapshotforuid.value[@"email"] isEqualToString:senderEmail]){
+                                NSLog(@"snapshotforuid key is: %@",snapshotforuid.key);
+                                userId = snapshotforuid.key;
+                                //Add User
+                                User *uobj=[[User alloc]initwithData:senderEmail id:userId];
+                                [self.users addObject:uobj];
+                                [self.tableView reloadData];
+                            }
+                        }];
+
+                        //NSLog(@"snapshotforuid key is: %@",userId);
+                        
+                    }
+                    else if([senderEmail isEqualToString:[FIRAuth auth].currentUser.email]){
+                        //Get UID
+                        FIRDatabaseReference * ref2=[[DataBasics dataBasicsInstance]getUsersRef] ;
+                        __block NSString *userId;
+                        [ref2 observeEventType:FIRDataEventTypeChildAdded withBlock:^(FIRDataSnapshot *snapshotforuid) {
+                            
+                            if(!(snapshotforuid.exists))
+                            {
+                                NSLog(@"Error in uid");
+                            }
+                            else if([snapshotforuid.value[@"email"] isEqualToString:receiverEmail]){
+                                NSLog(@"snapshotforuid key is: %@",snapshotforuid.key);
+                                userId = snapshotforuid.key;
+                                //Add User
+                                User *uobj=[[User alloc]initwithData:receiverEmail id:userId];
+                                [self.users addObject:uobj];
+                                [self.tableView reloadData];
+                            }
+                        }];
+                       
+                    }
+                    else{
+                        NSLog(@"Unknow error in searching friends");
+                    }
+                }
+            }];
+//            [[[[[_refforconversation child:@"users"] child:@"conversations"] queryOrderedByKey]queryEqualToValue:chatId ]
+//             observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot *snapshotforuser) {
+//                 NSLog(@"chatId is: %@",snapshot.value[@"chatId"]);
+//                 NSLog(@"snaposhotforuser is: %@",snapshotforuser.value);
+//                 NSLog(@"key is: %@",snapshotforuser.key);
+//                 if(snapshotforuser.value == [NSNull null])
+//                 {
+//                     NSLog(@"No Friend added");
+//                     //NSLog(@"snaposhot value is: %@", snapshot.value);
+//                     
+//                 }
+//                 else if ([snapshotforuser.value[@"email"] isEqualToString: [FIRAuth auth].currentUser.email]){
+//                     NSLog(@"Ignore current user");
+//                 }
+//                 else{
+//                     if([snapshotforuser.value[@"chatId"] isEqualToString:chatId]){
+//                     NSLog(@"snapshot is: %@",snapshotforuser.value);
+//                     //NSLog(@"snaposhot value is: %@", snapshot.value);
+//                     //NSLog(@"snapshot email is: %@", snapshot.value[@"email"]);
+//                     User *uobj=[[User alloc]initwithData:snapshotforuser.value[@"email"] id:snapshotforuser.key];
+//                     [self.users addObject:uobj];
+//                     [self.tableView reloadData];
+//                     }
+//                 }
+//                 //reffroconversation
+//             }];
+//            //else
+        }
+        //Get chatId
+    }];
+}
+
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Incomplete implementation, return the number of sections
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete implementation, return the number of rows
-    return 0;
+    return [self.users count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+    
+    User *usr=self.users [indexPath.row];
+    cell.textLabel.text=usr.userEmail;
+    return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
+    
+    User *otherUser=[self.users objectAtIndex:indexPath.row];
+    self.otherUser=otherUser;
+    
+    //    //check whther there is already any conversations between these users
+    NSString *myUserID=[FIRAuth auth].currentUser.uid;
+    //his ID wrong!!
+    NSString *hisUSerID=otherUser.uId;
+    //NSString *hisUserName=otherUser.userEmail;
+    
+    FIRDatabaseReference *conversationRef =[[DataBasics dataBasicsInstance]pathToUserConversation:myUserID otherUserID:hisUSerID];
+    
+    NSLog(@"myuserID: %@ hisuserID: %@",myUserID,hisUSerID);
+    [conversationRef observeSingleEventOfType:FIRDataEventTypeValue
+     
+                                    withBlock:^(FIRDataSnapshot *snapshot) {
+                                        if (snapshot.value == [NSNull null])
+                                            //                        if (!snapshot.exists)
+                                        {
+                                            NSLog(@"Wrong Friend ");
+                                            NSString* title=@"Unknown error";
+                                            NSString*msg = @"Please contact admin";
+                                            
+                                            [self errorManagement:title message:msg];
+                                        }
+                                        
+                                        //Else check friends table and see if the Pflg is 0 then send an alert saying keyexchange not done
+                                        else { //else3
+                                            //NSLog(@"Snapshot.vlaue %@",snapshot.value[@"chatId"]);
+                                            NSString* chatId=snapshot.value[@"chatId"];
+                                            self.conversationId=chatId;
+                                            _ConversationRef = [[DataBasics dataBasicsInstance]pathToFriends:chatId];
+                                            
+                                            [_ConversationRef observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot *snapshot1) {
+                                                if (snapshot1.value == [NSNull null]){
+                                                    //                                if (!snapshot1.exists){
+                                                    NSLog(@"Error in friends Addition ");
+                                                }
+                                                else//else2
+                                                {
+                                                    if ([snapshot1.value[@"Pflag"] isEqual: @0] ){
+                                                        NSLog(@"Wrong Friend ");
+                                                        NSString* title=@"Unknown error";
+                                                        NSString*msg = @"Please contact admin";
+                                                        
+                                                        [self errorManagement:title message:msg];
+                                                    }
+                                                    else //else1
+                                                        
+                                                    {
+                                                        
+                                                        if ([snapshot1.value[@"Pflag"] isEqual: @1]) {
+                                                            //perform segue
+                                                            NSLog(@"Loading");
+                                                            //[self errorManagement:title message:msg];
+                                                            //From AddFriendViewController to ShowConversation
+                                                            [self performSegueWithIdentifier:@"ListToChat" sender:self];
+                                                            
+                                                        }
+                                                        
+                                                    }//else1
+                                                }//else2
+                                            }];
+                                        }//else 3
+                                    }];
 }
 
 
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    
+    
+    ChatVCTableViewController *cTableViewcontroller= (ChatVCTableViewController*)segue.destinationViewController;
+    
+    cTableViewcontroller.otherUser=self.otherUser;
+    cTableViewcontroller.currentUser=self.currentUser;
+    cTableViewcontroller.conversationId=self.conversationId;
+    
+    
+    
+    
+}
+
+
+
+-(void)errorManagement:(NSString* )title  message:(NSString*) message
+{
+    
+    UIAlertController *alert= [UIAlertController
+                               alertControllerWithTitle:title
+                               message:message
+                               preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction* ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                               handler:nil];
+    UIAlertAction* cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel
+                                                   handler:nil];
+    
+    [alert addAction:ok];
+    [alert addAction:cancel];
+    [self presentViewController:alert animated:YES completion:nil];
+}
 
 
 @end

@@ -7,7 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "User.h"
+@import Firebase;
 
 @interface FriendListViewControllerTableViewController : UITableViewController
+
+@property(nonatomic,strong) NSMutableArray *users;
+
+@property(strong,nonatomic) User *currentUser;
+@property(strong,nonatomic) User *otherUser;
+@property(nonatomic,strong) FIRDatabaseReference *refforConVinId;
+@property(nonatomic,strong) FIRDatabaseReference *refforconversation;
+@property(nonatomic,strong) NSString* conversationId;
+@property(nonatomic,strong) FIRDatabaseReference *ConversationRef;
+
+
 
 @end
