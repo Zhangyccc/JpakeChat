@@ -27,8 +27,7 @@
 #import <CommonCrypto/CommonCryptor.h>
 #import <CommonCrypto/CommonKeyDerivation.h>
 
-
-
+#import <JSQMessagesTypingIndicatorFooterView.h>
 
 @interface ChatVCTableViewController ()
 
@@ -53,9 +52,8 @@
     self.collectionView.collectionViewLayout.incomingAvatarViewSize = CGSizeZero;
     self.collectionView.collectionViewLayout.outgoingAvatarViewSize = CGSizeZero;
     
-    self.showLoadEarlierMessagesHeader = NO;
-    
     self.msgArray =[[NSMutableArray alloc] init];
+    
 }
 
 
@@ -64,9 +62,6 @@
 //}
 
 
-//-(void)popViewController{
-//    [self.navigationController popViewControllerAnimated:YES ];
-//}
 
 - (NSString *) encryptString:(NSString*)plaintext withKey:(NSString*)key withIV:(NSData*)ivString{
     NSData *data = [[plaintext dataUsingEncoding:NSUTF8StringEncoding] AES256EncryptWithKey:key iv:&ivString];
@@ -207,7 +202,6 @@
     self.senderDisplayName=[DataBasics dataBasicsInstance].currentUser.userEmail;
 
     [super viewWillAppear:YES];
-    
     [self checkForMsges:self.otherUser];
     
     
@@ -240,6 +234,22 @@
              errno);
     
     return data;
+}
+
+-(void)showTypingActivityIndicator{
+    // This seems fragile so check the state first
+    if (!self.showTypingIndicator) {
+        self.showTypingIndicator = YES;
+        NSLog(@"showTypingActivityIndicator");
+    }
+}
+
+-(void)hideTypingActivityIndicator{
+    // This seems fragile so check the state first
+    if (self.showTypingIndicator) {
+        self.showTypingIndicator = NO;
+        NSLog(@"hideTypingActivityIndicator");
+    }
 }
 
 -(void)loadMessagesForConversation:(NSString*)convID
@@ -288,9 +298,11 @@
             if(!ImagefromString)
             {
                 [self.msgArray addObject:msg];
+               
             }
             else{
                 [self.msgArray addObject:imagemsg];
+
             }
             [self finishReceivingMessage ];
             
@@ -311,6 +323,65 @@
 }
 
 
+
+
+//The color of the text in the bubble
+-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    /**
+     *  Override point for customizing cells
+     */
+    JSQMessagesCollectionViewCell *cell = (JSQMessagesCollectionViewCell *)[super collectionView:collectionView cellForItemAtIndexPath:indexPath];
+    
+    JSQMessage *message = [self.msgArray objectAtIndex:indexPath.item];
+    
+    //check if outgoing
+    if ([message.senderId isEqualToString:self.senderId]) {
+        cell.textView.textColor = [UIColor whiteColor];
+    }
+        else{
+            cell.textView.textColor = [UIColor blackColor];
+        }
+        return cell;
+    }
+
+//Time Stamps
+- (NSAttributedString *)collectionView:(JSQMessagesCollectionView *)collectionView attributedTextForCellTopLabelAtIndexPath:(NSIndexPath *)indexPath {
+    JSQMessage *message = [self.msgArray objectAtIndex:indexPath.item];
+    
+    if (indexPath.item == 0) {
+        return [[JSQMessagesTimestampFormatter sharedFormatter] attributedTimestampForDate:message.date];
+    }
+    
+    if (indexPath.item > 0) {
+        JSQMessage *previousMessage = [self.msgArray objectAtIndex:indexPath.item - 1];
+        
+        if (([message.date timeIntervalSinceDate:previousMessage.date] / 60) > 1) {
+            return [[JSQMessagesTimestampFormatter sharedFormatter] attributedTimestampForDate:message.date];
+        }
+    }
+    
+    return nil;
+}
+
+- (CGFloat)collectionView:(JSQMessagesCollectionView *)collectionView
+                   layout:(JSQMessagesCollectionViewFlowLayout *)collectionViewLayout heightForCellTopLabelAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (indexPath.item == 0) {
+        return kJSQMessagesCollectionViewCellLabelHeightDefault;
+    }
+    
+    if (indexPath.item > 0) {
+        JSQMessage *previousMessage = [self.msgArray objectAtIndex:indexPath.item - 1];
+        JSQMessage *message = [self.msgArray objectAtIndex:indexPath.item];
+        
+        if ([message.date timeIntervalSinceDate:previousMessage.date] / 60 > 1) {
+            return kJSQMessagesCollectionViewCellLabelHeightDefault;
+        }
+    }
+    
+    return 0.0f;
+}
+
 - (id<JSQMessageData>)collectionView:(JSQMessagesCollectionView *)collectionView messageDataForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     return [self.msgArray objectAtIndex:indexPath.item];
@@ -323,7 +394,6 @@
 - (id<JSQMessageBubbleImageDataSource>)collectionView:(JSQMessagesCollectionView *)collectionView messageBubbleImageDataForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     JSQMessage *message = [self.msgArray objectAtIndex:indexPath.item];
-    
     if ([message.senderId isEqualToString:self.senderId]) {
         return self.outgoingBubbleImageData;
     }
@@ -360,15 +430,6 @@
 //    }
 //}
 
-//- (void) popupImage: (UIImage*)image
-//{
-//    //UIWindow *window = [[UIApplication sharedApplication] keyWindow];
-//    UIView *topView = self.view;
-//    UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
-//    
-//    zoomPopup  *popup = [[zoomPopup alloc] initWithMainview:topView andStartRect:CGRectMake(topView.frame.size.width/2, topView.frame.size.height/2, 0, 0)];
-//    [popup showPopup:imageView];
-//}
 
 
 //Send button

@@ -66,11 +66,8 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
-    //self.tabBarController.navigationItem.leftBarButtonItem = nil;
     self.navigationController.visibleViewController.navigationItem.title = @"J-Pake";
     self.title = @"Conversations ";
-    //Firebase *ref = [[Firebase alloc] initWithUrl:@"https://securejpake.firebaseio.com"];
-    //FIRDatabaseReference *ref = [[FIRDatabase database] reference];
     
     //NEW OBSERVE
     [[FIRAuth auth] addAuthStateDidChangeListener:^(FIRAuth *auth, FIRUser *user) {
@@ -82,7 +79,7 @@
         }
     }];
     
-    self.users=[[NSMutableArray alloc]init ];
+    self.users=[[NSMutableArray alloc]init];
     self.currentUser=[DataBasics dataBasicsInstance].currentUser;
     NSLog(@"current user uid %@",self.currentUser.uId);
     [self GetConversations];
@@ -1132,6 +1129,7 @@ payload ChatID:(NSString*)chatId
                                         }//else 3
                                     }];
 }
+
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     

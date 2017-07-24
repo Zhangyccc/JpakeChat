@@ -19,6 +19,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
     _refforconversation= [[FIRDatabase database] reference];
     _refforConVinId = [[DataBasics dataBasicsInstance] getMyUserConversation:[FIRAuth auth].currentUser.uid];
     //[self GetFriends];
@@ -46,12 +47,14 @@
     self.currentUser=[DataBasics dataBasicsInstance].currentUser;
     NSLog(@"NewFriendTableViewController -> current user uid %@",self.currentUser.uId);
     [self GetFriends];
+    [[UIApplication sharedApplication] endIgnoringInteractionEvents];
 }
 #pragma mark - Table view data source
 
 
 
 -(void)GetFriends{
+    //Get chatId
     [[_refforConVinId queryOrderedByKey] observeEventType:FIRDataEventTypeChildAdded withBlock:^(FIRDataSnapshot *snapshot) {
         //        chatId = snapshot.value[@"chatId"];
         //        NSLog(@"snapshot value is: %@", snapshot.value);
@@ -64,12 +67,18 @@
             NSLog(@"Find user!");
             NSLog(@"chatId is: %@",snapshot.value[@"chatId"]);
             chatId = snapshot.value[@"chatId"];
+            
+            //Get receiver and senders' name
             _refforconversation = [[DataBasics dataBasicsInstance]pathToKeys:chatId];
             [_refforconversation observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot *snapshotforuser) {
                 //NSLog(@"snapshot value is:  %@",snapshotforuser.value);
                 NSLog(@"snapshot key is: %@", snapshotforuser.key);
                 if(!(snapshotforuser.exists)){
                     NSLog(@"No added Friends");
+                }
+                //Keyexchange process not complete
+                else if(snapshotforuser.value[@"validatedFlag"] == 0){
+                    NSLog(@"Keyexchange process not complete!");
                 }
                 else{
                     __block NSString *receiverEmail = nil;
@@ -80,6 +89,8 @@
                         //Get UID
                         FIRDatabaseReference * ref1=[[DataBasics dataBasicsInstance]getUsersRef] ;
                         __block NSString *userId = nil;
+                        
+                        //Search user
                         [ref1 observeEventType:FIRDataEventTypeChildAdded withBlock:^(FIRDataSnapshot *snapshotforuid) {
                             
                             if(!(snapshotforuid.exists))
@@ -103,6 +114,8 @@
                         //Get UID
                         FIRDatabaseReference * ref2=[[DataBasics dataBasicsInstance]getUsersRef] ;
                         __block NSString *userId = nil;
+                        
+                        //Search user
                         [ref2 observeEventType:FIRDataEventTypeChildAdded withBlock:^(FIRDataSnapshot *snapshotforuid) {
                             
                             if(!(snapshotforuid.exists))
@@ -125,33 +138,6 @@
                     }
                 }
             }];
-//            [[[[[_refforconversation child:@"users"] child:@"conversations"] queryOrderedByKey]queryEqualToValue:chatId ]
-//             observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot *snapshotforuser) {
-//                 NSLog(@"chatId is: %@",snapshot.value[@"chatId"]);
-//                 NSLog(@"snaposhotforuser is: %@",snapshotforuser.value);
-//                 NSLog(@"key is: %@",snapshotforuser.key);
-//                 if(snapshotforuser.value == [NSNull null])
-//                 {
-//                     NSLog(@"No Friend added");
-//                     //NSLog(@"snaposhot value is: %@", snapshot.value);
-//                     
-//                 }
-//                 else if ([snapshotforuser.value[@"email"] isEqualToString: [FIRAuth auth].currentUser.email]){
-//                     NSLog(@"Ignore current user");
-//                 }
-//                 else{
-//                     if([snapshotforuser.value[@"chatId"] isEqualToString:chatId]){
-//                     NSLog(@"snapshot is: %@",snapshotforuser.value);
-//                     //NSLog(@"snaposhot value is: %@", snapshot.value);
-//                     //NSLog(@"snapshot email is: %@", snapshot.value[@"email"]);
-//                     User *uobj=[[User alloc]initwithData:snapshotforuser.value[@"email"] id:snapshotforuser.key];
-//                     [self.users addObject:uobj];
-//                     [self.tableView reloadData];
-//                     }
-//                 }
-//                 //reffroconversation
-//             }];
-//            //else
         }
         //Get chatId
     }];
