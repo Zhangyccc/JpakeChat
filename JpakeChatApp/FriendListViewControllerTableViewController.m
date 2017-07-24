@@ -19,8 +19,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.refforconversation= [[FIRDatabase database] reference];
-    self.refforConVinId = [[DataBasics dataBasicsInstance] getMyUserConversation:[FIRAuth auth].currentUser.uid];
+    _refforconversation= [[FIRDatabase database] reference];
+    _refforConVinId = [[DataBasics dataBasicsInstance] getMyUserConversation:[FIRAuth auth].currentUser.uid];
     //[self GetFriends];
 }
 
@@ -52,14 +52,11 @@
 
 
 -(void)GetFriends{
-    __block NSString *chatId;
-    //Get chatId
-    __block NSString *receiverEmail;
-    __block NSString *senderEmail;
     [[_refforConVinId queryOrderedByKey] observeEventType:FIRDataEventTypeChildAdded withBlock:^(FIRDataSnapshot *snapshot) {
         //        chatId = snapshot.value[@"chatId"];
         //        NSLog(@"snapshot value is: %@", snapshot.value);
         //        NSLog(@"chatID is: %@", chatId);
+        __block NSString *chatId = nil;
         if(snapshot.value == [NSNull null]){
             NSLog(@"No added friends");
         }
@@ -69,18 +66,20 @@
             chatId = snapshot.value[@"chatId"];
             _refforconversation = [[DataBasics dataBasicsInstance]pathToKeys:chatId];
             [_refforconversation observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot *snapshotforuser) {
-                NSLog(@"snapshot value is:  %@",snapshotforuser.value);
+                //NSLog(@"snapshot value is:  %@",snapshotforuser.value);
                 NSLog(@"snapshot key is: %@", snapshotforuser.key);
                 if(!(snapshotforuser.exists)){
                     NSLog(@"No added Friends");
                 }
                 else{
+                    __block NSString *receiverEmail = nil;
+                    __block NSString *senderEmail = nil;
                     receiverEmail = snapshotforuser.value[@"receiver"];
                     senderEmail = snapshotforuser.value[@"sender"];
                     if([receiverEmail isEqualToString:[FIRAuth auth].currentUser.email]){
                         //Get UID
                         FIRDatabaseReference * ref1=[[DataBasics dataBasicsInstance]getUsersRef] ;
-                        __block NSString *userId;
+                        __block NSString *userId = nil;
                         [ref1 observeEventType:FIRDataEventTypeChildAdded withBlock:^(FIRDataSnapshot *snapshotforuid) {
                             
                             if(!(snapshotforuid.exists))
@@ -103,7 +102,7 @@
                     else if([senderEmail isEqualToString:[FIRAuth auth].currentUser.email]){
                         //Get UID
                         FIRDatabaseReference * ref2=[[DataBasics dataBasicsInstance]getUsersRef] ;
-                        __block NSString *userId;
+                        __block NSString *userId = nil;
                         [ref2 observeEventType:FIRDataEventTypeChildAdded withBlock:^(FIRDataSnapshot *snapshotforuid) {
                             
                             if(!(snapshotforuid.exists))

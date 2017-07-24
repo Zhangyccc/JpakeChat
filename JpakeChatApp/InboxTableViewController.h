@@ -13,7 +13,10 @@
 @interface InboxTableViewController : UITableViewController
 
 
-
+@property(strong,nonatomic) FIRDatabaseReference *refforConVinId;
+@property(strong,nonatomic) FIRDatabaseReference *refforKey;
+@property(strong,nonatomic) FIRDatabaseReference *refforConversations;
+@property(strong,nonatomic) FIRDatabaseReference *ConversationRef;
 @property(strong,nonatomic) User *currentUser;
 @property(strong,nonatomic) User *otherUser;
 

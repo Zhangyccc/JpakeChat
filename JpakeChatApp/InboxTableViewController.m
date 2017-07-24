@@ -36,6 +36,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _refforConVinId = [[DataBasics dataBasicsInstance] getMyUserConversation:[FIRAuth auth].currentUser.uid];
 //    _keys = [[NSMutableArray alloc] init];
     NSLog(@"Documents Directory: %@", [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject]);
     //Firebase *ref = [[Firebase alloc] initWithUrl:@"https://securejpake.firebaseio.com"];
@@ -54,20 +55,6 @@
         }
     }];
     
-    //OLD OBSERVE
-    //    [ref observeAuthEventWithBlock:^(FAuthData *authData) {
-    //        if (authData) {
-    //            // user authenticated
-    //                [[DataBasics dataBasicsInstance] loginUserWithData:authData];
-    //            self.currentUser=[DataBasics dataBasicsInstance].currentUser ;
-    //
-    //        } else {
-    //            // No user is signed in
-    //            NSLog(@"inside login vC  no user signed in ");
-    //        }
-    //    }];
-    
-    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -75,49 +62,6 @@
     // Dispose of any resources that can be recreated.
 }
 
--(void)coredataInitialise{
-    theCoreDataStack *coreDataStack=[theCoreDataStack defaultStack];
-    
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"JParticipant" inManagedObjectContext:coreDataStack.managedObjectContext];
-    
-    
-    NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    [request setEntity:entity];
-    
-    NSError *error;
-    NSArray *objects = [coreDataStack.managedObjectContext executeFetchRequest:request
-                                                                         error:&error];
-    
-    for (NSManagedObject *object in objects)
-    {
-        [coreDataStack.managedObjectContext deleteObject:object];
-        NSLog(@"deleted participant ");
-        
-    }
-    [coreDataStack.managedObjectContext save:&error];
-    //
-    
-    
-    NSEntityDescription *entity1 = [NSEntityDescription entityForName:@"JKey" inManagedObjectContext:coreDataStack.managedObjectContext];
-    
-    
-    NSFetchRequest *request1 = [[NSFetchRequest alloc] init];
-    [request1 setEntity:entity1];
-    
-    NSError *error1;
-    NSArray *objects1 = [coreDataStack.managedObjectContext executeFetchRequest:request1
-                                                                          error:&error1];
-    
-    for (NSManagedObject *object in objects1)
-    {
-        [coreDataStack.managedObjectContext deleteObject:object];
-        NSLog(@"deleted key s");
-        
-    }
-    [coreDataStack.managedObjectContext save:&error1];
-    
-    //
-}
 
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -141,17 +85,7 @@
     self.users=[[NSMutableArray alloc]init ];
     self.currentUser=[DataBasics dataBasicsInstance].currentUser;
     NSLog(@"current user uid %@",self.currentUser.uId);
-    FIRDatabaseReference * ref1=[[DataBasics dataBasicsInstance]getUsersRef] ;
-    [[ref1 queryOrderedByKey] observeEventType:FIRDataEventTypeChildAdded withBlock:^(FIRDataSnapshot *snapshot) {
-        
-        if(!([snapshot.key isEqualToString:[DataBasics dataBasicsInstance].currentUser.uId]))
-        {
-            User *uobj=[[User alloc]initwithData:snapshot.value[@"email"] id:snapshot.key];
-            [self.users addObject:uobj];
-            [self.tableView reloadData];
-        }
-        
-    }];
+    [self GetConversations];
     
     [self startTimer];
     
@@ -165,6 +99,102 @@
         self.TimeOfActiveUser = [NSTimer scheduledTimerWithTimeInterval:10.0  target:self selector:@selector(keyExchangeProcess) userInfo:nil repeats:YES];
         
     }
+}
+
+
+-(void)GetConversations{
+    //Get chatId
+    [[_refforConVinId queryOrderedByKey] observeEventType:FIRDataEventTypeChildAdded withBlock:^(FIRDataSnapshot *snapshot) {
+        __block NSString *chatId;
+        chatId = snapshot.value[@"chatId"];
+        NSLog(@"snapshot value is: %@", snapshot.value);
+        NSLog(@"chatID is: %@", chatId);
+        if(snapshot.value == [NSNull null]){
+            NSLog(@"GetConversations: No added friends");
+        }
+        else{
+            NSLog(@"Find user!");
+            NSLog(@"chatId is: %@",snapshot.value[@"chatId"]);
+            chatId = snapshot.value[@"chatId"];
+            
+            //Check conversations
+            _refforConversations = [[DataBasics dataBasicsInstance]pathToConversation:chatId];
+            [_refforConversations observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot *snapshotforConver) {
+                NSLog(@"snaposhotforConver key is: %@",snapshotforConver.key);
+                NSLog(@"snaposhotforConver value is: %@",snapshotforConver.value);
+                if(!(snapshotforConver.exists)){
+                    NSLog(@"No Conversation of chatId: %@", chatId);
+                }
+                else{
+                    
+                    //Check Keys
+                    _refforKey = [[DataBasics dataBasicsInstance]pathToKeys:chatId];
+                    [_refforKey observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot *snapshotforuser) {
+                        NSLog(@"snapshot value is:  %@",snapshotforuser.value);
+                        NSLog(@"snapshot key is: %@", snapshotforuser.key);
+                        if(!(snapshotforuser.exists)){
+                            NSLog(@"No added Friends");
+                        }
+                        else{
+                            //Find receiver and sender
+                            __block NSString *receiverEmail;
+                            __block NSString *senderEmail;
+                            receiverEmail = snapshotforuser.value[@"receiver"];
+                            senderEmail = snapshotforuser.value[@"sender"];
+                            if([receiverEmail isEqualToString:[FIRAuth auth].currentUser.email]){
+                                //Get UID
+                                FIRDatabaseReference * ref1=[[DataBasics dataBasicsInstance]getUsersRef] ;
+                                __block NSString *userId;
+                                [ref1 observeEventType:FIRDataEventTypeChildAdded withBlock:^(FIRDataSnapshot *snapshotforuid) {
+                                    
+                                    if(!(snapshotforuid.exists))
+                                    {
+                                        NSLog(@"Error in uid");
+                                    }
+                                    else if([snapshotforuid.value[@"email"] isEqualToString:senderEmail]){
+                                        NSLog(@"snapshotforuid key is: %@",snapshotforuid.key);
+                                        userId = snapshotforuid.key;
+                                        //Add User
+                                        User *uobj=[[User alloc]initwithData:senderEmail id:userId];
+                                        [self.users addObject:uobj];
+                                        [self.tableView reloadData];
+                                    }
+                                }];
+                                
+                                //NSLog(@"snapshotforuid key is: %@",userId);
+                                
+                            }
+                            else if([senderEmail isEqualToString:[FIRAuth auth].currentUser.email]){
+                                //Get UID
+                                FIRDatabaseReference * ref2=[[DataBasics dataBasicsInstance]getUsersRef] ;
+                                __block NSString *userId;
+                                [ref2 observeEventType:FIRDataEventTypeChildAdded withBlock:^(FIRDataSnapshot *snapshotforuid) {
+                                    
+                                    if(!(snapshotforuid.exists))
+                                    {
+                                        NSLog(@"Error in uid");
+                                    }
+                                    else if([snapshotforuid.value[@"email"] isEqualToString:receiverEmail]){
+                                        NSLog(@"snapshotforuid key is: %@",snapshotforuid.key);
+                                        userId = snapshotforuid.key;
+                                        //Add User
+                                        User *uobj=[[User alloc]initwithData:receiverEmail id:userId];
+                                        [self.users addObject:uobj];
+                                        [self.tableView reloadData];
+                                    }
+                                }];
+                                
+                            }
+                            else{
+                                NSLog(@"Unknow error in searching friends");
+                            }
+                        }
+                    }];
+                }
+            }];
+        }
+        //Get chatId
+    }];
 }
 
 
@@ -1040,89 +1070,68 @@ payload ChatID:(NSString*)chatId
     User *otherUser=[self.users objectAtIndex:indexPath.row];
     self.otherUser=otherUser;
     
-    //check whther there is already any conversations between these users
-    NSString *myUserID=[DataBasics dataBasicsInstance].currentUser.uId;
+    //    //check whther there is already any conversations between these users
+    NSString *myUserID=[FIRAuth auth].currentUser.uid;
+    //his ID wrong!!
     NSString *hisUSerID=otherUser.uId;
-    NSString *hisUserName=otherUser.userEmail;
-    
+    //NSString *hisUserName=otherUser.userEmail;
     
     FIRDatabaseReference *conversationRef =[[DataBasics dataBasicsInstance]pathToUserConversation:myUserID otherUserID:hisUSerID];
     
     NSLog(@"myuserID: %@ hisuserID: %@",myUserID,hisUSerID);
     [conversationRef observeSingleEventOfType:FIRDataEventTypeValue
      
-                    withBlock:^(FIRDataSnapshot *snapshot) {
-                        if (snapshot.value == [NSNull null])
-//                        if (!snapshot.exists)
-                        {
-                            
-                            NSString *newConversationRefKey=[[[DataBasics dataBasicsInstance]getConversationsRef]childByAutoId].key;
-                            FIRDatabaseReference *friend=[[DataBasics dataBasicsInstance]pathToFriends:newConversationRefKey];
-                            FIRDatabaseReference *key=[[DataBasics dataBasicsInstance]pathToKeys:newConversationRefKey];
-                            
-                            //Add details to friends Table
-                            
-                            self.conversationId=newConversationRefKey;
-                            
-                            //
-                            
-                            [self.TimeOfActiveUser invalidate];
-                            
-                            [self sendInitialPassword:friend keys:key otherUser:hisUserName hisId:hisUSerID conversationRef:conversationRef chatKey:newConversationRefKey];
-                            [self startTimer];
-                        }
-                        
-                        //Else check friends table and see if the Pflg is 0 then send an alert saying keyexchange not done
-                        else { //else3
-                            //NSLog(@"Snapshot.vlaue %@",snapshot.value[@"chatId"]);
-                            NSString* chatId=snapshot.value[@"chatId"];
-                            self.conversationId=chatId;
-                            FIRDatabaseReference * ref1=[[DataBasics dataBasicsInstance]pathToFriends:chatId];
-                            
-                            [ref1 observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot *snapshot1) {
-                                if (snapshot1.value == [NSNull null]){
-//                                if (!snapshot1.exists){
-                                    NSLog(@"Error in friends Addition ");
-                                }
-                                else//else2
-                                {
-                                    if ([snapshot1.value[@"Pflag"] isEqual: @0] ){
-                                        NSLog(@"Key Exchange not yet completed ");
-                                        NSString* title=@"Key Exchange not yet completed!!";
-                                        NSString*msg = @"Wait until successful Key exchange completion";
-                                        
-                                        [self errorManagement:title message:msg];
-                                    }
-                                    else //else1
-                                        
-                                    {
-                                        
-                                        if ([snapshot1.value[@"Pflag"] isEqual: @1]) {
-                                            //perform segue
+                                    withBlock:^(FIRDataSnapshot *snapshot) {
+                                        if (snapshot.value == [NSNull null])
+                                            //                        if (!snapshot.exists)
+                                        {
+                                            NSLog(@"Wrong Friend ");
+                                            NSString* title=@"Unknown error";
+                                            NSString*msg = @"Please contact admin";
                                             
-                                            
-                                            [self performSegueWithIdentifier:@"showChat" sender:self];
-                                            
+                                            [self errorManagement:title message:msg];
                                         }
                                         
-                                    }//else1
-                                    
-                                }//else2
-                                
-                                
-                            }];
-                            
-                            
-                        }//else 3
-                        
-                        
-                    }];
-    
-    
-    
-    
+                                        //Else check friends table and see if the Pflg is 0 then send an alert saying keyexchange not done
+                                        else { //else3
+                                            //NSLog(@"Snapshot.vlaue %@",snapshot.value[@"chatId"]);
+                                            NSString* chatId=snapshot.value[@"chatId"];
+                                            self.conversationId=chatId;
+                                            _ConversationRef = [[DataBasics dataBasicsInstance]pathToFriends:chatId];
+                                            
+                                            [_ConversationRef observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot *snapshot1) {
+                                                if (snapshot1.value == [NSNull null]){
+                                                    //                                if (!snapshot1.exists){
+                                                    NSLog(@"Error in friends Addition ");
+                                                }
+                                                else//else2
+                                                {
+                                                    if ([snapshot1.value[@"Pflag"] isEqual: @0] ){
+                                                        NSLog(@"Wrong Friend ");
+                                                        NSString* title=@"Unknown error";
+                                                        NSString*msg = @"Please contact admin";
+                                                        
+                                                        [self errorManagement:title message:msg];
+                                                    }
+                                                    else //else1
+                                                        
+                                                    {
+                                                        
+                                                        if ([snapshot1.value[@"Pflag"] isEqual: @1]) {
+                                                            //perform segue
+                                                            NSLog(@"Loading");
+                                                            //[self errorManagement:title message:msg];
+                                                            //From AddFriendViewController to ShowConversation
+                                                            [self performSegueWithIdentifier:@"showChat" sender:self];
+                                                            
+                                                        }
+                                                        
+                                                    }//else1
+                                                }//else2
+                                            }];
+                                        }//else 3
+                                    }];
 }
-
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     
@@ -1220,6 +1229,49 @@ payload ChatID:(NSString*)chatId
 }
 
 
+-(void)coredataInitialise{
+    theCoreDataStack *coreDataStack=[theCoreDataStack defaultStack];
+    
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"JParticipant" inManagedObjectContext:coreDataStack.managedObjectContext];
+    
+    
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    [request setEntity:entity];
+    
+    NSError *error;
+    NSArray *objects = [coreDataStack.managedObjectContext executeFetchRequest:request
+                                                                         error:&error];
+    
+    for (NSManagedObject *object in objects)
+    {
+        [coreDataStack.managedObjectContext deleteObject:object];
+        NSLog(@"deleted participant ");
+        
+    }
+    [coreDataStack.managedObjectContext save:&error];
+    //
+    
+    
+    NSEntityDescription *entity1 = [NSEntityDescription entityForName:@"JKey" inManagedObjectContext:coreDataStack.managedObjectContext];
+    
+    
+    NSFetchRequest *request1 = [[NSFetchRequest alloc] init];
+    [request1 setEntity:entity1];
+    
+    NSError *error1;
+    NSArray *objects1 = [coreDataStack.managedObjectContext executeFetchRequest:request1
+                                                                          error:&error1];
+    
+    for (NSManagedObject *object in objects1)
+    {
+        [coreDataStack.managedObjectContext deleteObject:object];
+        NSLog(@"deleted key s");
+        
+    }
+    [coreDataStack.managedObjectContext save:&error1];
+    
+    //
+}
 
 
 -(void)errorManagement:(NSString* )title  message:(NSString*) message

@@ -679,10 +679,10 @@
         <image name="message-7" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="kXa-Hy-PJg"/>
-        <segue reference="kbI-6X-rza"/>
-        <segue reference="7x2-a2-wDv"/>
         <segue reference="ZEG-s1-Kgi"/>
         <segue reference="l84-hv-YaM"/>
+        <segue reference="kXa-Hy-PJg"/>
+        <segue reference="Egg-GA-sTu"/>
+        <segue reference="kbI-6X-rza"/>
     </inferredMetricsTieBreakers>
 </document>
