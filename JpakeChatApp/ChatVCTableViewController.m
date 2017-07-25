@@ -442,16 +442,15 @@
     {
         JSQMessage *message = [self.msgArray objectAtIndex:indexPath.item];
         if([message.senderId isEqualToString:self.senderId]){
-            return [JSQMessagesAvatarImageFactory avatarImageWithImage:_myuserImage diameter:15];
-//            if(self.myuserImage == nil)
-//            {
-//                UIImage *defaultImage = [UIImage imageNamed:@"circle-user-7"];
-//                return [JSQMessagesAvatarImageFactory avatarImageWithImage:defaultImage diameter:15];
-//            }
-//            else{
-//                UIImage *defaultImage = [UIImage imageNamed:@"circle-user-7"];
-//                return [JSQMessagesAvatarImageFactory avatarImageWithImage:defaultImage diameter:15];
-//            }
+            //return [JSQMessagesAvatarImageFactory avatarImageWithImage:_myuserImage diameter:15];
+            if(self.myuserImage == nil)
+            {
+                UIImage *defaultImage = [UIImage imageNamed:@"circle-user-7"];
+                return [JSQMessagesAvatarImageFactory avatarImageWithImage:defaultImage diameter:15];
+            }
+            else{
+                return [JSQMessagesAvatarImageFactory avatarImageWithImage:_myuserImage diameter:15];
+            }
         }
         else{
             if(self.otheruserImage == nil){
@@ -459,8 +458,7 @@
                 return [JSQMessagesAvatarImageFactory avatarImageWithImage:defaultImage diameter:15];
             }
             else{
-                UIImage *defaultImage = [UIImage imageNamed:@"circle-user-7"];
-            return [JSQMessagesAvatarImageFactory avatarImageWithImage:defaultImage diameter:15];
+            return [JSQMessagesAvatarImageFactory avatarImageWithImage:_otheruserImage diameter:15];
             }
         }
     }
