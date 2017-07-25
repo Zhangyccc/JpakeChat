@@ -49,8 +49,8 @@
     self.senderId=[DataBasics dataBasicsInstance].currentUser.uId;
     self.senderDisplayName=[DataBasics dataBasicsInstance].currentUser.userEmail;
 
-    self.collectionView.collectionViewLayout.incomingAvatarViewSize = CGSizeZero;
-    self.collectionView.collectionViewLayout.outgoingAvatarViewSize = CGSizeZero;
+    //self.collectionView.collectionViewLayout.incomingAvatarViewSize = CGSizeZero;
+    //self.collectionView.collectionViewLayout.outgoingAvatarViewSize = CGSizeZero;
     
     self.msgArray =[[NSMutableArray alloc] init];
     
@@ -200,7 +200,17 @@
 {
     self.senderId=[DataBasics dataBasicsInstance].currentUser.uId;
     self.senderDisplayName=[DataBasics dataBasicsInstance].currentUser.userEmail;
-
+    [[FIRAuth auth] addAuthStateDidChangeListener:^(FIRAuth *auth, FIRUser *user) {
+        if (user) {
+            [[DataBasics dataBasicsInstance] loginUserWithData:user];
+            self.currentUser=[DataBasics dataBasicsInstance].currentUser;
+        } else {
+            NSLog(@"No user is signed in.");
+        }
+    }];
+    _photoRef = [[FIRDatabase database] reference];
+    [self GetMyUserPhoto];
+    [self GetOtherUserPhoto];
     [super viewWillAppear:YES];
     [self checkForMsges:self.otherUser];
     
@@ -324,26 +334,6 @@
 
 
 
-
-//The color of the text in the bubble
--(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    /**
-     *  Override point for customizing cells
-     */
-    JSQMessagesCollectionViewCell *cell = (JSQMessagesCollectionViewCell *)[super collectionView:collectionView cellForItemAtIndexPath:indexPath];
-    
-    JSQMessage *message = [self.msgArray objectAtIndex:indexPath.item];
-    
-    //check if outgoing
-    if ([message.senderId isEqualToString:self.senderId]) {
-        cell.textView.textColor = [UIColor whiteColor];
-    }
-        else{
-            cell.textView.textColor = [UIColor blackColor];
-        }
-        return cell;
-    }
-
 //Time Stamps
 - (NSAttributedString *)collectionView:(JSQMessagesCollectionView *)collectionView attributedTextForCellTopLabelAtIndexPath:(NSIndexPath *)indexPath {
     JSQMessage *message = [self.msgArray objectAtIndex:indexPath.item];
@@ -352,14 +342,13 @@
         return [[JSQMessagesTimestampFormatter sharedFormatter] attributedTimestampForDate:message.date];
     }
     
-    if (indexPath.item > 0) {
+    if (indexPath.item -1 > 0) {
         JSQMessage *previousMessage = [self.msgArray objectAtIndex:indexPath.item - 1];
         
         if (([message.date timeIntervalSinceDate:previousMessage.date] / 60) > 1) {
             return [[JSQMessagesTimestampFormatter sharedFormatter] attributedTimestampForDate:message.date];
         }
     }
-    
     return nil;
 }
 
@@ -370,7 +359,7 @@
         return kJSQMessagesCollectionViewCellLabelHeightDefault;
     }
     
-    if (indexPath.item > 0) {
+    if (indexPath.item -1 > 0) {
         JSQMessage *previousMessage = [self.msgArray objectAtIndex:indexPath.item - 1];
         JSQMessage *message = [self.msgArray objectAtIndex:indexPath.item];
         
@@ -378,7 +367,6 @@
             return kJSQMessagesCollectionViewCellLabelHeightDefault;
         }
     }
-    
     return 0.0f;
 }
 
@@ -401,15 +389,115 @@
     return self.incomingBubbleImageData;
 }
 
+//The color of the text in the bubble
+-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    /**
+     *  Override point for customizing cells
+     */
+    JSQMessagesCollectionViewCell *cell = (JSQMessagesCollectionViewCell *)[super collectionView:collectionView cellForItemAtIndexPath:indexPath];
+    
+    JSQMessage *message = [self.msgArray objectAtIndex:indexPath.item];
+    
+    //check if outgoing
+    if ([message.senderId isEqualToString:self.senderId]) {
+        cell.textView.textColor = [UIColor whiteColor];
+    }
+    else{
+        cell.textView.textColor = [UIColor blackColor];
+    }
+    return cell;
+}
 
-//Sender's avatar image
-//- (id<JSQMessageAvatarImageDataSource>)collectionView:(JSQMessagesCollectionView *)collectionView avatarImageDataForItemAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    //return nil;
-//
-//    UIImage *userImage = [UIImage imageWithData:[NSData dataWithContentsOfURL: [NSURL URLWithString:[FIRAuth auth].currentUser.photoURL.absoluteString]]];
-//    return [JSQMessagesAvatarImageFactory avatarImageWithImage:userImage diameter:15];
-//}
+-(void)GetOtherUserPhoto{
+    __block NSString *OtheruserImage;
+    [[[_photoRef child:@"users"] child:_otherUser.uId]observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot *snapshot) {
+        NSLog(@"snapshot key is: %@", snapshot.key);
+        NSLog(@"snapshot value is : %@",snapshot.value);
+        if([snapshot.key isEqualToString:_otherUser.uId]){
+            OtheruserImage = snapshot.value[@"photo"];
+            NSURL *url = [NSURL URLWithString:OtheruserImage];
+            NSData *data = [NSData dataWithContentsOfURL:url];
+            self.otheruserImage= [[UIImage alloc] initWithData:data];
+        }
+    }];
+}
+
+-(void)GetMyUserPhoto{
+    __block NSString *MyuserImage;
+    [[[_photoRef child:@"users"] child:[FIRAuth auth].currentUser.uid] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot *snapshot) {
+        NSLog(@"snapshot key is: %@", snapshot.key);
+        NSLog(@"snapshot value is : %@",snapshot.value);
+        if([snapshot.key isEqualToString:[FIRAuth auth].currentUser.uid]){
+            MyuserImage = snapshot.value[@"photo"];
+            NSURL *url = [NSURL URLWithString:MyuserImage];
+            NSData *data = [NSData dataWithContentsOfURL:url];
+            self.myuserImage= [[UIImage alloc] initWithData:data];
+        }
+    }];
+}
+
+
+//Sender's avatar image senderId = userId
+- (id<JSQMessageAvatarImageDataSource>)collectionView:(JSQMessagesCollectionView *)collectionView avatarImageDataForItemAtIndexPath:(NSIndexPath *)indexPath
+    {
+        JSQMessage *message = [self.msgArray objectAtIndex:indexPath.item];
+        if([message.senderId isEqualToString:self.senderId]){
+            return [JSQMessagesAvatarImageFactory avatarImageWithImage:_myuserImage diameter:15];
+//            if(self.myuserImage == nil)
+//            {
+//                UIImage *defaultImage = [UIImage imageNamed:@"circle-user-7"];
+//                return [JSQMessagesAvatarImageFactory avatarImageWithImage:defaultImage diameter:15];
+//            }
+//            else{
+//                UIImage *defaultImage = [UIImage imageNamed:@"circle-user-7"];
+//                return [JSQMessagesAvatarImageFactory avatarImageWithImage:defaultImage diameter:15];
+//            }
+        }
+        else{
+            if(self.otheruserImage == nil){
+                UIImage *defaultImage = [UIImage imageNamed:@"circle-user-7"];
+                return [JSQMessagesAvatarImageFactory avatarImageWithImage:defaultImage diameter:15];
+            }
+            else{
+                UIImage *defaultImage = [UIImage imageNamed:@"circle-user-7"];
+            return [JSQMessagesAvatarImageFactory avatarImageWithImage:defaultImage diameter:15];
+            }
+        }
+    }
+//        JSQMessage *message = [self.msgArray objectAtIndex:indexPath.item];
+//        if([message.senderId isEqualToString:self.senderId]){
+//            NSString *MyuserId = [FIRAuth auth].currentUser.uid;
+//            __block NSString *MyuserImage;
+//            NSLog(@"uid is : %@",MyuserId);
+//            [[_photoRef child:@"users"] observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot *snapshot) {
+//                NSLog(@"My key is : %@",snapshot.key);
+//                if([snapshot.key isEqualToString:MyuserId]){
+//                    NSLog(@"snapshot value is : %@", snapshot.value);
+//                    MyuserImage = snapshot.value[@"photo"];
+//                }
+//            }];
+//            NSURL *url = [NSURL URLWithString:MyuserImage];
+//            NSData *data = [NSData dataWithContentsOfURL:url];
+//            self.myuserImage= [[UIImage alloc] initWithData:data];
+//            return [JSQMessagesAvatarImageFactory avatarImageWithImage:self.myuserImage diameter:15];
+//        }
+//        else{
+//            NSString *OtheruserId = message.senderId;
+//            __block NSString *OtheruserImage;
+//            NSLog(@"other userId is: %@",OtheruserId);
+//            [[_photoRef child:@"users"]observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot *snapshot) {
+//                NSLog(@"other user's key is: %@", snapshot.key);
+//                if([snapshot.key isEqualToString:OtheruserId]){
+//                    NSLog(@"snapshot value is: %@", snapshot.value);
+//                    OtheruserImage = snapshot.value[@"photo"];
+//                }
+//            }];
+//            NSURL *url = [NSURL URLWithString:OtheruserImage];
+//            NSData *data = [NSData dataWithContentsOfURL:url];
+//            self.otheruserImage= [[UIImage alloc] initWithData:data];
+//            return [JSQMessagesAvatarImageFactory avatarImageWithImage:self.otheruserImage diameter:15];
+//        }
+//    }
 
 
 //- (void)collectionView:(JSQMessagesCollectionView *)collectionView didTapMessageBubbleAtIndexPath:(NSIndexPath *)indexPath{

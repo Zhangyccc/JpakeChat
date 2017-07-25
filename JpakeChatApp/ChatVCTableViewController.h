@@ -29,6 +29,8 @@
 @property(strong,nonatomic) NSData *kencData;
 @property(strong,nonatomic) NSString *kmac;
 @property(strong,nonatomic) NSData *kmacData;
+@property(strong,nonatomic) UIImage *myuserImage;
+@property(strong,nonatomic) UIImage *otheruserImage;
 
 @property(strong,nonatomic) FIRDatabaseReference *conversationRef;
 @property(strong,nonatomic) NSString *conversationId;
@@ -42,6 +44,8 @@
 @property (strong, nonatomic) id<JSQMessagesBubbleSizeCalculating> bubbleSizeCalculator;
 
 @property (strong, nonatomic) FIRDatabaseReference *searchRef;
+@property (strong, nonatomic) FIRDatabaseReference *photoRef;
+
 
 -(void)checkForMsges:(User*)otherUser;
 -(void)loadMessagesForConversation:(NSString*)convID;
