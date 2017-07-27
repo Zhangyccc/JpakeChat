@@ -11,7 +11,7 @@
 #include "DataBasics.h"
 @import FirebaseAuth;
 @import Firebase;
-
+#import "NSString+SHA256.h"
 
 @interface signupViewController ()
 
@@ -54,7 +54,7 @@
     [_SignupSpinner startAnimating];
     [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
     NSString *username=[self.usernameField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    NSString *password=[self.passwordField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSString *password=[[self.passwordField.text SHA256] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSString *email=[self.emailaddressField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     
     if([username length] ==0 || [password length]==0  || [email length]==0)
@@ -150,61 +150,6 @@
     }
 }
 
-//            [self.ref createUser:email   password:password
-//            withValueCompletionBlock:^(NSError *error, NSDictionary *result) {
-//
-//
-//                if (error)
-//                {
-//
-//                    NSLog(@"Error %@",error);
-//                    [self signupError:@"Error in signing up with firebase" message:@"try again"];
-//                }
-//
-//                else
-//                {
-//           //  Login the New User with authUser
-//
-//                    NSLog(@"user createed successfully .now trying to logggin that user in ");
-//
-//                    [self.ref authUser:email password:password
-//              withCompletionBlock:^(NSError *error, FAuthData *authData) {
-//                  if (error)
-//                  {
-//                      NSLog(@"Error logging in %@",error);
-//                  }
-//                  else {
-//                      NSDictionary *newUser = @{
-//                                                @"provider": authData.provider,
-//                                                @"username": username,
-//                                                @"email": email
-//                                                };
-//                      NSLog(@"users dictionary %@" ,newUser);
-//                      [[[self.ref childByAppendingPath:@"users"]
-//                        childByAppendingPath:authData.uid] updateChildValues:newUser];
-//                  [[DataBasics dataBasicsInstance] loginUserWithData:authData];
-//                      [[NSUserDefaults standardUserDefaults] setValue:authData.uid forKey:@"uid"];
-//
-//                  }
-//              }];
-//
-//           NSString *uid = [result objectForKey:@"uid"];
-//           NSLog(@"Successfully created user account with uid: %@", uid);
-//
-//          // [self.navigationController popToRootViewControllerAnimated:YES];
-//                    InboxTableViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"Inbox"];
-//
-//                    [self presentViewController:vc animated:YES completion:nil];
-//
-//
-//            //[self performSegueWithIdentifier:@"NewUserLoggedIn" sender:self];
-//
-//
-//       }
-//   }];
-//           
-//           
-//}
 
 
 -(void)signupError:(NSString* )title  message:(NSString*) message

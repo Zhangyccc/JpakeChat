@@ -15,7 +15,7 @@
 #import <FBSDKShareKit/FBSDKShareKit.h>
 #import <FirebaseAuth/FirebaseAuth.h>
 #import <GoogleSignIn/GoogleSignIn.h>
-
+#import "NSString+SHA256.h"
 
 @interface LoginViewController ()
 
@@ -222,7 +222,8 @@ didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
 - (IBAction)login:(id)sender {
     [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
     NSString *email=[self.emailField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    NSString *password=[self.passwordField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSString *password=[[self.passwordField.text SHA256] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+;
     
     [_LoginLoadingSpinner startAnimating];
     if([email length]==0 || [password length]==0  )

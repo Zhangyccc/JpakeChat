@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9525" systemVersion="14F1808" minimumToolsVersion="Xcode 7.0">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="12141" systemVersion="16G29" minimumToolsVersion="Xcode 7.0" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
     <entity name="JKey" syncable="YES">
         <attribute name="key" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="myName" optional="YES" attributeType="String" syncable="YES"/>
@@ -11,7 +11,7 @@
         <attribute name="toName" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="JParticipant" positionX="-45" positionY="0" width="128" height="90"/>
-        <element name="JKey" positionX="-18" positionY="54" width="128" height="90"/>
+        <element name="JKey" positionX="-47" positionY="117" width="128" height="90"/>
+        <element name="JParticipant" positionX="-45" positionY="0" width="128" height="88"/>
     </elements>
 </model>
