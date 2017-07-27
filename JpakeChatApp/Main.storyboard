@@ -460,7 +460,7 @@
             <objects>
                 <navigationController storyboardIdentifier="Inbox" title="My Conversations" automaticallyAdjustsScrollViewInsets="NO" id="NIK-K6-AD9" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="LND-gN-q3j">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="LND-gN-q3j">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.4343644458" green="0.73009790510000006" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -487,17 +487,17 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email " textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PJu-nx-3xK">
-                                <rect key="frame" x="21" y="204" width="373" height="30"/>
+                                <rect key="frame" x="20" y="204" width="374" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="f7i-ot-ML6">
-                                <rect key="frame" x="20" y="234" width="373" height="30"/>
+                                <rect key="frame" x="19" y="234" width="374" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="GSs-dh-mxo">
-                                <rect key="frame" x="189" y="89" width="37" height="37"/>
+                                <rect key="frame" x="188.66666666666666" y="89" width="37" height="37"/>
                                 <color key="color" red="1" green="0.18886867299999999" blue="0.36996565479999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </activityIndicatorView>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ofo-nD-COB">
@@ -520,7 +520,7 @@
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="DisplayName" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QeH-Bj-aZv">
-                                <rect key="frame" x="21" y="173" width="373" height="30"/>
+                                <rect key="frame" x="20" y="173" width="374" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -567,7 +567,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ZTg-IY-gOe" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Y1h-Mf-6wH">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Y1h-Mf-6wH">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.4343644458" green="0.73009790510000006" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -586,7 +586,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="6Hr-ed-NqK" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="1fb-V8-N8Y">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="1fb-V8-N8Y">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.4343644458" green="0.73009790510000006" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -639,7 +639,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="2bw-Lz-u5v" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="CjD-aW-QVt">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="CjD-aW-QVt">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.4343644458" green="0.73009790510000006" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -658,7 +658,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="rKF-yR-2pC" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="SWo-nF-jsS">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="SWo-nF-jsS">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.4343644458" green="0.73009790510000006" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

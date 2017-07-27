@@ -11,7 +11,7 @@
 #import "DataBasics.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <GoogleSignIn/GoogleSignIn.h>
-
+#import "NSString+SHA256.h"
 
 @interface UserSettingViewController ()
 
@@ -30,6 +30,8 @@
     self.searchRef = [[FIRDatabase database] reference];
     [self loadProfileData];
     [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+    //Hide
+    //self.passwordText.enabled = NO;
 }
 
 
@@ -201,7 +203,7 @@
                             //Create new dictionary object
                             NSString *profilePhotoURL = URL.absoluteString;
                             NSString *newUserName = self.displayNameText.text;
-                            NSString *newPassword = self.passwordText.text;
+                            NSString *newPassword = [self.passwordText.text SHA256];
                             [_databaseRef observeSingleEventOfType:FIRDataEventTypeChildAdded  withBlock:^(FIRDataSnapshot *snapshot)
                             {
                                 //If third party user
@@ -229,6 +231,7 @@
                                     }];
                                 }
                                 else{
+                                    //Update username and photoURL
                                     NSString *uid = [FIRAuth auth].currentUser.uid;
                                     NSDictionary *newProfile = @{
                                                                  @"username": newUserName,
@@ -239,12 +242,23 @@
                                     [[_databaseRef child:uid] updateChildValues:newProfile withCompletionBlock:^(NSError *error, FIRDatabaseReference *ref) {
                                         if(error != nil){
                                             NSLog(@"error: %@", error);
+                                        }
+                                        else{
+                                            //After update, end ignoring interaction events
+                                            NSLog(@"Username and Photo successfully Updated!");
+                                            
+                                        }
+                                    }];
+                                    //Update Password
+                                    FIRUser *user = [FIRAuth auth].currentUser;
+                                    [user updatePassword:newPassword completion:^(NSError *error) {
+                                        if(error){
+                                            NSLog(@"Error----Change password");
                                             [_LoaddataSpinner stopAnimating];
                                             [[UIApplication sharedApplication] endIgnoringInteractionEvents];
                                         }
                                         else{
-                                            //After update, end ignoring interaction events
-                                            NSLog(@"Profile successfully Update!");
+                                            NSLog(@"Password changed");
                                             [_LoaddataSpinner stopAnimating];
                                             [[UIApplication sharedApplication] endIgnoringInteractionEvents];
                                         }
